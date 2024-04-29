@@ -1,0 +1,97 @@
+{
+    
+    "droneShape": "tello",
+    "tool": "hook",
+    "objectShape": "hammer",
+    "graspingStrategy": "push",
+
+    "approachDirection": "face",
+    "lateralDistance": 60,
+    "interactionModality": "bottom",
+
+    "armRetractionSpeed": 0.1,
+    "flightHeight": 180,
+    "velocity": 50,
+    "wayPoints": [
+        {
+            "x": 0,
+            "y": 0,
+            "z": 80,
+            "theta": 0
+        },
+        {
+            "x": 150,
+            "y": 0,
+            "z": 0,
+            "theta": 0
+        },
+        {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "theta": 90
+        },
+        {
+            "x": 40,
+            "y": 0,
+            "z": 0,
+            "theta": 0
+        },
+        {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "theta": 0
+        },
+        {
+            "x": -40,
+            "y": 0,
+            "z": 0,
+            "theta": 0
+        },
+        {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "theta": 0
+        },
+        {
+            "x": 40,
+            "y": 0,
+            "z": 0,
+            "theta": 0
+        },
+        {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "theta": 180
+        },
+        {
+            "x": 40,
+            "y": 0,
+            "z": 0,
+            "theta": 0
+        },
+        {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "theta": -90
+        },
+        {
+            "x": 150,
+            "y": 0,
+            "z": 0,
+            "theta": 0
+        },
+        {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+            "theta": 180
+        }
+    ]
+
+   
+}
