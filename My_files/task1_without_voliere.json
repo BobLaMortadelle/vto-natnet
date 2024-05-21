@@ -1,0 +1,52 @@
+{
+    
+    "droneShape": "tello",
+    "tool": "hook",
+    "objectShape": "hammer",
+    "graspingStrategy": "push",
+
+    "approachDirection": "face",
+    "lateralDistance": 60,
+    "interactionModality": "bottom",
+
+    "armRetractionSpeed": 0.1,
+    "velocity": 11,
+    "wayPoints": [
+        {
+            "x": 0.0,
+            "y": 0.0,
+            "z": 1.0,
+            "theta": 0
+        },
+        {
+            "x": 1.0,
+            "y": 0.0,
+            "z": 0.0,
+            "theta": 90
+        },
+        {
+            "x": 1.0,
+            "y": 0.0,
+            "z": 0.0,
+            "theta": -180
+        },
+        {
+            "x": 1.0,
+            "y": 0,
+            "z": 0.0,
+            "theta": -90
+        },
+        {
+            "x": 1.0,
+            "y": 0.0,
+            "z": 0,
+            "theta": 90
+        },
+        {
+            "x": 0.0,
+            "y": 0.0,
+            "z": -1.0,
+            "theta": 0
+        }
+    ]   
+}
