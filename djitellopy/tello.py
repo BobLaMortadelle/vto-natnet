@@ -1107,7 +1107,7 @@ class Tello:
         if heading is None:
             heading = self.heading
         pos_error = position_enu - self.position_enu
-        vel_enu = pos_error*1.2 - self.velocity_enu
+        vel_enu = pos_error*0.8- self.velocity_enu
         self.send_velocity_enu(vel_enu, heading)
 
     def set_wifi_credentials(self, ssid: str, password: str):

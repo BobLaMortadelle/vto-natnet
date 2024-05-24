@@ -28,39 +28,39 @@ tello.send_expansion_command("mled sc")
 
 
 
-# display arrows
-for i in range(4):
-    tello.send_expansion_command("mled g " + leftArrow.replace('1', 'b'))
-    tello.send_expansion_command("led 0 0 255")
-    time.sleep(1)
-    tello.send_expansion_command("mled sc")
-    tello.send_expansion_command("led 0 0 0")
-    time.sleep(1)
+# # display arrows
+# for i in range(4):
+#     tello.send_expansion_command("mled g " + leftArrow.replace('1', 'b'))
+#     tello.send_expansion_command("led 0 0 255")
+#     time.sleep(1)
+#     tello.send_expansion_command("mled sc")
+#     tello.send_expansion_command("led 0 0 0")
+#     time.sleep(1)
 
-for i in range(4):
-    tello.send_expansion_command("mled g " + rightArrow.replace('1', 'b'))
-    tello.send_expansion_command("led 0 0 255")
-    time.sleep(1)
-    tello.send_expansion_command("mled sc")
-    tello.send_expansion_command("led 0 0 0")
-    time.sleep(1)
+# for i in range(4):
+#     tello.send_expansion_command("mled g " + rightArrow.replace('1', 'b'))
+#     tello.send_expansion_command("led 0 0 255")
+#     time.sleep(1)
+#     tello.send_expansion_command("mled sc")
+#     tello.send_expansion_command("led 0 0 0")
+#     time.sleep(1)
 
-for i in range(4):
-    tello.send_expansion_command("mled g " + frontArrow.replace('1', 'b'))
-    tello.send_expansion_command("led 0 0 255")
-    time.sleep(1)
-    tello.send_expansion_command("mled sc")
-    tello.send_expansion_command("led 0 0 0")
-    time.sleep(1)
+# for i in range(4):
+#     tello.send_expansion_command("mled g " + frontArrow.replace('1', 'b'))
+#     tello.send_expansion_command("led 0 0 255")
+#     time.sleep(1)
+#     tello.send_expansion_command("mled sc")
+#     tello.send_expansion_command("led 0 0 0")
+#     time.sleep(1)
 
-# red cross
-for i in range(4):
-    tello.send_expansion_command("mled g " + cross.replace('1', 'r'))
-    tello.send_expansion_command("led 255 0 0")
-    time.sleep(1)
-    tello.send_expansion_command("mled sc")
-    tello.send_expansion_command("led 0 0 0")
-    time.sleep(1)
+# # red cross
+# for i in range(4):
+#     tello.send_expansion_command("mled g " + cross.replace('1', 'r'))
+#     tello.send_expansion_command("led 255 0 0")
+#     time.sleep(1)
+#     tello.send_expansion_command("mled sc")
+#     tello.send_expansion_command("led 0 0 0")
+#     time.sleep(1)
 
 
 # chase for searching
@@ -69,15 +69,32 @@ chase = ["{0:08b}".format(0)+"{0:08b}".format(0)+"{0:08b}".format(66)+"{0:08b}".
 "{0:08b}".format(0)+"{0:08b}".format(0)+"{0:08b}".format(0)+"{0:08b}".format(0)+"{0:08b}".format(17)+"{0:08b}".format(34),
 "{0:08b}".format(0)+"{0:08b}".format(0)+"{0:08b}".format(0)+"{0:08b}".format(0)+"{0:08b}".format(132)+"{0:08b}".format(66)]
 
-# blink upper lED blue
+# # blink upper lED blue
+# tello.send_expansion_command("led 75 75 255")
+# for i in range(5):
+#     for j in range(4):
+#         tello.send_expansion_command("led 75 75 255")
+#         time.sleep(0.075)
+#         tello.send_expansion_command("mled g " + chase[j].replace('1', 'b'))
+#         tello.send_expansion_command("led 0 0 0")
+#         time.sleep(0.075)
+
+
+start_animation = time.time()
+animation_time = start_animation + 0.075
+break_time = start_animation + 0.15
+cycle_time = start_animation + 1
 tello.send_expansion_command("led 75 75 255")
 for i in range(5):
     for j in range(4):
-        tello.send_expansion_command("led 75 75 255")
-        time.sleep(0.075)
-        tello.send_expansion_command("mled g " + chase[j].replace('1', 'b'))
-        tello.send_expansion_command("led 0 0 0")
-        time.sleep(0.075)
+        if(start_animation < animation_time):
+            tello.send_expansion_command("led 75 75 255")
+        elif(start_animation < break_time):
+            tello.send_expansion_command("mled g " + chase[j].replace('1', 'b'))
+            tello.send_expansion_command("led 0 0 0")
+        elif(start_animation > cycle_time):
+            start_animation = time.time()
+
 
 # morse for spotting
 morse = "{0:08b}".format(0)+"{0:08b}".format(0)+"{0:08b}".format(102)+"{0:08b}".format(153)+"{0:08b}".format(153)+"{0:08b}".format(102)
