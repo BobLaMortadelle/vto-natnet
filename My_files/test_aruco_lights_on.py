@@ -30,7 +30,7 @@ def stream_video(tello):
         if time.time()-sim_start_time > 240:
             print("Experience exceed expected time.")
             break
-        if ((time.time()-starttime > 0.1)):
+        if ((time.time()-starttime > 0.05)):
             # Start displaying the drone camera frames
             frame = tello.get_frame_read().frame 
             cv2.imshow("Drone Cam", frame)
@@ -63,8 +63,10 @@ def stream_video(tello):
 def fly(tello):
     stream_ready.wait()
     tello.turn_motor_on()
+    counter = 0
     while True:
-        print(".")
+        counter += 1
+        #print(".")
 
 
 def display_approach_pattern(tello):
@@ -162,6 +164,7 @@ def main():
     
     #switch on camera
     tello.streamon()
+    #tello.set_video_direction(1)
     print('cam switched on')
     stream_thread = threading.Thread(target=stream_video, args=(tello,))
     stream_thread.daemon = True
