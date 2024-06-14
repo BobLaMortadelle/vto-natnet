@@ -69,15 +69,15 @@ chase = ["{0:08b}".format(0)+"{0:08b}".format(0)+"{0:08b}".format(66)+"{0:08b}".
 "{0:08b}".format(0)+"{0:08b}".format(0)+"{0:08b}".format(0)+"{0:08b}".format(0)+"{0:08b}".format(17)+"{0:08b}".format(34),
 "{0:08b}".format(0)+"{0:08b}".format(0)+"{0:08b}".format(0)+"{0:08b}".format(0)+"{0:08b}".format(132)+"{0:08b}".format(66)]
 
-# # blink upper lED blue
-# tello.send_expansion_command("led 75 75 255")
-# for i in range(5):
-#     for j in range(4):
-#         tello.send_expansion_command("led 75 75 255")
-#         time.sleep(0.075)
-#         tello.send_expansion_command("mled g " + chase[j].replace('1', 'b'))
-#         tello.send_expansion_command("led 0 0 0")
-#         time.sleep(0.075)
+# blink upper lED blue
+tello.send_expansion_command("led 75 75 255")
+for i in range(2):
+    for j in range(4):
+        tello.send_expansion_command("led 75 75 255")
+        time.sleep(0.075)
+        tello.send_expansion_command("mled g " + chase[j].replace('1', 'b'))
+        tello.send_expansion_command("led 0 0 0")
+        time.sleep(0.075)
 
 
 start_animation = time.time()
@@ -98,7 +98,7 @@ for i in range(5):
 
 # morse for spotting
 morse = "{0:08b}".format(0)+"{0:08b}".format(0)+"{0:08b}".format(102)+"{0:08b}".format(153)+"{0:08b}".format(153)+"{0:08b}".format(102)
-for i in range(5):
+for i in range(2):
     for j in range(4):
         tello.send_expansion_command("led 255 0 0")
         tello.send_expansion_command("mled g " + morse.replace('1', 'r'))
@@ -120,12 +120,13 @@ for i in range(5):
 solid = morse
 tello.send_expansion_command("led 0 255 0")
 tello.send_expansion_command("mled g " + solid.replace('1', 'b'))
-time.sleep(5)
+time.sleep(2)
 
 
-tello.send_expansion_command("mled sc")
+tello.send_expansion_command("mled l b 2.5 Follow me - ")
 
-tello.send_expansion_command("mled g " + emotion)
+
+# tello.send_expansion_command("mled g " + emotion)
 time.sleep(3)
-tello.land()
+# tello.land()
 
