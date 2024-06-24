@@ -10,10 +10,13 @@ def main():
     # tello.send_expansion_command("mled g " + "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb")
     # time.sleep(5)
     
-    # # # Medkit
-    # tello.send_expansion_command("mled g " + "bbbbbbbbbbbrrbbbbbbrrbbbbrrrrrrbbrrrrrrbbbbrrbbbbbbrrbbbbbbbbbbb")
-    # time.sleep(5)
-    
+    # # Medkit
+    for i in range(5):
+        tello.send_expansion_command("mled g " + "bbbbbbbbbbbrrbbbbbbrrbbbbrrrrrrbbrrrrrrbbbbrrbbbbbbrrbbbbbbbbbbb")
+        time.sleep(0.5)
+        tello.send_expansion_command("mled g " + "bbbbbbbbbbb00bbbbbb00bbbb000000bb000000bbbb00bbbbbb00bbbbbbbbbbb")
+        time.sleep(0.5)
+
     # # # power failure
     # tello.send_expansion_command("led 255 0 0")
     # tello.send_expansion_command("mled g " + "00ppp0000rrrrr000rppbr000rrrrr000rppbr000rrrrr000rppbr000rrrrr00")
@@ -122,16 +125,18 @@ def main():
     #     tello.send_expansion_command("mled sc")
     #     time.sleep(0.5)
         
-    # fire
-    for i in range(10):
-        tello.send_expansion_command("mled g " + "00000000000rr000000rpr0000rrppr000rpppr00rpppprr0rpprppr00rrrrr0")
-        time.sleep(0.2)
-        tello.send_expansion_command("mled g " + "0000r000000rrr0000rrpr0000rrprr000rpprr00rpppprr0rpprprr00rrrrr0")
-        time.sleep(0.2)
-        tello.send_expansion_command("mled g " + "000rr000000rpr0000rrpr0000rppr000rppppr00rpppprr0rpprppr00rrrrr0")
-        time.sleep(0.2)
-        tello.send_expansion_command("mled g " + "000r000000rrr00000rprr000rrpprr00rppprr0rpppppr0rrprppr00rrrrr00")
-        time.sleep(0.2)
+    # # fire
+    # for i in range(10):
+    #     tello.send_expansion_command("mled g " + "00000000000rr000000rpr0000rrppr000rpppr00rpppprr0rpprppr00rrrrr0")
+    #     time.sleep(0.2)
+    #     tello.send_expansion_command("mled g " + "0000r000000rrr0000rrpr0000rrprr000rpprr00rpppprr0rpprprr00rrrrr0")
+    #     time.sleep(0.2)
+    #     tello.send_expansion_command("mled g " + "000rr000000rpr0000rrpr0000rppr000rppppr00rpppprr0rpprppr00rrrrr0")
+    #     time.sleep(0.2)
+    #     tello.send_expansion_command("mled g " + "000r000000rrr00000rprr000rrpprr00rppprr0rpppppr0rrprppr00rrrrr00")
+    #     time.sleep(0.2)
+    #     tello.send_expansion_command("mled s p 5")
+    #     time.sleep(1)
     
     # # # tello.send_expansion_command("led  br 2 0 0 255")
     # # survivor
@@ -155,74 +160,74 @@ def main():
     #     tello.send_expansion_command("mled g " + "0000000000000r0000000r000bb00b00bbbb0b00bbbb0b000bb0b000bbbb0000")
     #     time.sleep(0.1)
     # snail  
-    for i in range(4):
-        tello.send_expansion_command("mled g " + "00000000000000000000r000000b0bb000b0bbbb00b0bbbb000b0bb00000bbbb")
-        time.sleep(0.1)
-        tello.send_expansion_command("mled g " + "0000000000r0000000b0000000b00bb000b0bbbb00b0bbbb000b0bb00000bbbb")
-        time.sleep(0.1)
-        tello.send_expansion_command("mled g " + "00000000000000000r0000000b000bb00b00bbbb0b00bbbb00b00bb0000bbbbb")
-        time.sleep(0.1)
-        tello.send_expansion_command("mled g " + "00000000000000000000000000000bb0r000bbbb0b00bbbb00b00bb0000bbbbb")
-        time.sleep(0.1)
-        tello.send_expansion_command("mled g " + "00000000000000000r0000000b000bb00b00bbbb0b00bbbb00b00bb0000bbbbb")
-        time.sleep(0.1)
-        tello.send_expansion_command("mled g " + "0000000000r0000000b0000000b00bb000b0bbbb00b0bbbb000b0bb00000bbbb")
-        time.sleep(0.1)
+    # for i in range(4):
+    #     tello.send_expansion_command("mled g " + "00000000000000000000r000000b0bb000b0bbbb00b0bbbb000b0bb00000bbbb")
+    #     time.sleep(0.1)
+    #     tello.send_expansion_command("mled g " + "0000000000r0000000b0000000b00bb000b0bbbb00b0bbbb000b0bb00000bbbb")
+    #     time.sleep(0.1)
+    #     tello.send_expansion_command("mled g " + "00000000000000000r0000000b000bb00b00bbbb0b00bbbb00b00bb0000bbbbb")
+    #     time.sleep(0.1)
+    #     tello.send_expansion_command("mled g " + "00000000000000000000000000000bb0r000bbbb0b00bbbb00b00bb0000bbbbb")
+    #     time.sleep(0.1)
+    #     tello.send_expansion_command("mled g " + "00000000000000000r0000000b000bb00b00bbbb0b00bbbb00b00bb0000bbbbb")
+    #     time.sleep(0.1)
+    #     tello.send_expansion_command("mled g " + "0000000000r0000000b0000000b00bb000b0bbbb00b0bbbb000b0bb00000bbbb")
+    #     time.sleep(0.1)
     
-    for i in range(4):
-        tello.send_expansion_command("mled g " + "0000000000000bb00000bbbbr000bbbb0b000bb000bbbbbb0000bbbb0000bbbb")
-        time.sleep(0.1)
-        tello.send_expansion_command("mled g " + "0000000000000bb00r00bbbb0b00bbbb0b000bb000bbbbbb0000bbbb0000bbbb")
-        time.sleep(0.1)
-        tello.send_expansion_command("mled g " + "0000000000r00bb000b0bbbb00b0bbbb00b00bb0000bbbbb0000bbbb0000bbbb")
-        time.sleep(0.1)
-        tello.send_expansion_command("mled g " + "00000000000r0bb000b0bbbb00b0bbbb00b00bb0000bbbbb0000bbbb0000bbbb")
-        time.sleep(0.1)
-        tello.send_expansion_command("mled g " + "0000000000r00bb000b0bbbb00b0bbbb00b00bb0000bbbbb0000bbbb0000bbbb")
-        time.sleep(0.1)
-        tello.send_expansion_command("mled g " + "0000000000000bb00r00bbbb0b00bbbb0b000bb000bbbbbb0000bbbb0000bbbb")
-        time.sleep(0.1)
+    # for i in range(4):
+    #     tello.send_expansion_command("mled g " + "0000000000000bb00000bbbbr000bbbb0b000bb000bbbbbb0000bbbb0000bbbb")
+    #     time.sleep(0.1)
+    #     tello.send_expansion_command("mled g " + "0000000000000bb00r00bbbb0b00bbbb0b000bb000bbbbbb0000bbbb0000bbbb")
+    #     time.sleep(0.1)
+    #     tello.send_expansion_command("mled g " + "0000000000r00bb000b0bbbb00b0bbbb00b00bb0000bbbbb0000bbbb0000bbbb")
+    #     time.sleep(0.1)
+    #     tello.send_expansion_command("mled g " + "00000000000r0bb000b0bbbb00b0bbbb00b00bb0000bbbbb0000bbbb0000bbbb")
+    #     time.sleep(0.1)
+    #     tello.send_expansion_command("mled g " + "0000000000r00bb000b0bbbb00b0bbbb00b00bb0000bbbbb0000bbbb0000bbbb")
+    #     time.sleep(0.1)
+    #     tello.send_expansion_command("mled g " + "0000000000000bb00r00bbbb0b00bbbb0b000bb000bbbbbb0000bbbb0000bbbb")
+    #     time.sleep(0.1)
         
-    for i in range(4):
-        tello.send_expansion_command("mled g " + "000bb00r000bb0b0000b0b000bbbb000b00b000000bbb00000b0b0000bb0bb00")
-        time.sleep(0.1)
-        tello.send_expansion_command("mled g " + "000bb000000bb000000b0r000bbbb000b00b000000bbb00000b0b0000bb0bb00")
-        time.sleep(0.1)
-        tello.send_expansion_command("mled g " + "000bb000000bb000000b00000bbbb000b00b000000rbb00000b0b0000bb0bb00")
-        time.sleep(0.1)
-        tello.send_expansion_command("mled g " + "000bb000000bb000000b0r000bbbb000b00b000000bbb00000b0b0000bb0bb00")
-        time.sleep(0.1)
+    # for i in range(4):
+    #     tello.send_expansion_command("mled g " + "000bb00r000bb0b0000b0b000bbbb000b00b000000bbb00000b0b0000bb0bb00")
+    #     time.sleep(0.1)
+    #     tello.send_expansion_command("mled g " + "000bb000000bb000000b0r000bbbb000b00b000000bbb00000b0b0000bb0bb00")
+    #     time.sleep(0.1)
+    #     tello.send_expansion_command("mled g " + "000bb000000bb000000b00000bbbb000b00b000000rbb00000b0b0000bb0bb00")
+    #     time.sleep(0.1)
+    #     tello.send_expansion_command("mled g " + "000bb000000bb000000b0r000bbbb000b00b000000bbb00000b0b0000bb0bb00")
+    #     time.sleep(0.1)
     
-    for i in range(4):
-        tello.send_expansion_command("mled g " + "0000000000000000000000000000000000000000pppppppppppppppp00000000")
-        time.sleep(0.2)
-        tello.send_expansion_command("mled g " + "00000000000000000000000000000000000bb000pppbb000pppbpppp0000pppp")
-        time.sleep(0.2)
-        tello.send_expansion_command("mled g " + "00000000000000000000000000bbbb0000bbbb00pppbbb00pppbpppp0000pppp")
-        time.sleep(0.2)
-        tello.send_expansion_command("mled g " + "000000000b0bb000bbbbbb000bbbbbbb00bbbbbbpppbbb00pppbpppp0000pppp")
-        time.sleep(0.2)
-        tello.send_expansion_command("mled g " + "0bb0bbbbbbbbbbbbbbbbbbbbbbbbbbbb00bbbbbbpppbbb00pppbpppp0000pppp")
-        time.sleep(0.2)
+    # for i in range(4):
+    #     tello.send_expansion_command("mled g " + "0000000000000000000000000000000000000000pppppppppppppppp00000000")
+    #     time.sleep(0.2)
+    #     tello.send_expansion_command("mled g " + "00000000000000000000000000000000000bb000pppbb000pppbpppp0000pppp")
+    #     time.sleep(0.2)
+    #     tello.send_expansion_command("mled g " + "00000000000000000000000000bbbb0000bbbb00pppbbb00pppbpppp0000pppp")
+    #     time.sleep(0.2)
+    #     tello.send_expansion_command("mled g " + "000000000b0bb000bbbbbb000bbbbbbb00bbbbbbpppbbb00pppbpppp0000pppp")
+    #     time.sleep(0.2)
+    #     tello.send_expansion_command("mled g " + "0bb0bbbbbbbbbbbbbbbbbbbbbbbbbbbb00bbbbbbpppbbb00pppbpppp0000pppp")
+    #     time.sleep(0.2)
         
-    for i in range(4):
-        tello.send_expansion_command("mled g " + "00000000pppppppppppppppp0000000000000000000000000000000000000000")
-        time.sleep(0.2)
-        tello.send_expansion_command("mled g " + "0000000000bb0000pppbb000pppbpppp00bbpppp00bb00000000000000000000")
-        time.sleep(0.2)
-        tello.send_expansion_command("mled g " + "00bbb00000bbbb00pppbbb00pppbpppp0bbbpppp0bbbb0000bbbb00000000000")
-        time.sleep(0.2)
-        tello.send_expansion_command("mled g " + "0bbbbbb000bbbb00pppbb000pppbpppp0bbbppppbbbbb000bbbbb0000bbb0000")
-        time.sleep(0.2)
-        for j in range(3):
-            tello.send_expansion_command("mled g " + "bbbbbbbb0bbbbbbbpppbbb00pppbpppp0bbbppppbbbbbb00bbbbbb00bbbbbbb0")
-            time.sleep(0.5)
-            tello.send_expansion_command("mled g " + "rrrrrrrr0rrrrrrrppprrr00ppprpppp00rrpppprrrrrr00rrrrrr00rrrrrrr0")
-            time.sleep(0.5)
+    # for i in range(4):
+    #     tello.send_expansion_command("mled g " + "00000000pppppppppppppppp0000000000000000000000000000000000000000")
+    #     time.sleep(0.2)
+    #     tello.send_expansion_command("mled g " + "0000000000bb0000pppbb000pppbpppp00bbpppp00bb00000000000000000000")
+    #     time.sleep(0.2)
+    #     tello.send_expansion_command("mled g " + "00bbb00000bbbb00pppbbb00pppbpppp0bbbpppp0bbbb0000bbbb00000000000")
+    #     time.sleep(0.2)
+    #     tello.send_expansion_command("mled g " + "0bbbbbb000bbbb00pppbb000pppbpppp0bbbppppbbbbb000bbbbb0000bbb0000")
+    #     time.sleep(0.2)
+    #     for j in range(3):
+    #         tello.send_expansion_command("mled g " + "bbbbbbbb0bbbbbbbpppbbb00pppbpppp0bbbppppbbbbbb00bbbbbb00bbbbbbb0")
+    #         time.sleep(0.5)
+    #         tello.send_expansion_command("mled g " + "rrrrrrrr0rrrrrrrppprrr00ppprpppp00rrpppprrrrrr00rrrrrr00rrrrrrr0")
+    #         time.sleep(0.5)
            
-    # # # ok
-    # # tello.send_expansion_command("mled g " + "00000000rrrr0r00r00r0r0rr00r0r0rr00r0rr0r00r0r0rrrrr0r0r00000000")
-    # # time.sleep(1)
+    # # ok
+    # tello.send_expansion_command("mled g " + "00000000bbbb0b00b00b0b0bb00b0b0bb00b0bb0b00b0b0bbbbb0b0b00000000")
+    # time.sleep(1)
     # tello.send_expansion_command("mled l b 2.5 Handover... ")
     # time.sleep(6)
     
@@ -292,7 +297,7 @@ def main():
     # time.sleep(3)
     
     
-    # # # thumb-up pink
+    # # thumb-up pink
     # for i in range(4):
     #     tello.send_expansion_command("mled g "  + "000000000000000000pppp00bbppppp0bbppppp0bbppppp0bbppppp000000000")
     #     time.sleep(0.2)
@@ -301,6 +306,40 @@ def main():
     #     tello.send_expansion_command("mled g "  + "0000p000000pp00000pp0000bbppppp0bbppppp0bbppppp0bbppppp000000000")
     #     time.sleep(1)
     
+    # for i in range(4):
+    #     tello.send_expansion_command("mled g "  + "0000000000pp00000pppp00r0pppp00b00pp00b00bppbb00bpppp000bpppp000")
+    #     time.sleep(0.2)
+    #     tello.send_expansion_command("mled g "  + "0000000000pp00000pppp0r00pppp0b000pp00b00bppbb00bpppp000bpppp000")
+    #     time.sleep(0.2)
+    #     tello.send_expansion_command("mled g "  + "0000000000pp00000ppppr000ppppb0000pp0b000bppbb00bpppp000bpppp000")
+    #     time.sleep(0.2)
+    #     tello.send_expansion_command("mled g "  + "0000000000pp00000pprp0000pppb00000pp0b000bppbb00bpppp000bpppp000")
+    #     time.sleep(0.2)
+    #     tello.send_expansion_command("mled g "  + "0000000000pp00000ppppr000ppppb0000pp0b000bppbb00bpppp000bpppp000")
+    #     time.sleep(0.2)
+    #     tello.send_expansion_command("mled g "  + "0000000000pp00000pppp0r00pppp0b000pp00b00bppbb00bpppp000bpppp000")
+    #     time.sleep(0.2)
+    
+    # # Spirale
+    # tello.send_expansion_command("mled g "  + "r000000000000000000000000000000000000000000000000000000000000000")
+    # time.sleep(0.2)
+    # tello.send_expansion_command("mled g "  + "rbbbbbbb00000000000000000000000000000000000000000000000000000000")
+    # time.sleep(0.2)
+    # tello.send_expansion_command("mled g "  + "rbbbbbbb0000000b0000000b0000000b0000000b0000000b0000000b0000000b")
+    # time.sleep(0.2)
+    # tello.send_expansion_command("mled g "  + "rbbbbbbb0000000b0000000b0000000b0000000b0000000b0000000bbbbbbbbb")
+    # time.sleep(0.2)
+    # tello.send_expansion_command("mled g "  + "rbbbbbbb0000000bb000000bb000000bb000000bb000000bb000000bbbbbbbbb")
+    # time.sleep(0.2)
+    # tello.send_expansion_command("mled g "  + "rbbbbbbb0000000bbbbbbb0bb000000bb000000bb000000bb000000bbbbbbbbb:")
+    # time.sleep(0.2)
+    # tello.send_expansion_command("mled g "  + "rbbbbbbb0000000bbbbbbb0bb0000b0bb0000b0bb0000b0bb000000bbbbbbbbb:")
+    # time.sleep(0.2)
+    # tello.send_expansion_command("mled g "  + "rbbbbbbb0000000bbbbbbb0bb0000b0bb0000b0bb0bbbb0bb000000bbbbbbbbb:")
+    # time.sleep(0.2)
+    # tello.send_expansion_command("mled g "  + "rbbbbbbb0000000bbbbbbb0bb00rrb0bb0brrb0bb0bbbb0bb000000bbbbbbbbb:")
+    # time.sleep(0.2)
+        
    
     # for i in range(4):
     #     tello.send_expansion_command("mled g "  + "0000p000000pp00000pp0000bbppppp0bbppppp0bbppppp0bbppppp000000000")
@@ -339,13 +378,6 @@ def main():
     #time.sleep(2)
     #     ##################
         
-        
-        
-        
-        
-        
-        
-        
     
     # for i in range(5):
     #     # ?
@@ -376,6 +408,24 @@ def main():
     # time.sleep(1)
     # tello.send_expansion_command("mled g " + "000p00000p0p0p000p0p0p000p0p0p0p00pppp0pp0ppppp00ppppp0000bbbb00:")
     # time.sleep(1)
+   
+    # # heart
+    # for i in range(5):
+    #     tello.send_expansion_command("mled g " + "000000000rr0rr00rrrrrrr0rrrrrrp00rrrrp0000rrp000000p000000000000")
+    #     time.sleep(0.75)
+    #     tello.send_expansion_command("mled g " + "0000000000rr0rr00rrrrrrr0rrrrrrp0rrrrrrp00rrrrp0000rrp000000p000")
+    #     time.sleep(0.2)
+    #     tello.send_expansion_command("mled g " + "000000000rr0rr00rrrrrrr0rrrrrrp00rrrrp0000rrp000000p000000000000")
+    #     time.sleep(0.2)
+    #     tello.send_expansion_command("mled g " + "0000000000rr0rr00rrrrrrr0rrrrrrp0rrrrrrp00rrrrp0000rrp000000p000")
+    #     time.sleep(0.2)
+    #     tello.send_expansion_command("mled g " + "000000000rr0rr00rrrrrrr0rrrrrrp00rrrrp0000rrp000000p000000000000")
+    #     time.sleep(0.75)
+    #     tello.send_expansion_command("mled s p 5")
+    #     time.sleep(1)
+    
+    #tello.send_expansion_command("mled sc")
+    #tello.send_expansion_command("led 255 0 0")
     
     pygame.init()
     # Initializing surface
