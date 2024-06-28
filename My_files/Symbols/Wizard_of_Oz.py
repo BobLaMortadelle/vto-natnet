@@ -3,6 +3,7 @@ import sys
 import time
 from djitellopy import Tello
 import threading
+import logging 
 
 pygam_ready = threading.Event()
 fire = threading.Event()
@@ -91,14 +92,73 @@ def display_approach_pattern(tello):
         #     print('The pattern does not exist')
 
 def display_button():
+    
     pygame.init()
     clock = pygame.time.Clock()
+    is_display = True
+    WHITE = (255, 255, 255)
+    BLACK = (0, 0, 0)
+    window_size = (220,50)
+    screen = pygame.display.set_mode(window_size)
+    pygame.display.set_caption('Particpant number: ')
+    # Create a font object
+    font = pygame.font.Font(None, 32)
+    # Input box
+    input_box = pygame.Rect(10, 10, 140, 32)
+    color_inactive = pygame.Color('lightskyblue3')
+    color_active = pygame.Color('dodgerblue2')
+    color = color_inactive
+    active = False
+    text = ''
+    # Main loop
+    clock = pygame.time.Clock()
+    done = False
+
+    while not done:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                done = True
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                # If the user clicked on the input_box rect
+                if input_box.collidepoint(event.pos):
+                    active = not active
+                else:
+                    active = False
+                # Change the current color of the input box
+                color = color_active if active else color_inactive
+            if event.type == pygame.KEYDOWN:
+                if active:
+                    if event.key == pygame.K_RETURN:
+                        print(text)
+                        pygame.quit()
+                        is_display = False
+                        done = True
+                    elif event.key == pygame.K_BACKSPACE:
+                        text = text[:-1]
+                    else:
+                        text += event.unicode
+        if(is_display):
+            screen.fill(WHITE)
+            # Render the current text
+            txt_surface = font.render(text, True, BLACK)
+            # Resize the box if the text is too long
+            width = max(200, txt_surface.get_width() + 10)
+            input_box.w = width
+            # Blit the text
+            screen.blit(txt_surface, (input_box.x + 5, input_box.y + 5))
+            # Blit the input_box rect
+            pygame.draw.rect(screen, color, input_box, 2)
+
+            pygame.display.flip()
+            clock.tick(30)
+
+    pygame.init()
+    clock = pygame.time.Clock()    
+    logging.basicConfig(filename="wizard_of_Oz_{expeNb}.log".format(expeNb = text), filemode="w", format="%(asctime)s - %(message)s")
     # Initializing surface
     window_size = (800,600)
-    screen = pygame.display.set_mode(window_size)
-    pygame.display.set_caption('What can you see on the Tello drone')
-    
-    
+    screen = pygame.display.set_mode(window_size)    
+    pygame.display.set_caption('What can you see on the Tello drone')  
     # Create a font object
     font = pygame.font.Font(None, 25)
     # Create a surface for the button
@@ -158,6 +218,7 @@ def display_button():
                     hazardous_material.clear()
                     map.clear()
                     fire.set()
+                    logging.warning("fire button clicked")
                     
                     
                 if survivor_display.collidepoint(event.pos):
@@ -167,6 +228,7 @@ def display_button():
                     hazardous_material.clear()
                     map.clear()
                     survivor.set()
+                    logging.warning("survivor button clicked")
                     
                 if hazardous_materials_display.collidepoint(event.pos):
                     print("hazardous materials seen!")
@@ -175,6 +237,7 @@ def display_button():
                     survivor.clear()                    
                     map.clear()
                     hazardous_material.set()
+                    logging.warning("hazardous materials button clicked")
                     
                 if mapping_display.collidepoint(event.pos):
                     print("mapping seen!")
@@ -183,6 +246,7 @@ def display_button():
                     survivor.clear()
                     hazardous_material.clear()
                     map.set()
+                    logging.warning("mapping button button clicked")
                 
                 if nothing_detected_display.collidepoint(event.pos):
                     print("Nothing seen!")
@@ -192,7 +256,9 @@ def display_button():
                     hazardous_material.clear()
                     map.clear()
                     nothing_detected.set()
-                    
+                    logging.warning("nothing detected button clicked")
+                
+                                    
             # Check if the mouse is over the button. This will create the button hover effect
             if fire_display.collidepoint(pygame.mouse.get_pos()):
                 pygame.draw.rect(fire_button_surface, (255, 0, 0), (1, 1, 198, 98))
@@ -242,17 +308,17 @@ def flight_routine():
             start_pattern = time.time()
 
 def main():
-    tello = Tello()
-    tello.connect()
-    pygame_thread = threading.Thread(target=display_button, args=())
-    pygame_thread.daemon = True
-    pygame_thread.start()
+    # tello = Tello()
+    # tello.connect()
+    # pygame_thread = threading.Thread(target=display_button, args=())
+    # pygame_thread.daemon = True
+    # pygame_thread.start()
+    display_button()
+    # display_thread = threading.Thread(target=display_approach_pattern, args=(tello,))
+    # display_thread.daemon = True
+    # display_thread.start()
     
-    display_thread = threading.Thread(target=display_approach_pattern, args=(tello,))
-    display_thread.daemon = True
-    display_thread.start()
-    
-    flight_routine()
+    # flight_routine()
     
         
 
