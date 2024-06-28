@@ -11,11 +11,11 @@ def main():
     # time.sleep(5)
     
     # # Medkit
-    for i in range(5):
-        tello.send_expansion_command("mled g " + "bbbbbbbbbbbrrbbbbbbrrbbbbrrrrrrbbrrrrrrbbbbrrbbbbbbrrbbbbbbbbbbb")
-        time.sleep(0.5)
-        tello.send_expansion_command("mled g " + "bbbbbbbbbbb00bbbbbb00bbbb000000bb000000bbbb00bbbbbb00bbbbbbbbbbb")
-        time.sleep(0.5)
+    # for i in range(5):
+    #     tello.send_expansion_command("mled g " + "bbbbbbbbbbbrrbbbbbbrrbbbbrrrrrrbbrrrrrrbbbbrrbbbbbbrrbbbbbbbbbbb")
+    #     time.sleep(0.5)
+    #     tello.send_expansion_command("mled g " + "bbbbbbbbbbb00bbbbbb00bbbb000000bb000000bbbb00bbbbbb00bbbbbbbbbbb")
+    #     time.sleep(0.5)
 
     # # # power failure
     # tello.send_expansion_command("led 255 0 0")
@@ -88,7 +88,7 @@ def main():
     # # tello.send_expansion_command("mled g " + "00pppp000pp00pp0ppbb00ppp0b0000pp000b00ppp0000pp0pp00pp000pppp00")
     # # time.sleep(2)
     
-    # # chemicals
+    # chemicals
     # for i in range(2):
     #     tello.send_expansion_command("mled g " + "00bbbb00000bb000000bb000000bb00000bprb000bprrrb0bprrrrrb0bbbbbb0")
     #     time.sleep(0.2)
