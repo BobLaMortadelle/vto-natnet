@@ -4,7 +4,8 @@ import time
 from djitellopy import Tello
 import threading
 import logging 
-
+import random
+from logging_filter import ExcludeFilter
 pygam_ready = threading.Event()
 fire = threading.Event()
 hazardous_material = threading.Event()
@@ -13,6 +14,14 @@ map = threading.Event()
 failure = threading.Event()
 nothing_detected = threading.Event()
 standby = threading.Event()
+
+# system event
+next_pose = threading.Event()
+anim_set = threading.Event()
+log_ready = threading.Event()
+
+lastLogMessage = ''
+logMessage = ''
 
 def display_approach_pattern(tello):
     print('Waiting for event to signal video readiness')
@@ -91,6 +100,47 @@ def display_approach_pattern(tello):
         # else:
         #     print('The pattern does not exist')
 
+def choose_animation(choice):
+    global logMessage
+    if choice == 1:
+        print("fire seen!")
+        logMessage ="fire displayed"
+        standby.clear()
+        survivor.clear()
+        hazardous_material.clear()
+        map.clear()
+        fire.set()
+    
+    elif choice == 2:
+        print("survivor seen!")
+        logMessage = "survivor displayed"
+        standby.clear()
+        fire.clear()
+        hazardous_material.clear()
+        map.clear()
+        survivor.set()
+        
+    elif choice == 3:
+        print("hazardous materials seen!")
+        logMessage = "hazardous materials displayed"
+        standby.clear()
+        fire.clear()
+        survivor.clear()                    
+        map.clear()
+        hazardous_material.set()
+        
+    elif choice == 4:
+        print("mapping seen!")
+        logMessage = "mapping displayed"
+        standby.clear()
+        fire.clear()
+        survivor.clear()
+        hazardous_material.clear()
+        map.set()
+        
+    else:
+        print("warning choice out of range")
+        
 def display_button():
     
     pygame.init()
@@ -109,7 +159,7 @@ def display_button():
     color_active = pygame.Color('dodgerblue2')
     color = color_inactive
     active = False
-    text = ''
+    text =''
     # Main loop
     clock = pygame.time.Clock()
     done = False
@@ -151,10 +201,20 @@ def display_button():
 
             pygame.display.flip()
             clock.tick(30)
-
+    log_ready.set()
     pygame.init()
     clock = pygame.time.Clock()    
-    logging.basicConfig(filename="wizard_of_Oz_{expeNb}.log".format(expeNb = text), filemode="w", format="%(asctime)s - %(message)s")
+    pygame_logger = logging.getLogger('PygameLogger')
+    pygame_handler = logging.FileHandler('wizard_of_Oz_{expeNb}.log'.format(expeNb = text), mode="w")
+    pygame_handler.setLevel(logging.DEBUG)
+    pygame_formatter = logging.Formatter('%(asctime)s - %(message)s')
+    pygame_handler.setFormatter(pygame_formatter)
+    pygame_logger.addHandler(pygame_handler)
+    pygame_logger.setLevel(logging.DEBUG)
+    # Add the custom logging filter
+    # exclude_filter = ExcludeFilter()
+    # pygame_logger.addFilter(exclude_filter)
+    
     # Initializing surface
     window_size = (800,600)
     screen = pygame.display.set_mode(window_size)    
@@ -190,7 +250,8 @@ def display_button():
     hazardous_materials_display  = pygame.Rect(125, 250, 200, 100)
     mapping_display  = pygame.Rect(475, 250, 200, 100)
     nothing_detected_display = pygame.Rect(300, 400, 200, 100)
-    
+    global logMessage
+    global lastLogMessage
     pygam_ready.set()
     print("pygame is ready!")
     # Start the main loop
@@ -212,52 +273,55 @@ def display_button():
             if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
                 # Call the on_mouse_button_down() function
                 if fire_display.collidepoint(event.pos):
-                    print("fire seen!")
-                    standby.clear()
-                    survivor.clear()
-                    hazardous_material.clear()
-                    map.clear()
-                    fire.set()
-                    logging.warning("fire button clicked")
+                    # print("fire seen!")
+                    # standby.clear()
+                    # survivor.clear()
+                    # hazardous_material.clear()
+                    # map.clear()
+                    # fire.set()
+                    logMessage = "fire button clicked"
                     
                     
                 if survivor_display.collidepoint(event.pos):
                     print("survivor seen!")
-                    standby.clear()
-                    fire.clear()
-                    hazardous_material.clear()
-                    map.clear()
-                    survivor.set()
-                    logging.warning("survivor button clicked")
+                    # standby.clear()
+                    # fire.clear()
+                    # hazardous_material.clear()
+                    # map.clear()
+                    # survivor.set()
+                    logMessage = "survivor button clicked"
                     
                 if hazardous_materials_display.collidepoint(event.pos):
                     print("hazardous materials seen!")
-                    standby.clear()
-                    fire.clear()
-                    survivor.clear()                    
-                    map.clear()
-                    hazardous_material.set()
-                    logging.warning("hazardous materials button clicked")
+                    # standby.clear()
+                    # fire.clear()
+                    # survivor.clear()                    
+                    # map.clear()
+                    # hazardous_material.set()
+                    logMessage = "hazardous materials button clicked"
                     
                 if mapping_display.collidepoint(event.pos):
                     print("mapping seen!")
-                    standby.clear()
-                    fire.clear()
-                    survivor.clear()
-                    hazardous_material.clear()
-                    map.set()
-                    logging.warning("mapping button button clicked")
+                    # standby.clear()
+                    # fire.clear()
+                    # survivor.clear()
+                    # hazardous_material.clear()
+                    # map.set()
+                    logMessage = "mapping button button clicked"
                 
                 if nothing_detected_display.collidepoint(event.pos):
-                    print("Nothing seen!")
+                    print("Next WP!")
+                    logMessage = "next waypoint button clicked"
+                    next_pose.set()
                     standby.clear()
                     fire.clear()
                     survivor.clear()
                     hazardous_material.clear()
                     map.clear()
-                    nothing_detected.set()
-                    logging.warning("nothing detected button clicked")
-                
+
+        if(logMessage != lastLogMessage):
+            pygame_logger.info(logMessage)
+            lastLogMessage = logMessage
                                     
             # Check if the mouse is over the button. This will create the button hover effect
             if fire_display.collidepoint(pygame.mouse.get_pos()):
@@ -301,24 +365,44 @@ def display_button():
         pygame.display.update()
 
 def flight_routine():
+    log_ready.wait()
     start_pattern = time.time()
+    checkpoint = time.time() + 3
+    lastPointReached = False
+    wPCounter = 0
     while(True):
+        if(lastPointReached == True):
+            break
         if(time.time() - start_pattern > 0.1):
-            print("fly")
             start_pattern = time.time()
+            print("fly")
+            if(wPCounter <= 10):
+                if next_pose.is_set():
+                    wPCounter += 1
+                    nothing_detected.set()
+                    next_pose.clear()
+                    anim_set.clear()
+                if(checkpoint < time.time()):
+                    checkpoint = time.time() + 3
+                    if (not anim_set.is_set()):
+                        anim_set.set()
+                        choose_animation(random.randint(1, 4))
+            
+                    
+            
 
 def main():
-    # tello = Tello()
-    # tello.connect()
-    # pygame_thread = threading.Thread(target=display_button, args=())
-    # pygame_thread.daemon = True
-    # pygame_thread.start()
-    display_button()
-    # display_thread = threading.Thread(target=display_approach_pattern, args=(tello,))
-    # display_thread.daemon = True
-    # display_thread.start()
+    tello = Tello()
+    tello.connect()
+    pygame_thread = threading.Thread(target=display_button, args=())
+    pygame_thread.daemon = True
+    pygame_thread.start()
+    # display_button()
+    display_thread = threading.Thread(target=display_approach_pattern, args=(tello,))
+    display_thread.daemon = True
+    display_thread.start()
     
-    # flight_routine()
+    flight_routine()
     
         
 
