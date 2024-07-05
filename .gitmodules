@@ -1,0 +1,3 @@
+[submodule "vto-natnet"]
+    path = vto-natnet
+    url = https://github.com/BobLaMortadelle/vto-natnet.git
