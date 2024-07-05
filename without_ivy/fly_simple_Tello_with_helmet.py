@@ -41,15 +41,15 @@ def main():
     print('Connected to Tello Swarm...')
 
     # ac_id_list = [[_[0], _[1]] for _ in ac_list]
-    ac_list.append(['888', '888']) # Add a moving target (helmet)
+    #ac_list.append(['888', '888']) # Add a moving target (helmet)
     # ac_id_list.append(['890', '890']) # Add a moving target (soft ball)
     # target = [Target('888')]
     # ball = [Target('890')]
     # all_vehicles = swarm.tellos+target_vehicle
 
     
-    id_dict = dict([('244','244')]) # rigidbody_ID, aircraft_ID
-    id_dict_helmet = dict([('888','888')])
+    id_dict = dict([('244','244'), ('888','888')]) # rigidbody_ID, aircraft_ID
+    #ac_id = Literal['888']
     # vehicles = dict([(ac_id, Vehicle(ac_id)) for ac_id in id_dict.keys()])
     vehicles = dict([('244', swarm.tellos[0]), ('888', Vehicle(['888']))])
     # print(id_dict.keys(), vehicles['0'].get_ac_id())
@@ -78,15 +78,22 @@ def main():
         swarm.takeoff()
 
         starttime= time.time()
+        actualize_height = time.time()
+        z = voliere.vehicles['888'].position[2]
         while time.time()-sim_start_time < 240:
             if time.time()-starttime > 1/freq :
-                print("position: ",swarm.tellos[0].position_enu," battery: ",swarm.tellos[0].get_battery())
+                #print("position: ",swarm.tellos[0].position_enu," battery: ",swarm.tellos[0].get_battery())
                 positions.append(swarm.tellos[0].position_enu)
 
                 # # Directly fly to the point
                 #for i, vehicle in enumerate(swarm.tellos):
-                swarm.tellos[0].fly_to_enu([-2.66, -2.04, 1.])
-                #print("position of helmet", swarm.tellos[1].position_enu)
+                if time.time() - actualize_height > 3 :
+                    z = voliere.vehicles['888'].position[2] - 0.1
+                    if z < 0.50:
+                        z = 0.50
+                    actualize_height = time.time()
+                swarm.tellos[0].fly_to_enu([-2.66, -2.04, z])
+                #print("position of helmet", voliere.vehicles['888'].position[2])
                 starttime = time.time()
 
 

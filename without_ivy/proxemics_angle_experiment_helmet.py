@@ -15,6 +15,7 @@ import sys
 from aruco_detect import ArucoSquare
 import random
 import logging 
+import matplotlib.pyplot as plt
 
 # system event
 pygame_ready = threading.Event()
@@ -37,6 +38,7 @@ standby = threading.Event()
 
 lastLogMessage = ''
 logMessage = ''
+fileNumber = ''
 
 def display_approach_pattern(tello):
     pygame_ready.wait()
@@ -210,6 +212,9 @@ def choose_animation(choice):
         
 
 def display_button():
+    global logMessage
+    global lastLogMessage
+    global fileNumber
     pygame.init()
     clock = pygame.time.Clock()
     is_display = True
@@ -267,10 +272,7 @@ def display_button():
             pygame.draw.rect(screen, color, input_box, 2)
 
             pygame.display.flip()
-            clock.tick(30)
-    log_ready.set()
-    pygame.init()
-    clock = pygame.time.Clock()    
+            clock.tick(30)   
     
     pygame_logger = logging.getLogger('PygameLogger')
     pygame_handler = logging.FileHandler('Log_proxemics_angles_{expeNb}.log'.format(expeNb = text), mode="w")
@@ -280,9 +282,68 @@ def display_button():
     pygame_logger.addHandler(pygame_handler)
     pygame_logger.setLevel(logging.DEBUG)
     
-    global logMessage
-    global lastLogMessage
+    pygame.init()
+    clock = pygame.time.Clock()
+    is_display = True
+    WHITE = (255, 255, 255)
+    BLACK = (0, 0, 0)
+    window_size = (220,50)
+    screen = pygame.display.set_mode(window_size)
+    pygame.display.set_caption('File number: ')
+    # Create a font object
+    font = pygame.font.Font(None, 32)
+    # Input box
+    input_box = pygame.Rect(10, 10, 140, 32)
+    color_inactive = pygame.Color('lightskyblue3')
+    color_active = pygame.Color('dodgerblue2')
+    color = color_inactive
+    active = False
+    # Main loop
+    clock = pygame.time.Clock()
+    done = False
+
+    while not done:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                done = True
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                # If the user clicked on the input_box rect
+                if input_box.collidepoint(event.pos):
+                    active = not active
+                else:
+                    active = False
+                # Change the current color of the input box
+                color = color_active if active else color_inactive
+            if event.type == pygame.KEYDOWN:
+                if active:
+                    if event.key == pygame.K_RETURN:
+                        print(fileNumber)
+                        pygame.quit()
+                        is_display = False
+                        done = True
+                    elif event.key == pygame.K_BACKSPACE:
+                        fileNumber = fileNumber[:-1]
+                    else:
+                        fileNumber += event.unicode
+        if(is_display):
+            screen.fill(WHITE)
+            # Render the current text
+            txt_surface = font.render(fileNumber, True, BLACK)
+            # Resize the box if the text is too long
+            width = max(200, txt_surface.get_width() + 10)
+            input_box.w = width
+            # Blit the text
+            screen.blit(txt_surface, (input_box.x + 5, input_box.y + 5))
+            # Blit the input_box rect
+            pygame.draw.rect(screen, color, input_box, 2)
+
+            pygame.display.flip()
+            clock.tick(30)
+    log_ready.set()
     
+    
+    pygame.init()
+    clock = pygame.time.Clock() 
     # Initializing surface
     window_size = (800,800)
     screen = pygame.display.set_mode(window_size)
@@ -495,8 +556,9 @@ def heading_distance(pos, goal):
 def flight_routine(swarm, voliere):
     # receive the list of waypoints from a json file
     # load the misson
+    global fileNumber
     log_ready.wait()
-    file = open('proxemics_angles_sequence_1.json')
+    file = open('proxemics_angles_sequence_{expeNb}.json'.format(expeNb = fileNumber))
     command = json.load(file)
     
     lengthWPs = len(command['wayPoints'])
@@ -521,7 +583,8 @@ def flight_routine(swarm, voliere):
     maxepsilonAngle = 6.08
  
     global logMessage
-
+    positionsTello = []
+    positionsUser = []
 
     # Simulation starts
     sim_start_time = time.time()
@@ -530,14 +593,23 @@ def flight_routine(swarm, voliere):
         swarm.takeoff()
         lastPointReached = False
         starttime= time.time()
-        while time.time()-sim_start_time < 240:
+        actualize_height = time.time()
+        z = voliere.vehicles['888'].position[2]
+        while time.time()-sim_start_time < 720:
             if(lastPointReached == True):
                 break
             if ((time.time()-starttime > 0.01)):
                 if(lastPointReached == False):
                     # tester ces trois prochaines lignes dans la condition if(wPCounter <= lengthWPs-1):
-                    swarm.tellos[0].fly_to_enu([wPListPos[wPCounter][0], wPListPos[wPCounter][1], wPListPos[wPCounter][2]], wPListHeading[wPCounter])
-                    dist = euclidean_distance(swarm.tellos[0].position_enu, wPListPos[wPCounter])
+                    if time.time() - actualize_height > 3 :
+                        z = voliere.vehicles['888'].position[2] - 0.1
+                        if z < 0.40:
+                            z = 0.40
+                        actualize_height = time.time()
+                    positionsTello.append(swarm.tellos[0].position_enu)
+                    positionsUser.append(voliere.vehicles['888'].position)
+                    swarm.tellos[0].fly_to_enu([wPListPos[wPCounter][0], wPListPos[wPCounter][1], z], wPListHeading[wPCounter])
+                    dist = euclidean_distance(swarm.tellos[0].position_enu, [wPListPos[wPCounter][0], wPListPos[wPCounter][1], z])
                     angle = heading_distance(swarm.tellos[0].get_heading(), wPListHeading[wPCounter])
                 
                     
@@ -549,16 +621,15 @@ def flight_routine(swarm, voliere):
                         nothing_detected.set()
                         next_pose.clear()
                         anim_set.clear()
-                        dist = euclidean_distance(swarm.tellos[0].position_enu, wPListPos[wPCounter])
+                        dist = euclidean_distance(swarm.tellos[0].position_enu, [wPListPos[wPCounter][0], wPListPos[wPCounter][1], z])
                         angle = heading_distance(swarm.tellos[0].get_heading(), wPListHeading[wPCounter])
                     
                     if(dist <= epsilonDist and (angle %(2*math.pi)<= minepsilonAngle or angle%(2*math.pi) >= maxepsilonAngle)):                            
                         if (not anim_set.is_set()):
                             anim_set.set()
                             choose_animation(random.randint(1, 6))
-                            
-                        print("position: ",swarm.tellos[0].position_enu," battery: ",swarm.tellos[0].get_battery(), " way point number: ", wPCounter, " distance to goal: ", dist, " angle to goal: ", angle)
-                        print("WP number: ", wPCounter)
+                            print("position: ",swarm.tellos[0].position_enu," battery: ",swarm.tellos[0].get_battery(), " way point number: ", wPCounter, " distance to goal: ", dist, " angle to goal: ", angle)
+                            print("WP number: ", wPCounter)
                 else:
                     lastPointReached = True
                     logMessage = 'end of mission'
@@ -567,6 +638,10 @@ def flight_routine(swarm, voliere):
                         
         swarm.move_down(int(40))
         swarm.land()
+        plt.figure(figsize=(12, 8))
+        plt.plot(positionsTello)
+        plt.title('Positions')
+        plt.show()
         voliere.stop()
         swarm.end()
 
@@ -575,6 +650,10 @@ def flight_routine(swarm, voliere):
         # log.save(flight_type='Tello')
         #swarm.move_down(int(40))
         swarm.land()
+        plt.figure(figsize=(12, 8))
+        plt.plot(positionsTello)
+        plt.title('Positions')
+        plt.show()
         voliere.stop()
         swarm.end()
         sleep(1)
@@ -622,7 +701,7 @@ def main():
     print('Connected to Tello Swarm...')
 
     id_dict = dict([('244','244'), ('888','888')]) # rigidbody_ID, aircraft_ID
-    vehicles = dict([(ac_id, swarm.tellos[i]) for i,ac_id in enumerate(id_dict.keys())])
+    vehicles = dict([('244', swarm.tellos[0]), ('888', Vehicle(['888']))])
     voliere = VolierePosition(id_dict, vehicles, freq=100, vel_samples=6)
 
     voliere.run()
