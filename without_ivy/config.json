@@ -1,0 +1,15 @@
+{
+    "droneShape": "tello",
+    "tool": "hook",
+    "objectShape": "hammer",
+    "graspingStrategy": "push",
+    "armRetractionSpeed": 0.1,
+    "interactionModality": "bottom",
+    "approachDirection": "face",
+
+    "lateralDistance": 1.20,
+    "prefMinDistance": 3.0,
+    "altitude": 1.80,
+    "angle": 10,
+    "maximumVelocity": 11
+}
