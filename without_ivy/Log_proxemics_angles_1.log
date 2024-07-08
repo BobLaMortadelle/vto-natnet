@@ -1,28 +1,28 @@
-2024-07-05 15:52:04,621 - validate handover displayed
-2024-07-05 15:52:07,111 - validate handover button clicked
-2024-07-05 15:52:07,946 - next waypoint button clicked
-2024-07-05 15:52:08,783 - mapping displayed
-2024-07-05 15:52:10,157 - mapping button button clicked
-2024-07-05 15:52:11,406 - next waypoint button clicked
-2024-07-05 15:52:12,322 - fire displayed
-2024-07-05 15:52:16,347 - fire button clicked
-2024-07-05 15:52:18,313 - next waypoint button clicked
-2024-07-05 15:52:23,858 - fire displayed
-2024-07-05 15:52:25,173 - fire button clicked
-2024-07-05 15:52:26,562 - next waypoint button clicked
-2024-07-05 15:52:27,605 - fire displayed
-2024-07-05 15:52:28,937 - fire button clicked
-2024-07-05 15:52:29,840 - next waypoint button clicked
-2024-07-05 15:52:30,886 - mapping displayed
-2024-07-05 15:52:32,171 - mapping button button clicked
-2024-07-05 15:52:33,421 - next waypoint button clicked
-2024-07-05 15:52:39,487 - validate handover displayed
-2024-07-05 15:52:41,365 - validate handover button clicked
-2024-07-05 15:52:42,823 - next waypoint button clicked
-2024-07-05 15:52:43,733 - start handover displayed
-2024-07-05 15:52:46,321 - start handover button clicked
-2024-07-05 15:52:47,964 - next waypoint button clicked
-2024-07-05 15:52:49,000 - mapping displayed
-2024-07-05 15:52:51,207 - mapping button button clicked
-2024-07-05 15:52:52,382 - next waypoint button clicked
-2024-07-05 15:52:52,411 - end of mission
+2024-07-08 11:15:01,717 - mapping displayed
+2024-07-08 11:15:03,486 - mapping button button clicked
+2024-07-08 11:15:05,014 - next waypoint button clicked
+2024-07-08 11:15:05,969 - hazardous materials displayed
+2024-07-08 11:15:14,609 - hazardous materials button clicked
+2024-07-08 11:15:15,806 - next waypoint button clicked
+2024-07-08 11:15:16,836 - mapping displayed
+2024-07-08 11:15:19,572 - mapping button button clicked
+2024-07-08 11:15:20,574 - next waypoint button clicked
+2024-07-08 11:15:26,908 - mapping displayed
+2024-07-08 11:15:29,085 - mapping button button clicked
+2024-07-08 11:15:30,241 - next waypoint button clicked
+2024-07-08 11:15:30,985 - validate handover displayed
+2024-07-08 11:15:32,414 - validate handover button clicked
+2024-07-08 11:15:33,120 - next waypoint button clicked
+2024-07-08 11:15:34,176 - fire displayed
+2024-07-08 11:15:38,308 - fire button clicked
+2024-07-08 11:15:40,085 - next waypoint button clicked
+2024-07-08 11:15:46,537 - survivor displayed
+2024-07-08 11:15:51,397 - survivor button clicked
+2024-07-08 11:15:52,402 - next waypoint button clicked
+2024-07-08 11:15:53,341 - mapping displayed
+2024-07-08 11:15:58,452 - mapping button button clicked
+2024-07-08 11:15:59,507 - next waypoint button clicked
+2024-07-08 11:16:00,356 - mapping displayed
+2024-07-08 11:16:04,909 - mapping button button clicked
+2024-07-08 11:16:06,258 - next waypoint button clicked
+2024-07-08 11:16:06,286 - end of mission

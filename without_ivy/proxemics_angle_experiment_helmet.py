@@ -85,6 +85,49 @@ def display_approach_pattern(tello):
                               "000000000000pp0000ppp000bbppppp0bbppppp0bbppppp0bbppppp000000000",
                               "0000p000000pp00000pp0000bbppppp0bbppppp0bbppppp0bbppppp000000000"]
     
+    med_kit_anim = ["bbbbbbbbbbbrrbbbbbbrrbbbbrrrrrrbbrrrrrrbbbbrrbbbbbbrrbbbbbbbbbbb",
+                    "bbbbbbbbbbb00bbbbbb00bbbb000000bb000000bbbb00bbbbbb00bbbbbbbbbbb"]
+    
+    interrogation_anim = ["00rrrr000rr00rr000000rr00000rr00000rr00000000000000rr00000000000",
+                          "0000000000rrrr000rr00rr000000rr00000rr00000rr00000000000000rr000"]
+    
+    snail_anim = ["00000000000000000000r000000b0bb000b0bbbb00b0bbbb000b0bb00000bbbb",
+             "0000000000r0000000b0000000b00bb000b0bbbb00b0bbbb000b0bb00000bbbb",
+             "00000000000000000r0000000b000bb00b00bbbb0b00bbbb00b00bb0000bbbbb",
+             "00000000000000000000000000000bb0r000bbbb0b00bbbb00b00bb0000bbbbb",
+             "00000000000000000r0000000b000bb00b00bbbb0b00bbbb00b00bb0000bbbbb",
+             "0000000000r0000000b0000000b00bb000b0bbbb00b0bbbb000b0bb00000bbbb"]
+    
+    tall_blue_guy_anim = ["0000000000000bb00000bbbbr000bbbb0b000bb000bbbbbb0000bbbb0000bbbb",
+             "0000000000000bb00r00bbbb0b00bbbb0b000bb000bbbbbb0000bbbb0000bbbb",
+             "0000000000r00bb000b0bbbb00b0bbbb00b00bb0000bbbbb0000bbbb0000bbbb",
+             "00000000000r0bb000b0bbbb00b0bbbb00b00bb0000bbbbb0000bbbb0000bbbb",
+             "0000000000r00bb000b0bbbb00b0bbbb00b00bb0000bbbbb0000bbbb0000bbbb",
+             "0000000000000bb00r00bbbb0b00bbbb0b000bb000bbbbbb0000bbbb0000bbbb"]
+    
+    water_pipe_anim = ["0000000000000000000000000000000000000000pppppppppppppppp00000000",
+                "00000000000000000000000000000000000bb000pppbb000pppbpppp0000pppp",
+                "00000000000000000000000000bbbb0000bbbb00pppbbb00pppbpppp0000pppp",
+                "000000000b0bb000bbbbbb000bbbbbbb00bbbbbbpppbbb00pppbpppp0000pppp",
+                "0bb0bbbbbbbbbbbbbbbbbbbbbbbbbbbb00bbbbbbpppbbb00pppbpppp0000pppp",]
+    
+    dangerous_leak_anim = ["00000000pppppppppppppppp0000000000000000000000000000000000000000",
+             "0000000000bb0000pppbb000pppbpppp00bbpppp00bb00000000000000000000",
+             "00bbb00000bbbb00pppbbb00pppbpppp0bbbpppp0bbbb0000bbbb00000000000",
+             "0bbbbbb000bbbb00pppbb000pppbpppp0bbbppppbbbbb000bbbbb0000bbb0000",
+             "bbbbbbbb0bbbbbbbpppbbb00pppbpppp0bbbppppbbbbbb00bbbbbb00bbbbbbb0",
+             "rrrrrrrr0rrrrrrrppprrr00ppprpppp00rrpppprrrrrr00rrrrrr00rrrrrrr0"]
+    
+    ok_anim = ["00000000bbbb0b00b00b0b0bb00b0b0bb00b0bb0b00b0b0bbbbb0b0b00000000"]
+    
+    purple_guy_anim = ["0000000000pp00000pppp00r0pppp00b00pp00b00bppbb00bpppp000bpppp000",
+                       "0000000000bb0000pppbb000pppbpppp00bbpppp00bb00000000000000000000",
+                       "00bbb00000bbbb00pppbbb00pppbpppp0bbbpppp0bbbb0000bbbb00000000000",
+                       "0bbbbbb000bbbb00pppbb000pppbpppp0bbbppppbbbbb000bbbbb0000bbb0000",
+                       "bbbbbbbb0bbbbbbbpppbbb00pppbpppp0bbbppppbbbbbb00bbbbbb00bbbbbbb0",
+                       "rrrrrrrr0rrrrrrrppprrr00ppprpppp00rrpppprrrrrr00rrrrrr00rrrrrrr0"]
+    
+
     start_pattern = time.time()
 
     cycleStep = 0
@@ -589,6 +632,7 @@ def flight_routine(swarm, voliere):
     # Simulation starts
     sim_start_time = time.time()
     print("Current Tello Battery ",swarm.tellos[0].get_battery())
+    swarm.tellos[0].send_expansion_command("led 0 255 0")
     try:
         swarm.takeoff()
         lastPointReached = False
@@ -602,7 +646,7 @@ def flight_routine(swarm, voliere):
                 if(lastPointReached == False):
                     # tester ces trois prochaines lignes dans la condition if(wPCounter <= lengthWPs-1):
                     if time.time() - actualize_height > 3 :
-                        z = voliere.vehicles['888'].position[2] - 0.1
+                        z = voliere.vehicles['888'].position[2] 
                         if z < 0.40:
                             z = 0.40
                         actualize_height = time.time()
