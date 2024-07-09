@@ -55,8 +55,13 @@ digit_8 = threading.Event()
 digit_9 = threading.Event()
 
 
+lock = threading.Lock()
+
+
 lastLogMessage = ''
 logMessage = ''
+logWP = ''
+lastLogWP = ''
 fileNumber = ''
 
 def display_approach_pattern(tello):
@@ -142,148 +147,154 @@ def display_approach_pattern(tello):
     start_pattern = time.time()
 
     cycleStep = 0
-
+    start_light= time.time()
     while(True):
-        # if not in stand by mode (meaning a static display or an original UDP animation)                     
-        if(fire.is_set()):
-            #tello.send_expansion_command("led br 2.5 75 75 255")
-            if(time.time() - start_pattern > 0.1):
-                tello.send_expansion_command("mled g " + fire_anim[cycleStep % 4])
-                start_pattern = time.time()
-                cycleStep += 1
+        if (time.time() - start_light > 0.05):
+            lock.acquire()
+            # if not in stand by mode (meaning a static display or an original UDP animation)                     
+            try:
+                if(fire.is_set()):
+                    if(time.time() - start_pattern > 0.1):
+                        tello.send_expansion_command("mled g " + fire_anim[cycleStep % 4])
+                        start_pattern = time.time()
+                        cycleStep += 1
 
-        elif(survivor.is_set()):
-            if(time.time() - start_pattern > 0.1):
-                tello.send_expansion_command("mled g " + survivor_anim[cycleStep % 5])
-                start_pattern = time.time()
-                cycleStep += 1  
+                elif(survivor.is_set()):
+                    if(time.time() - start_pattern > 0.1):
+                        tello.send_expansion_command("mled g " + survivor_anim[cycleStep % 5])
+                        start_pattern = time.time()
+                        cycleStep += 1  
 
-        elif(hazardous_material.is_set()):        
-            if(time.time() - start_pattern > 0.1):
-                tello.send_expansion_command("mled g " + hazardous_material_anim[cycleStep % 5])
-                start_pattern = time.time()
-                cycleStep += 1 
+                elif(hazardous_material.is_set()):        
+                    if(time.time() - start_pattern > 0.1):
+                        tello.send_expansion_command("mled g " + hazardous_material_anim[cycleStep % 5])
+                        start_pattern = time.time()
+                        cycleStep += 1 
 
-        elif(map.is_set()):
-            if(time.time() - start_pattern > 0.1):
-                tello.send_expansion_command("mled g " + map_anim[cycleStep % 6])
-                start_pattern = time.time()
-                cycleStep += 1 
-        
-        elif(start_handover.is_set()):
-            if(time.time() - start_pattern > 0.1):
-                tello.send_expansion_command("mled g " + start_handover_anim[cycleStep % 3])
-                start_pattern = time.time()
-                cycleStep += 1
-        
-        elif(validate_handover.is_set()):
-            if(time.time() - start_pattern > 0.1):
-                tello.send_expansion_command("mled g " + validate_handover_anim[cycleStep % 3])
-                start_pattern = time.time()
-                cycleStep += 1
+                elif(map.is_set()):
+                    if(time.time() - start_pattern > 0.1):
+                        tello.send_expansion_command("mled g " + map_anim[cycleStep % 6])
+                        start_pattern = time.time()
+                        cycleStep += 1 
                 
-        elif(med_kit.is_set()):
-            if(time.time() - start_pattern > 0.1):
-                tello.send_expansion_command("mled g " + med_kit_anim[cycleStep % 2])
-                start_pattern = time.time()
-                cycleStep += 1
-        
-        elif(interrogation.is_set()):
-            if(time.time() - start_pattern > 0.1):
-                tello.send_expansion_command("mled g " + interrogation_anim[cycleStep % 2])
-                start_pattern = time.time()
-                cycleStep += 1
+                elif(start_handover.is_set()):
+                    if(time.time() - start_pattern > 0.1):
+                        tello.send_expansion_command("mled g " + start_handover_anim[cycleStep % 3])
+                        start_pattern = time.time()
+                        cycleStep += 1
                 
-        elif(snail.is_set()):
-            if(time.time() - start_pattern > 0.1):
-                tello.send_expansion_command("mled g " + snail_anim[cycleStep % 6])
-                start_pattern = time.time()
-                cycleStep += 1
-        
-        elif(tall_blue_guy.is_set()):
-            if(time.time() - start_pattern > 0.1):
-                tello.send_expansion_command("mled g " + tall_blue_guy_anim[cycleStep % 6])
-                start_pattern = time.time()
-                cycleStep += 1
+                elif(validate_handover.is_set()):
+                    if(time.time() - start_pattern > 0.1):
+                        tello.send_expansion_command("mled g " + validate_handover_anim[cycleStep % 3])
+                        start_pattern = time.time()
+                        cycleStep += 1
+                        
+                elif(med_kit.is_set()):
+                    if(time.time() - start_pattern > 0.1):
+                        tello.send_expansion_command("mled g " + med_kit_anim[cycleStep % 2])
+                        start_pattern = time.time()
+                        cycleStep += 1
                 
-        elif(water_pipe.is_set()):
-            if(time.time() - start_pattern > 0.1):
-                tello.send_expansion_command("mled g " + water_pipe_anim[cycleStep % 5])
-                start_pattern = time.time()
-                cycleStep += 1
+                elif(interrogation.is_set()):
+                    if(time.time() - start_pattern > 0.1):
+                        tello.send_expansion_command("mled g " + interrogation_anim[cycleStep % 2])
+                        start_pattern = time.time()
+                        cycleStep += 1
+                        
+                elif(snail.is_set()):
+                    if(time.time() - start_pattern > 0.1):
+                        tello.send_expansion_command("mled g " + snail_anim[cycleStep % 6])
+                        start_pattern = time.time()
+                        cycleStep += 1
                 
-        elif(dangerous_leak.is_set()):
-            if(time.time() - start_pattern > 0.1):
-                tello.send_expansion_command("mled g " + dangerous_leak_anim[cycleStep % 6])
-                start_pattern = time.time()
-                cycleStep += 1
-        
-        elif(purple_guy.is_set()):
-            if(time.time() - start_pattern > 0.1):
-                tello.send_expansion_command("mled g " + purple_guy_anim[cycleStep % 6])
-                start_pattern = time.time()
-                cycleStep += 1
+                elif(tall_blue_guy.is_set()):
+                    if(time.time() - start_pattern > 0.1):
+                        tello.send_expansion_command("mled g " + tall_blue_guy_anim[cycleStep % 6])
+                        start_pattern = time.time()
+                        cycleStep += 1
+                        
+                elif(water_pipe.is_set()):
+                    if(time.time() - start_pattern > 0.1):
+                        tello.send_expansion_command("mled g " + water_pipe_anim[cycleStep % 5])
+                        start_pattern = time.time()
+                        cycleStep += 1
+                        
+                elif(dangerous_leak.is_set()):
+                    if(time.time() - start_pattern > 0.1):
+                        tello.send_expansion_command("mled g " + dangerous_leak_anim[cycleStep % 6])
+                        start_pattern = time.time()
+                        cycleStep += 1
                 
-        elif(ok.is_set()):
-            tello.send_expansion_command("mled g 00000000pppp0p00p00p0p0pp00p0p0pp00p0pp0p00p0p0ppppp0p0p00000000")
-            ok.clear()
-            standby.set()
-            
-        elif(handover_text.is_set()):
-            tello.send_expansion_command("mled l p 2.5 Handover ")
-            handover_text.clear()
-            standby.set()
-            
-        elif(digit_1.is_set()):
-            tello.send_expansion_command("mled s p 1")
-            digit_1.clear()
-            standby.set()
-            
-        elif(digit_2.is_set()):
-            tello.send_expansion_command("mled s p 2")
-            digit_2.clear()
-            standby.set()
-            
-        elif(digit_3.is_set()):
-            tello.send_expansion_command("mled s p 3")
-            digit_3.clear()
-            standby.set()
-        
-        elif(digit_4.is_set()):
-            tello.send_expansion_command("mled s p 4")
-            digit_4.clear()
-            standby.set()
-        
-        elif(digit_5.is_set()):
-            tello.send_expansion_command("mled s p 5")
-            digit_5.clear()
-            standby.set()
-        
-        elif(digit_6.is_set()):
-            tello.send_expansion_command("mled s p 6")
-            digit_6.clear()
-            standby.set()
-        
-        elif(digit_7.is_set()):
-            tello.send_expansion_command("mled s p 7")
-            digit_7.clear()
-            standby.set()
-        
-        elif(digit_8.is_set()):
-            tello.send_expansion_command("mled s p 8")
-            digit_8.clear()
-            standby.set()
-        
-        elif(digit_9.is_set()):
-            tello.send_expansion_command("mled s p 9")
-            digit_9.clear()
-            standby.set()
+                elif(purple_guy.is_set()):
+                    if(time.time() - start_pattern > 0.1):
+                        tello.send_expansion_command("mled g " + purple_guy_anim[cycleStep % 6])
+                        start_pattern = time.time()
+                        cycleStep += 1
+                        
+                elif(ok.is_set()):
+                    tello.send_expansion_command("mled g 00000000pppp0p00p00p0p0pp00p0p0pp00p0pp0p00p0p0ppppp0p0p00000000")
+                    ok.clear()
+                    standby.set()
+                    
+                elif(handover_text.is_set()):
+                    tello.send_expansion_command("mled l p 2.5 Handover ")
+                    handover_text.clear()
+                    standby.set()
+                    
+                elif(digit_1.is_set()):
+                    tello.send_expansion_command("mled s p 1")
+                    digit_1.clear()
+                    standby.set()
+                    
+                elif(digit_2.is_set()):
+                    tello.send_expansion_command("mled s p 2")
+                    digit_2.clear()
+                    standby.set()
+                    
+                elif(digit_3.is_set()):
+                    tello.send_expansion_command("mled s p 3")
+                    digit_3.clear()
+                    standby.set()
                 
-        elif(nothing_detected.is_set()):
-            if not standby.is_set():
-                tello.send_expansion_command("mled sc")
-                standby.set()
-            nothing_detected.clear()
+                elif(digit_4.is_set()):
+                    tello.send_expansion_command("mled s p 4")
+                    digit_4.clear()
+                    standby.set()
+                
+                elif(digit_5.is_set()):
+                    tello.send_expansion_command("mled s p 5")
+                    digit_5.clear()
+                    standby.set()
+                
+                elif(digit_6.is_set()):
+                    tello.send_expansion_command("mled s p 6")
+                    digit_6.clear()
+                    standby.set()
+                
+                elif(digit_7.is_set()):
+                    tello.send_expansion_command("mled s p 7")
+                    digit_7.clear()
+                    standby.set()
+                
+                elif(digit_8.is_set()):
+                    tello.send_expansion_command("mled s p 8")
+                    digit_8.clear()
+                    standby.set()
+                
+                elif(digit_9.is_set()):
+                    tello.send_expansion_command("mled s p 9")
+                    digit_9.clear()
+                    standby.set()
+                        
+                elif(nothing_detected.is_set()):
+                    if not standby.is_set():
+                        tello.send_expansion_command("mled sc")
+                        standby.set()
+                    nothing_detected.clear()
+            finally:
+                lock.release()
+            start_light = time.time()
+                
             
 
 # To set a random animation use a random variable as choice
@@ -392,6 +403,8 @@ def choose_animation(choice):
 def display_button():
     global logMessage
     global lastLogMessage
+    global logWP
+    global lastLogWP    
     global fileNumber
     pygame.init()
     clock = pygame.time.Clock()
@@ -575,166 +588,176 @@ def display_button():
     pygame_ready.set()
     print("pygame is ready!")
     # Start the main loop
+    start_interface = time.time()
     while True:
-        # Set the frame rate
-        clock.tick(60)
-        
-        # Fill the display with color
-        screen.fill((100, 100, 100))
-        # Get events from the event queue
-        for event in pygame.event.get():
-            # Check for the quit event
-            if event.type == pygame.QUIT:
-                # Quit the game
-                pygame.quit()
-                sys.exit()
-                
-            # Check for the mouse button down event
-            if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
-                # Call the on_mouse_button_down() function
-                if fire_display.collidepoint(event.pos):
-                    print("fire seen!")
-                    logMessage = "fire button clicked"
-                    # standby.clear()
-                    # survivor.clear()
-                    # hazardous_material.clear()
-                    # map.clear()
-                    # fire.set()
-                     
-                if survivor_display.collidepoint(event.pos):
-                    print("survivor seen!")
-                    logMessage = "survivor button clicked"
-                    # standby.clear()
-                    # fire.clear()
-                    # hazardous_material.clear()
-                    # map.clear()
-                    # survivor.set()
+        if(time.time() - start_interface > 0.05):
+            if lock.acquire(blocking=False):
+                try:
+                    # Set the frame rate
+                    clock.tick(60)
                     
-                if hazardous_materials_display.collidepoint(event.pos):
-                    print("hazardous materials seen!")
-                    logMessage = "hazardous materials button clicked"
-                    # standby.clear()
-                    # fire.clear()
-                    # survivor.clear()                    
-                    # map.clear()
-                    # hazardous_material.set()
-                    
-                if mapping_display.collidepoint(event.pos):
-                    print("mapping seen!")
-                    logMessage = "mapping button button clicked"
-                    # standby.clear()
-                    # fire.clear()
-                    # survivor.clear()
-                    # hazardous_material.clear()
-                    # map.set()
-                
-                if start_handover_display.collidepoint(event.pos):
-                    print("start handover seen!")
-                    logMessage = "start handover button clicked"
-                    # standby.clear()
-                    # fire.clear()
-                    # survivor.clear()
-                    # hazardous_material.clear()
-                    # map.set()
-                    
-                if validate_handover_display.collidepoint(event.pos):
-                    print("validate handover seen!")
-                    logMessage = "validate handover button clicked"
-                    # standby.clear()
-                    # fire.clear()
-                    # survivor.clear()
-                    # hazardous_material.clear()
-                    # map.set()
-                
-                if next_WP_display.collidepoint(event.pos):
-                    print("Next WP!")
-                    logMessage = "next waypoint button clicked"
-                    # placer les lignes suivantes avec une indentation de moins, en dehors de ce if pour que chaque boutton passe à un autre WP.
-                    next_pose.set()
-                    standby.clear()
-                    fire.clear()
-                    survivor.clear()
-                    hazardous_material.clear()
-                    map.clear()
-                    start_handover.clear()
-                    validate_handover.clear()                    
-                    med_kit.clear()
-                    interrogation.clear()
-                    snail.clear()
-                    tall_blue_guy.clear()
-                    water_pipe.clear()
-                    dangerous_leak.clear()
-                    ok.clear()
-                    purple_guy.clear()
-                    handover_text.clear()
-                    digit_1.clear()
-                    digit_2.clear()
-                    digit_3.clear()
-                    digit_4.clear()
-                    digit_5.clear()
-                    digit_6.clear()
-                    digit_7.clear()
-                    digit_8.clear()
-                    digit_9.clear()
-                    
-        if(logMessage != lastLogMessage):
-            pygame_logger.info(logMessage)
-            lastLogMessage = logMessage
-                    
-            # Check if the mouse is over the button. This will create the button hover effect
-            if fire_display.collidepoint(pygame.mouse.get_pos()):
-                pygame.draw.rect(fire_button_surface, (255, 0, 0), (1, 1, 198, 98))
-            else:
-                pygame.draw.rect(fire_button_surface, (128, 0, 0), (1, 1, 198, 98))
-            
-            if survivor_display.collidepoint(pygame.mouse.get_pos()):
-                pygame.draw.rect(survivor_button_surface, (0, 0, 255), (1, 1, 198, 98))
-            else:
-                pygame.draw.rect(survivor_button_surface, (0, 0, 128), (1, 1, 198, 98))
+                    # Fill the display with color
+                    screen.fill((100, 100, 100))
+                    # Get events from the event queue
+                    for event in pygame.event.get():
+                        # Check for the quit event
+                        if event.type == pygame.QUIT:
+                            # Quit the game
+                            pygame.quit()
+                            sys.exit()
+                            
+                        # Check for the mouse button down event
+                        if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
+                            # Call the on_mouse_button_down() function
+                            if fire_display.collidepoint(event.pos):
+                                print("fire seen!")
+                                logMessage = "fire button clicked"
+                                # standby.clear()
+                                # survivor.clear()
+                                # hazardous_material.clear()
+                                # map.clear()
+                                # fire.set()
+                                
+                            if survivor_display.collidepoint(event.pos):
+                                print("survivor seen!")
+                                logMessage = "survivor button clicked"
+                                # standby.clear()
+                                # fire.clear()
+                                # hazardous_material.clear()
+                                # map.clear()
+                                # survivor.set()
+                                
+                            if hazardous_materials_display.collidepoint(event.pos):
+                                print("hazardous materials seen!")
+                                logMessage = "hazardous materials button clicked"
+                                # standby.clear()
+                                # fire.clear()
+                                # survivor.clear()                    
+                                # map.clear()
+                                # hazardous_material.set()
+                                
+                            if mapping_display.collidepoint(event.pos):
+                                print("mapping seen!")
+                                logMessage = "mapping button button clicked"
+                                # standby.clear()
+                                # fire.clear()
+                                # survivor.clear()
+                                # hazardous_material.clear()
+                                # map.set()
+                            
+                            if start_handover_display.collidepoint(event.pos):
+                                print("start handover seen!")
+                                logMessage = "start handover button clicked"
+                                # standby.clear()
+                                # fire.clear()
+                                # survivor.clear()
+                                # hazardous_material.clear()
+                                # map.set()
+                                
+                            if validate_handover_display.collidepoint(event.pos):
+                                print("validate handover seen!")
+                                logMessage = "validate handover button clicked"
+                                # standby.clear()
+                                # fire.clear()
+                                # survivor.clear()
+                                # hazardous_material.clear()
+                                # map.set()
+                            
+                            if next_WP_display.collidepoint(event.pos):
+                                print("Next WP!")
+                                logMessage = "next waypoint button clicked"
+                                # placer les lignes suivantes avec une indentation de moins, en dehors de ce if pour que chaque boutton passe à un autre WP.
+                                next_pose.set()
+                                standby.clear()
+                                fire.clear()
+                                survivor.clear()
+                                hazardous_material.clear()
+                                map.clear()
+                                start_handover.clear()
+                                validate_handover.clear()                    
+                                med_kit.clear()
+                                interrogation.clear()
+                                snail.clear()
+                                tall_blue_guy.clear()
+                                water_pipe.clear()
+                                dangerous_leak.clear()
+                                ok.clear()
+                                purple_guy.clear()
+                                handover_text.clear()
+                                digit_1.clear()
+                                digit_2.clear()
+                                digit_3.clear()
+                                digit_4.clear()
+                                digit_5.clear()
+                                digit_6.clear()
+                                digit_7.clear()
+                                digit_8.clear()
+                                digit_9.clear()
+                                
+                    if(logMessage != lastLogMessage):
+                        pygame_logger.info(logMessage)
+                        lastLogMessage = logMessage
+                    if(logWP != lastLogWP):
+                        pygame_logger.info(logWP)
+                        lastLogWP = logWP
+                                
+                        # Check if the mouse is over the button. This will create the button hover effect
+                        if fire_display.collidepoint(pygame.mouse.get_pos()):
+                            pygame.draw.rect(fire_button_surface, (255, 0, 0), (1, 1, 198, 98))
+                        else:
+                            pygame.draw.rect(fire_button_surface, (128, 0, 0), (1, 1, 198, 98))
+                        
+                        if survivor_display.collidepoint(pygame.mouse.get_pos()):
+                            pygame.draw.rect(survivor_button_surface, (0, 0, 255), (1, 1, 198, 98))
+                        else:
+                            pygame.draw.rect(survivor_button_surface, (0, 0, 128), (1, 1, 198, 98))
 
-            if hazardous_materials_display.collidepoint(pygame.mouse.get_pos()):
-                pygame.draw.rect(hazardous_materials_button_surface, (255, 127, 0), (1, 1, 198, 98))
-            else:
-                pygame.draw.rect(hazardous_materials_button_surface, (128, 63, 0), (1, 1, 198, 98))
-            
-            if mapping_display.collidepoint(pygame.mouse.get_pos()):
-                pygame.draw.rect(mapping_button_surface, (255, 0, 255), (1, 1, 198, 98))
-            else:
-                pygame.draw.rect(mapping_button_surface, (128, 0, 128), (1, 1, 198, 98))
-            
-            if start_handover_display.collidepoint(pygame.mouse.get_pos()):
-                pygame.draw.rect(start_handover_surface, (200, 200, 0), (1, 1, 198, 98))
-            else:
-                pygame.draw.rect(start_handover_surface, (100, 100, 0), (1, 1, 198, 98))
-            
-            if validate_handover_display.collidepoint(pygame.mouse.get_pos()):
-                pygame.draw.rect(validate_handover_surface, (0, 255, 0), (1, 1, 198, 98))
-            else:
-                pygame.draw.rect(validate_handover_surface, (0, 128, 0), (1, 1, 198, 98))
-                
-            if next_WP_display.collidepoint(pygame.mouse.get_pos()):
-                pygame.draw.rect(next_WP_surface, (128, 128, 128), (1, 1, 198, 98))
-            else:
-                pygame.draw.rect(next_WP_surface, (0, 0, 0), (1, 1, 198, 98))
-                
-        # Show the button text
-        fire_button_surface.blit(fire_text, fire_text_rect)
-        survivor_button_surface.blit(survivor_text, survivor_text_rect)
-        hazardous_materials_button_surface.blit(hazardous_materials_text, hazardous_materials_text_rect)
-        mapping_button_surface.blit(mapping_text, mapping_text_rect)
-        start_handover_surface.blit(start_handover_text, start_handover_text_rect)
-        validate_handover_surface.blit(validate_handover_text, validate_handover_text_rect)
-        next_WP_surface.blit(next_WP_text, next_WP_text_rect)
-        # Draw the button on the screen
-        screen.blit(fire_button_surface, (fire_display.x, fire_display.y))
-        screen.blit(survivor_button_surface, (survivor_display.x, survivor_display.y))
-        screen.blit(hazardous_materials_button_surface, (hazardous_materials_display.x, hazardous_materials_display.y))
-        screen.blit(mapping_button_surface, (mapping_display.x, mapping_display.y))
-        screen.blit(start_handover_surface, (start_handover_display.x, start_handover_display.y))
-        screen.blit(validate_handover_surface, (validate_handover_display.x, validate_handover_display.y))
-        screen.blit(next_WP_surface, (next_WP_display.x, next_WP_display.y))
-        # Update the game state
-        pygame.display.update()
+                        if hazardous_materials_display.collidepoint(pygame.mouse.get_pos()):
+                            pygame.draw.rect(hazardous_materials_button_surface, (255, 127, 0), (1, 1, 198, 98))
+                        else:
+                            pygame.draw.rect(hazardous_materials_button_surface, (128, 63, 0), (1, 1, 198, 98))
+                        
+                        if mapping_display.collidepoint(pygame.mouse.get_pos()):
+                            pygame.draw.rect(mapping_button_surface, (255, 0, 255), (1, 1, 198, 98))
+                        else:
+                            pygame.draw.rect(mapping_button_surface, (128, 0, 128), (1, 1, 198, 98))
+                        
+                        if start_handover_display.collidepoint(pygame.mouse.get_pos()):
+                            pygame.draw.rect(start_handover_surface, (200, 200, 0), (1, 1, 198, 98))
+                        else:
+                            pygame.draw.rect(start_handover_surface, (100, 100, 0), (1, 1, 198, 98))
+                        
+                        if validate_handover_display.collidepoint(pygame.mouse.get_pos()):
+                            pygame.draw.rect(validate_handover_surface, (0, 255, 0), (1, 1, 198, 98))
+                        else:
+                            pygame.draw.rect(validate_handover_surface, (0, 128, 0), (1, 1, 198, 98))
+                            
+                        if next_WP_display.collidepoint(pygame.mouse.get_pos()):
+                            pygame.draw.rect(next_WP_surface, (128, 128, 128), (1, 1, 198, 98))
+                        else:
+                            pygame.draw.rect(next_WP_surface, (0, 0, 0), (1, 1, 198, 98))
+                            
+                    # Show the button text
+                    fire_button_surface.blit(fire_text, fire_text_rect)
+                    survivor_button_surface.blit(survivor_text, survivor_text_rect)
+                    hazardous_materials_button_surface.blit(hazardous_materials_text, hazardous_materials_text_rect)
+                    mapping_button_surface.blit(mapping_text, mapping_text_rect)
+                    start_handover_surface.blit(start_handover_text, start_handover_text_rect)
+                    validate_handover_surface.blit(validate_handover_text, validate_handover_text_rect)
+                    next_WP_surface.blit(next_WP_text, next_WP_text_rect)
+                    # Draw the button on the screen
+                    screen.blit(fire_button_surface, (fire_display.x, fire_display.y))
+                    screen.blit(survivor_button_surface, (survivor_display.x, survivor_display.y))
+                    screen.blit(hazardous_materials_button_surface, (hazardous_materials_display.x, hazardous_materials_display.y))
+                    screen.blit(mapping_button_surface, (mapping_display.x, mapping_display.y))
+                    screen.blit(start_handover_surface, (start_handover_display.x, start_handover_display.y))
+                    screen.blit(validate_handover_surface, (validate_handover_display.x, validate_handover_display.y))
+                    screen.blit(next_WP_surface, (next_WP_display.x, next_WP_display.y))
+                    # Update the game state
+                    pygame.display.update()
+                finally:
+                    lock.release()
+            start_interface = time.time()
 
 def norm_ang(x):
             while x > np.pi :
@@ -755,6 +778,7 @@ def flight_routine(swarm, voliere):
     # receive the list of waypoints from a json file
     # load the misson
     global fileNumber
+    global logWP
     log_ready.wait()
     file = open('proxemics_angles_sequence_{expeNb}.json'.format(expeNb = fileNumber))
     command = json.load(file)
@@ -828,18 +852,18 @@ def flight_routine(swarm, voliere):
                     
                     if(dist <= epsilonDist and (angle %(2*math.pi)<= minepsilonAngle or angle%(2*math.pi) >= maxepsilonAngle)):                            
                         if (not anim_set.is_set()):
+                            logWP = "Way point number {wPNb} at position {pos}".format(wPNb = wPCounter, pos = swarm.tellos[0].position_enu)
                             anim_set.set()
                             if not tmp_animations:
                                 tmp_animations.extend(all_animations)
                             randomIndex = random.randint(0, len(tmp_animations)-1)
                             choose_animation(tmp_animations[randomIndex])
                             tmp_animations.pop(randomIndex)
-                            
                             print("position: ",swarm.tellos[0].position_enu," battery: ",swarm.tellos[0].get_battery(), " way point number: ", wPCounter, " distance to goal: ", dist, " angle to goal: ", angle)
                             print("WP number: ", wPCounter)
                 else:
                     lastPointReached = True
-                    logMessage = 'end of mission'
+                    logWP = 'end of mission'
                     
                 starttime= time.time()
         print("Current Tello Battery ",swarm.tellos[0].get_battery())            
