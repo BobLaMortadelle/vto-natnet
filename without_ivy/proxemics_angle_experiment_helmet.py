@@ -16,6 +16,7 @@ from aruco_detect import ArucoSquare
 import random
 import logging 
 import matplotlib.pyplot as plt
+import os
 
 # system event
 pygame_ready = threading.Event()
@@ -75,25 +76,17 @@ def display_approach_pattern(tello):
                 "000000000rr0rr00rrrrrrr0rrrrrrp00rrrrp0000rrp000000p000000000000",]
     
     hazardous_material_anim = ["00bbbb00000bb000000bb000000bb00000bprb000bprrrb0bprrrrrb0bbbbbb0",
-                               "00bbbb00000bb000000bb000000pb00000bprb000bprrrb0bprrrrrb0bbbbbb0",
                                "00bbbb00000bb000000bb000000pp00000bprb000bprrrb0bprrrrrb0bbbbbb0",
-                               "00bbbb00000bb000000bp000000pr00000bprb000bprrrb0bprrrrrb0bbbbbb0",
                                "00bbbb00000bb000000pp000000rr00000bprb000bprrrb0bprrrrrb0bbbbbb0",
-                               "00bbbb00000pb000000rp000000rr00000bprb000bprrrb0bprrrrrb0bbbbbb0",
                                "00bbbb00000pp000000rr000000rr00000bprb000bprrrb0bprrrrrb0bbbbbb0",
                                "00bbbb00000rr000000rr000000rr00000bprb000bprrrb0bprrrrrb0bbbbbb0"]
     
     map_anim = ["000rr00000000000000000000000000000000000000000000000000000000000",
-                "rbbbbbbr00000000000000000000000000000000000000000000000000000000",
                 "bbbbbbbbb000000bb000000br000000r00000000000000000000000000000000",
-                "bbbbbbbbb000000bb000000bb000000bb000000bb000000br000000r00000000",
                 "bbbbbbbbb000000bb000000bb000000bb000000bb000000bb000000bbr0000rb",
                 "bbbbbbbbbr000p0bb000000bb00000rbbp00000bb000000bb0r00p0bbbbbbbbb",
                 "bbbbbbbbb000000bb000000bb000000bb000000bb000000bb000000bbr0000rb",
-                "bbbbbbbbb000000bb000000bb000000bb000000bb000000br000000r00000000",
-                "bbbbbbbbb000000bb000000br000000r00000000000000000000000000000000",
-                "rbbbbbbr00000000000000000000000000000000000000000000000000000000",
-                "000rr00000000000000000000000000000000000000000000000000000000000"]
+                "bbbbbbbbb000000bb000000br000000r00000000000000000000000000000000"]
     
     start_handover_anim = ["00000000000000000000000000pppp0000ppppp00pppppp00pppppp000pppp00",
                            "00000000000p00000p0p0p000p0p0p0000pppp0p00ppppp00pppppp000pppp00",
@@ -167,13 +160,13 @@ def display_approach_pattern(tello):
 
         elif(hazardous_material.is_set()):        
             if(time.time() - start_pattern > 0.1):
-                tello.send_expansion_command("mled g " + hazardous_material_anim[cycleStep % 8])
+                tello.send_expansion_command("mled g " + hazardous_material_anim[cycleStep % 5])
                 start_pattern = time.time()
                 cycleStep += 1 
 
         elif(map.is_set()):
             if(time.time() - start_pattern > 0.1):
-                tello.send_expansion_command("mled g " + map_anim[cycleStep % 11])
+                tello.send_expansion_command("mled g " + map_anim[cycleStep % 6])
                 start_pattern = time.time()
                 cycleStep += 1 
         
@@ -237,7 +230,7 @@ def display_approach_pattern(tello):
             standby.set()
             
         elif(handover_text.is_set()):
-            tello.send_expansion_command("mled l b 2.5 Handover ")
+            tello.send_expansion_command("mled l p 2.5 Handover ")
             handover_text.clear()
             standby.set()
             
@@ -287,9 +280,10 @@ def display_approach_pattern(tello):
             standby.set()
                 
         elif(nothing_detected.is_set()):
-            tello.send_expansion_command("mled sc")
+            if not standby.is_set():
+                tello.send_expansion_command("mled sc")
+                standby.set()
             nothing_detected.clear()
-            standby.set()
             
 
 # To set a random animation use a random variable as choice
@@ -297,422 +291,98 @@ def choose_animation(choice):
     global logMessage
     if choice == 1:
         logMessage = "fire displayed"
-        # standby.clear()
-        # survivor.clear()
-        # hazardous_material.clear()
-        # map.clear()
-        # start_handover.clear()
-        # validate_handover.clear()
-        # med_kit.clear()
-        # interrogation.clear()
-        # snail.clear()
-        # tall_blue_guy.clear()
-        # water_pipe.clear()
-        # dangerous_leak.clear()
-        # purple_guy.clear()
         fire.set()
     
     elif choice == 2:
         logMessage = "survivor displayed"
-        # standby.clear()
-        # fire.clear()
-        # hazardous_material.clear()
-        # map.clear()
-        # start_handover.clear()
-        # validate_handover.clear()
-        # med_kit.clear()
-        # interrogation.clear()
-        # snail.clear()
-        # tall_blue_guy.clear()
-        # water_pipe.clear()
-        # dangerous_leak.clear()
-        # purple_guy.clear()
         survivor.set()
         
     elif choice == 3:
         logMessage = "hazardous materials displayed"
-        # standby.clear()
-        # fire.clear()
-        # survivor.clear()                    
-        # map.clear()
-        # start_handover.clear()
-        # validate_handover.clear()
-        # med_kit.clear()
-        # interrogation.clear()
-        # snail.clear()
-        # tall_blue_guy.clear()
-        # water_pipe.clear()
-        # dangerous_leak.clear()
-        # purple_guy.clear()
         hazardous_material.set()
         
     elif choice == 4:
         logMessage = "mapping displayed"
-        # standby.clear()
-        # fire.clear()
-        # survivor.clear()
-        # hazardous_material.clear()
-        # start_handover.clear()
-        # validate_handover.clear()
-        # med_kit.clear()
-        # interrogation.clear()
-        # snail.clear()
-        # tall_blue_guy.clear()
-        # water_pipe.clear()
-        # dangerous_leak.clear()
-        # purple_guy.clear()
         map.set()
 
     elif choice == 5:
         logMessage = "start handover displayed"
-        # standby.clear()
-        # fire.clear()
-        # survivor.clear()
-        # hazardous_material.clear()
-        # map.clear()
-        # validate_handover.clear()
-        # med_kit.clear()
-        # interrogation.clear()
-        # snail.clear()
-        # tall_blue_guy.clear()
-        # water_pipe.clear()
-        # dangerous_leak.clear()
-        # purple_guy.clear()
         start_handover.set()
         
     elif choice == 6:
         logMessage = "validate handover displayed"
-        # standby.clear()
-        # fire.clear()
-        # survivor.clear()
-        # hazardous_material.clear()
-        # map.clear()
-        # start_handover.clear()
-        # med_kit.clear()
-        # interrogation.clear()
-        # snail.clear()
-        # tall_blue_guy.clear()
-        # water_pipe.clear()
-        # dangerous_leak.clear()
-        # purple_guy.clear()
         validate_handover.set()
         
     elif choice == 7:
         logMessage = "med kit displayed"
-        # standby.clear()
-        # fire.clear()
-        # survivor.clear()
-        # hazardous_material.clear()
-        # map.clear()
-        # start_handover.clear()
-        # validate_handover.sclear()
-        # interrogation.clear()
-        # snail.clear()
-        # tall_blue_guy.clear()
-        # water_pipe.clear()
-        # dangerous_leak.clear()
-        # purple_guy.clear()
         med_kit.set()
         
     elif choice == 8:
         logMessage = "interrogation displayed"
-        # standby.clear()
-        # fire.clear()
-        # survivor.clear()
-        # hazardous_material.clear()
-        # map.clear()
-        # start_handover.clear()
-        # validate_handover.sclear()
-        # med_kit.clear()
-        # snail.clear()
-        # tall_blue_guy.clear()
-        # water_pipe.clear()
-        # dangerous_leak.clear()
-        # purple_guy.clear()
         interrogation.set()
         
     elif choice == 9:
         logMessage = "snail displayed"
-        # standby.clear()
-        # fire.clear()
-        # survivor.clear()
-        # hazardous_material.clear()
-        # map.clear()
-        # start_handover.clear()
-        # validate_handover.sclear()
-        # med_kit.clear()
-        # interrogation.clear()
-        # tall_blue_guy.clear()
-        # water_pipe.clear()
-        # dangerous_leak.clear()
-        # purple_guy.clear()
         snail.set()
         
     elif choice == 10:
         logMessage = "tall blue guy displayed"
-        # standby.clear()
-        # fire.clear()
-        # survivor.clear()
-        # hazardous_material.clear()
-        # map.clear()
-        # start_handover.clear()
-        # validate_handover.sclear()
-        # med_kit.clear()
-        # interrogation.clear()
-        # snail.clear()
-        # water_pipe.clear()
-        # dangerous_leak.clear()
-        # purple_guy.clear()
         tall_blue_guy.set()
         
     elif choice == 11:
         logMessage = "water pipe displayed"
-        # standby.clear()
-        # fire.clear()
-        # survivor.clear()
-        # hazardous_material.clear()
-        # map.clear()
-        # start_handover.clear()
-        # validate_handover.sclear()
-        # med_kit.clear()
-        # interrogation.clear()
-        # snail.clear()
-        # tall_blue_guy.clear()
-        # dangerous_leak.clear()
-        # purple_guy.clear()
         water_pipe.set()
         
     elif choice == 12:
         logMessage = "dangerous leak displayed"
-        # standby.clear()
-        # fire.clear()
-        # survivor.clear()
-        # hazardous_material.clear()
-        # map.clear()
-        # start_handover.clear()
-        # validate_handover.sclear()
-        # med_kit.clear()
-        # interrogation.clear()
-        # snail.clear()
-        # tall_blue_guy.clear()
-        # water_pipe.clear()
-        # purple_guy.clear()
         dangerous_leak.set()
         
     elif choice == 13:
         logMessage = "purple guy displayed"
-        # standby.clear()
-        # fire.clear()
-        # survivor.clear()
-        # hazardous_material.clear()
-        # map.clear()
-        # start_handover.clear()
-        # validate_handover.sclear()
-        # med_kit.clear()
-        # interrogation.clear()
-        # snail.clear()
-        # tall_blue_guy.clear()
-        # water_pipe.clear()
-        # dangerous_leak.clear()
-        # purple_guy.clear()
         purple_guy.set()
     
     elif choice == 14:
         logMessage = "ok displayed"
-        # fire.clear()
-        # survivor.clear()
-        # hazardous_material.clear()
-        # map.clear()
-        # start_handover.clear()
-        # validate_handover.sclear()
-        # med_kit.clear()
-        # interrogation.clear()
-        # snail.clear()
-        # tall_blue_guy.clear()
-        # water_pipe.clear()
-        # dangerous_leak.clear()
-        # purple_guy.clear()
-        # standby.clear()
         ok.set()
                 
     elif choice == 15:
         logMessage = "handover text displayed"
-        # fire.clear()
-        # survivor.clear()
-        # hazardous_material.clear()
-        # map.clear()
-        # start_handover.clear()
-        # validate_handover.sclear()
-        # med_kit.clear()
-        # interrogation.clear()
-        # snail.clear()
-        # tall_blue_guy.clear()
-        # water_pipe.clear()
-        # dangerous_leak.clear()
-        # purple_guy.clear()
-        # standby.clear()
         handover_text.set()
         
     elif choice == 16:
         logMessage = "1 displayed"
-        # fire.clear()
-        # survivor.clear()
-        # hazardous_material.clear()
-        # map.clear()
-        # start_handover.clear()
-        # validate_handover.sclear()
-        # med_kit.clear()
-        # interrogation.clear()
-        # snail.clear()
-        # tall_blue_guy.clear()
-        # water_pipe.clear()
-        # dangerous_leak.clear()
-        # purple_guy.clear()
-        # standby.clear()
         digit_1.set()
         
     elif choice == 17:
         logMessage = "2 displayed"
-        # fire.clear()
-        # survivor.clear()
-        # hazardous_material.clear()
-        # map.clear()
-        # start_handover.clear()
-        # validate_handover.sclear()
-        # med_kit.clear()
-        # interrogation.clear()
-        # snail.clear()
-        # tall_blue_guy.clear()
-        # water_pipe.clear()
-        # dangerous_leak.clear()
-        # purple_guy.clear()
-        # standby.clear()
         digit_2.set()
         
     elif choice == 18:
         logMessage = "3 displayed"
-        # fire.clear()
-        # survivor.clear()
-        # hazardous_material.clear()
-        # map.clear()
-        # start_handover.clear()
-        # validate_handover.sclear()
-        # med_kit.clear()
-        # interrogation.clear()
-        # snail.clear()
-        # tall_blue_guy.clear()
-        # water_pipe.clear()
-        # dangerous_leak.clear()
-        # purple_guy.clear()
-        # standby.clear()
         digit_3.set()
         
     elif choice == 19:
         logMessage = "4 displayed"
-        # fire.clear()
-        # survivor.clear()
-        # hazardous_material.clear()
-        # map.clear()
-        # start_handover.clear()
-        # validate_handover.sclear()
-        # med_kit.clear()
-        # interrogation.clear()
-        # snail.clear()
-        # tall_blue_guy.clear()
-        # water_pipe.clear()
-        # dangerous_leak.clear()
-        # purple_guy.clear()
-        # standby.clear()
         digit_4.set()
         
     elif choice == 20:
         logMessage = "5 displayed"
-        # fire.clear()
-        # survivor.clear()
-        # hazardous_material.clear()
-        # map.clear()
-        # start_handover.clear()
-        # validate_handover.sclear()
-        # med_kit.clear()
-        # interrogation.clear()
-        # snail.clear()
-        # tall_blue_guy.clear()
-        # water_pipe.clear()
-        # dangerous_leak.clear()
-        # purple_guy.clear()
-        # standby.clear()
         digit_5.set()
         
     elif choice == 21:
         logMessage = "6 displayed"
-        # fire.clear()
-        # survivor.clear()
-        # hazardous_material.clear()
-        # map.clear()
-        # start_handover.clear()
-        # validate_handover.sclear()
-        # med_kit.clear()
-        # interrogation.clear()
-        # snail.clear()
-        # tall_blue_guy.clear()
-        # water_pipe.clear()
-        # dangerous_leak.clear()
-        # purple_guy.clear()
-        # standby.clear()
         digit_6.set()
         
     elif choice == 22:
         logMessage = "7 displayed"
-        # fire.clear()
-        # survivor.clear()
-        # hazardous_material.clear()
-        # map.clear()
-        # start_handover.clear()
-        # validate_handover.sclear()
-        # med_kit.clear()
-        # interrogation.clear()
-        # snail.clear()
-        # tall_blue_guy.clear()
-        # water_pipe.clear()
-        # dangerous_leak.clear()
-        # purple_guy.clear()
-        # standby.clear()
         digit_7.set()
         
     elif choice == 23:
         logMessage = "8 displayed"
-        # fire.clear()
-        # survivor.clear()
-        # hazardous_material.clear()
-        # map.clear()
-        # start_handover.clear()
-        # validate_handover.sclear()
-        # med_kit.clear()
-        # interrogation.clear()
-        # snail.clear()
-        # tall_blue_guy.clear()
-        # water_pipe.clear()
-        # dangerous_leak.clear()
-        # purple_guy.clear()
-        #standby.clear()
         digit_8.set()
         
     elif choice == 24:
         logMessage = "9 displayed"
-        # fire.clear()
-        # survivor.clear()
-        # hazardous_material.clear()
-        # map.clear()
-        # start_handover.clear()
-        # validate_handover.sclear()
-        # med_kit.clear()
-        # interrogation.clear()
-        # snail.clear()
-        # tall_blue_guy.clear()
-        # water_pipe.clear()
-        # dangerous_leak.clear()
-        # purple_guy.clear()
-        # standby.clear()
         digit_9.set()
         
     else:
@@ -782,13 +452,6 @@ def display_button():
             pygame.display.flip()
             clock.tick(30)   
     
-    pygame_logger = logging.getLogger('PygameLogger')
-    pygame_handler = logging.FileHandler('Log_proxemics_angles_{expeNb}.log'.format(expeNb = text), mode="w")
-    pygame_handler.setLevel(logging.DEBUG)
-    pygame_formatter = logging.Formatter('%(asctime)s - %(message)s')
-    pygame_handler.setFormatter(pygame_formatter)
-    pygame_logger.addHandler(pygame_handler)
-    pygame_logger.setLevel(logging.DEBUG)
     
     pygame.init()
     clock = pygame.time.Clock()
@@ -847,6 +510,15 @@ def display_button():
 
             pygame.display.flip()
             clock.tick(30)
+            
+            
+    pygame_logger = logging.getLogger('PygameLogger')
+    pygame_handler = logging.FileHandler('Log_proxemics_angles_{userNb}_{expeNb}.log'.format(userNb = text, expeNb = fileNumber), mode="w")
+    pygame_handler.setLevel(logging.DEBUG)
+    pygame_formatter = logging.Formatter('%(asctime)s - %(message)s')
+    pygame_handler.setFormatter(pygame_formatter)
+    pygame_logger.addHandler(pygame_handler)
+    pygame_logger.setLevel(logging.DEBUG)
     log_ready.set()
     
     
@@ -1111,6 +783,9 @@ def flight_routine(swarm, voliere):
     global logMessage
     positionsTello = []
     positionsUser = []
+    all_animations = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24]
+    file_path = 'animations_left.json'
+    tmp_animations = (json.load(open(file_path)) if os.path.exists(file_path) else all_animations)
 
     # Simulation starts
     sim_start_time = time.time()
@@ -1154,7 +829,12 @@ def flight_routine(swarm, voliere):
                     if(dist <= epsilonDist and (angle %(2*math.pi)<= minepsilonAngle or angle%(2*math.pi) >= maxepsilonAngle)):                            
                         if (not anim_set.is_set()):
                             anim_set.set()
-                            choose_animation(random.randint(1, 6))
+                            if not tmp_animations:
+                                tmp_animations.extend(all_animations)
+                            randomIndex = random.randint(0, len(tmp_animations)-1)
+                            choose_animation(tmp_animations[randomIndex])
+                            tmp_animations.pop(randomIndex)
+                            
                             print("position: ",swarm.tellos[0].position_enu," battery: ",swarm.tellos[0].get_battery(), " way point number: ", wPCounter, " distance to goal: ", dist, " angle to goal: ", angle)
                             print("WP number: ", wPCounter)
                 else:
@@ -1162,9 +842,11 @@ def flight_routine(swarm, voliere):
                     logMessage = 'end of mission'
                     
                 starttime= time.time()
-                        
+        print("Current Tello Battery ",swarm.tellos[0].get_battery())            
         swarm.move_down(int(40))
         swarm.land()
+        with open('animations_left.json', 'w') as file:
+            json.dump(tmp_animations, file)
         plt.figure(figsize=(12, 8))
         plt.plot(positionsTello)
         plt.title('Positions')
@@ -1176,7 +858,9 @@ def flight_routine(swarm, voliere):
         print("Shutting down natnet interfaces...")
         # log.save(flight_type='Tello')
         #swarm.move_down(int(40))
-        swarm.land()
+        with open('animations_left.json', 'w') as file:
+            json.dump(tmp_animations, file)
+        swarm.land()    
         plt.figure(figsize=(12, 8))
         plt.plot(positionsTello)
         plt.title('Positions')
@@ -1239,8 +923,7 @@ def main():
     pygame_thread = threading.Thread(target=display_button, args=())
     pygame_thread.daemon = True
     pygame_thread.start()
-    # # flight_routine()
-    # # display_button()
+    
     display_thread = threading.Thread(target=display_approach_pattern, args=(swarm.tellos[0],))
     display_thread.daemon = True
     display_thread.start()
