@@ -225,14 +225,29 @@ def main():
     #         tello.send_expansion_command("mled g " + "rrrrrrrr0rrrrrrrppprrr00ppprpppp00rrpppprrrrrr00rrrrrr00rrrrrrr0")
     #         time.sleep(0.5)
            
-    # # ok
-    # tello.send_expansion_command("mled g " + "00000000bbbb0b00b00b0b0bb00b0b0bb00b0bb0b00b0b0bbbbb0b0b00000000")
-    # time.sleep(1)
-    # tello.send_expansion_command("mled l b 2.5 Handover... ")
+    # ok
+    tello.send_expansion_command("mled g " + "00000000pppp0p00p00p0p0pp00p0p0pp00p0pp0p00p0p0ppppp0p0p00000000")
+    time.sleep(2)
+    # tello.send_expansion_command("mled l p 2.5 Handover... ")
     # time.sleep(6)
-    tello.send_expansion_command("mled s p 9")
-    time.sleep(6)
-    
+    # tello.send_expansion_command("mled s p 1")
+    # time.sleep(2)
+    # tello.send_expansion_command("mled s p 2")
+    # time.sleep(2)
+    # tello.send_expansion_command("mled s p 3")
+    # time.sleep(2)
+    # tello.send_expansion_command("mled s p 4")
+    # time.sleep(2)
+    # tello.send_expansion_command("mled s p 5")
+    # time.sleep(2)
+    # tello.send_expansion_command("mled s p 6")
+    # time.sleep(2)
+    # tello.send_expansion_command("mled s p 7")
+    # time.sleep(2)
+    # tello.send_expansion_command("mled s p 8")
+    # time.sleep(2)
+    # tello.send_expansion_command("mled s p 9")
+    # time.sleep(2)
     # # # zoom
     # # tello.send_expansion_command("led  0 0 255")
     # for i in range (4):
