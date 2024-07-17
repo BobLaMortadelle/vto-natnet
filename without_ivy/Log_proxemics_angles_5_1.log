@@ -1,0 +1,42 @@
+2024-07-11 17:01:03,195 - ok displayed
+2024-07-11 17:01:03,201 - Drone status: way point number 1 at position [1.83428741 2.95341063 1.41534042], angle -2.0649224788098834
+2024-07-11 17:01:03,201 - User status: way point number 1 at position [-0.63991398 -3.70793152  1.51589775]
+2024-07-11 17:01:06,224 - validate handover button clicked
+2024-07-11 17:01:07,068 - next waypoint button clicked
+2024-07-11 17:01:08,154 - fire displayed
+2024-07-11 17:01:08,154 - Drone status: way point number 2 at position [1.89037108 2.9623239  1.43454707], angle -1.7609210320915754
+2024-07-11 17:01:08,154 - User status: way point number 2 at position [-0.6398868  -3.70793295  1.51593149]
+2024-07-11 17:01:10,496 - fire button clicked
+2024-07-11 17:01:12,062 - next waypoint button clicked
+2024-07-11 17:01:13,057 - 4 displayed
+2024-07-11 17:01:13,057 - Drone status: way point number 3 at position [1.91996682 2.94712949 1.43908191], angle -1.245522588017018
+2024-07-11 17:01:13,057 - User status: way point number 3 at position [-0.63985771 -3.70794392  1.51593661]
+2024-07-11 17:01:16,152 - next waypoint button clicked
+2024-07-11 17:01:23,124 - 2 displayed
+2024-07-11 17:01:23,129 - Drone status: way point number 4 at position [0.19078337 2.99152613 1.48366117], angle -2.0437622673237215
+2024-07-11 17:01:23,145 - User status: way point number 4 at position [-0.63989192 -3.70793796  1.51595521]
+2024-07-11 17:01:32,875 - next waypoint button clicked
+2024-07-11 17:01:34,154 - mapping displayed
+2024-07-11 17:01:34,162 - Drone status: way point number 5 at position [-0.0626268   2.96294594  1.48433495], angle -1.7433066469254959
+2024-07-11 17:01:34,167 - User status: way point number 5 at position [-0.63989335 -3.70793939  1.51593947]
+2024-07-11 17:01:36,487 - mapping button button clicked
+2024-07-11 17:01:37,401 - next waypoint button clicked
+2024-07-11 17:01:38,434 - dangerous leak displayed
+2024-07-11 17:01:38,434 - Drone status: way point number 6 at position [-0.05135933  2.94911456  1.47401512], angle -1.2420880850830431
+2024-07-11 17:01:38,434 - User status: way point number 6 at position [-0.63991213 -3.70793414  1.51587939]
+2024-07-11 17:01:41,177 - hazardous materials button clicked
+2024-07-11 17:01:41,931 - next waypoint button clicked
+2024-07-11 17:01:49,264 - snail displayed
+2024-07-11 17:01:49,269 - Drone status: way point number 7 at position [-1.80960846  3.05360389  1.51300395], angle -2.0554216674789396
+2024-07-11 17:01:49,271 - User status: way point number 7 at position [-0.63989896 -3.70794535  1.51590073]
+2024-07-11 17:01:53,206 - survivor button clicked
+2024-07-11 17:01:54,087 - next waypoint button clicked
+2024-07-11 17:01:55,087 - 3 displayed
+2024-07-11 17:01:55,087 - Drone status: way point number 8 at position [-1.94437385  3.01179457  1.47218263], angle -1.7572182851122067
+2024-07-11 17:01:55,087 - User status: way point number 8 at position [-0.63988537 -3.70792556  1.51592004]
+2024-07-11 17:01:57,833 - next waypoint button clicked
+2024-07-11 17:01:59,316 - 8 displayed
+2024-07-11 17:01:59,322 - Drone status: way point number 9 at position [-1.95340109  3.01679254  1.45761657], angle -1.2229226743675876
+2024-07-11 17:01:59,322 - User status: way point number 9 at position [-0.6398589  -3.70795226  1.51590061]
+2024-07-11 17:02:03,620 - next waypoint button clicked
+2024-07-11 17:02:03,843 - end of mission

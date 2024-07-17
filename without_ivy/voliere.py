@@ -572,7 +572,7 @@ def main():
     velocities = []
     angular_velocities = []
 
-    id_dict = dict([('888','888'),('68','68'),('69','69'),('333','333'), ('244','244')]) # rigidbody_ID, aircraft_ID
+    id_dict = dict([('888','888'),('68','68'),('69','69'),('333','333'), ('244','244'), ('245', '245')]) # rigidbody_ID, aircraft_ID
     # freq = 10
     # vel_samples = 20
 
@@ -612,8 +612,13 @@ def main():
         # Start up the streaming client.
         # This will run perpetually, and operate on a separate thread.
         voliere.run()
-
+        # already_up = False
         while True:
+            # if(voliere.vehicles['245'].position[2] > voliere.vehicles['888'].position[2] and not already_up):
+            #     print('rise hand up at pos', voliere.vehicles['245'].position)
+            #     already_up = True
+                
+            
             print(voliere.vehicles['244'].position)
             # Record data
             # positions.append(vehicles[0].position)

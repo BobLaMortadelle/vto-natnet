@@ -1,32 +1,11 @@
-2024-07-09 17:18:54,252 - fire displayed
-2024-07-09 17:18:54,257 - Way point number 1 at position [ 0.52196622 -1.64931488  1.38432789]
-2024-07-09 17:19:06,871 - fire button clicked
-2024-07-09 17:19:08,359 - next waypoint button clicked
-2024-07-09 17:19:09,278 - 7 displayed
-2024-07-09 17:19:09,280 - Way point number 2 at position [ 0.53855675 -1.84349954  1.50371385]
-2024-07-09 17:19:11,735 - next waypoint button clicked
-2024-07-09 17:19:12,751 - survivor displayed
-2024-07-09 17:19:12,751 - Way point number 3 at position [ 0.5336296  -1.85533965  1.5017941 ]
-2024-07-09 17:19:15,101 - survivor button clicked
-2024-07-09 17:19:16,505 - next waypoint button clicked
-2024-07-09 17:19:19,992 - 3 displayed
-2024-07-09 17:19:19,992 - Way point number 4 at position [ 0.19835997 -1.81159592  1.51928008]
-2024-07-09 17:19:23,268 - next waypoint button clicked
-2024-07-09 17:19:24,219 - 8 displayed
-2024-07-09 17:19:24,219 - Way point number 5 at position [ 0.06581304 -1.82429373  1.50332236]
-2024-07-09 17:19:26,935 - next waypoint button clicked
-2024-07-09 17:19:27,965 - hazardous materials displayed
-2024-07-09 17:19:27,965 - Way point number 6 at position [ 0.04417147 -1.84569383  1.48993587]
-2024-07-09 17:19:31,355 - hazardous materials button clicked
-2024-07-09 17:19:32,778 - next waypoint button clicked
-2024-07-09 17:19:35,868 - purple guy displayed
-2024-07-09 17:19:35,868 - Way point number 7 at position [-0.30431622 -1.81767726  1.53457057]
-2024-07-09 17:19:37,750 - survivor button clicked
-2024-07-09 17:19:38,987 - next waypoint button clicked
-2024-07-09 17:19:39,858 - 4 displayed
-2024-07-09 17:19:39,874 - Way point number 8 at position [-0.42981955 -1.78478456  1.54664242]
-2024-07-09 17:19:42,264 - next waypoint button clicked
-2024-07-09 17:19:43,183 - 2 displayed
-2024-07-09 17:19:43,183 - Way point number 9 at position [-0.47270027 -1.7619369   1.57635903]
-2024-07-09 17:19:45,777 - next waypoint button clicked
-2024-07-09 17:19:45,998 - end of mission
+2024-07-12 09:51:38,729 - validate handover displayed
+2024-07-12 09:51:38,744 - Drone status: way point number 1 at position [ 0.45006925 -1.66632366  1.52310228], angle -2.0569711312521726
+2024-07-12 09:51:38,744 - User status: way point number 1 at position [-0.52811462 -3.0041554   1.66232359]
+2024-07-12 09:55:42,617 - next waypoint button clicked
+2024-07-12 09:55:43,825 - 5 displayed
+2024-07-12 09:55:43,845 - Drone status: way point number 2 at position [ 0.53334653 -1.82657802  1.67517817], angle -1.7598795852207125
+2024-07-12 09:55:43,845 - User status: way point number 2 at position [-0.5240972  -3.05959153  1.65218627]
+2024-07-12 09:55:50,579 - next waypoint button clicked
+2024-07-12 09:55:51,877 - water pipe displayed
+2024-07-12 09:55:51,895 - Drone status: way point number 3 at position [ 0.52603006 -1.8308475   1.67396426], angle -1.2331785694213657
+2024-07-12 09:55:51,900 - User status: way point number 3 at position [-0.51759225 -3.06354141  1.64988327]

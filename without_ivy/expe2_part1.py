@@ -17,6 +17,7 @@ import random
 import logging 
 import matplotlib.pyplot as plt
 import os
+import csv
 
 # system event
 pygame_ready = threading.Event()
@@ -35,15 +36,16 @@ survivor = threading.Event()
 map = threading.Event()
 start_handover = threading.Event()
 validate_handover = threading.Event()
-med_kit = threading.Event()
-interrogation = threading.Event()
-snail = threading.Event()
-tall_blue_guy = threading.Event()
-water_pipe = threading.Event()
-dangerous_leak = threading.Event()
 ok = threading.Event()
-purple_guy = threading.Event()
 handover_text = threading.Event()
+text_display = threading.Event()
+firstanimation = threading.Event()
+secondanimation = threading.Event()
+thirdanimation = threading.Event()
+fourthanimation = threading.Event()
+fifthanimation = threading.Event()
+sixthanimation = threading.Event()
+number = threading.Event()
 digit_1 = threading.Event()
 digit_2 = threading.Event()
 digit_3 = threading.Event()
@@ -53,7 +55,7 @@ digit_6 = threading.Event()
 digit_7 = threading.Event()
 digit_8 = threading.Event()
 digit_9 = threading.Event()
-
+hand_up = threading.Event()
 
 lock = threading.Lock()
 
@@ -64,7 +66,8 @@ logWP = ''
 lastLogWP = ''
 logUserPos = ''
 lastLogUserPos = ''
-fileNumber = ''
+logHandUp = ''
+lastLogHandUp = ''
 
 def display_approach_pattern(tello):
     pygame_ready.wait()
@@ -101,48 +104,8 @@ def display_approach_pattern(tello):
     
     validate_handover_anim = ["000000000000000000pppp00bbppppp0bbppppp0bbppppp0bbppppp000000000",
                               "000000000000pp0000ppp000bbppppp0bbppppp0bbppppp0bbppppp000000000",
+                              "0000p000000pp00000pp0000bbppppp0bbppppp0bbppppp0bbppppp000000000",
                               "0000p000000pp00000pp0000bbppppp0bbppppp0bbppppp0bbppppp000000000"]
-    
-    med_kit_anim = ["bbbbbbbbbbbrrbbbbbbrrbbbbrrrrrrbbrrrrrrbbbbrrbbbbbbrrbbbbbbbbbbb",
-                    "bbbbbbbbbbb00bbbbbb00bbbb000000bb000000bbbb00bbbbbb00bbbbbbbbbbb"]
-    
-    interrogation_anim = ["00rrrr000rr00rr000000rr00000rr00000rr00000000000000rr00000000000",
-                          "0000000000rrrr000rr00rr000000rr00000rr00000rr00000000000000rr000"]
-    
-    snail_anim = ["00000000000000000000r000000b0bb000b0bbbb00b0bbbb000b0bb00000bbbb",
-             "0000000000r0000000b0000000b00bb000b0bbbb00b0bbbb000b0bb00000bbbb",
-             "00000000000000000r0000000b000bb00b00bbbb0b00bbbb00b00bb0000bbbbb",
-             "00000000000000000000000000000bb0r000bbbb0b00bbbb00b00bb0000bbbbb",
-             "00000000000000000r0000000b000bb00b00bbbb0b00bbbb00b00bb0000bbbbb",
-             "0000000000r0000000b0000000b00bb000b0bbbb00b0bbbb000b0bb00000bbbb"]
-    
-    tall_blue_guy_anim = ["0000000000000bb00000bbbbr000bbbb0b000bb000bbbbbb0000bbbb0000bbbb",
-             "0000000000000bb00r00bbbb0b00bbbb0b000bb000bbbbbb0000bbbb0000bbbb",
-             "0000000000r00bb000b0bbbb00b0bbbb00b00bb0000bbbbb0000bbbb0000bbbb",
-             "00000000000r0bb000b0bbbb00b0bbbb00b00bb0000bbbbb0000bbbb0000bbbb",
-             "0000000000r00bb000b0bbbb00b0bbbb00b00bb0000bbbbb0000bbbb0000bbbb",
-             "0000000000000bb00r00bbbb0b00bbbb0b000bb000bbbbbb0000bbbb0000bbbb"]
-    
-    water_pipe_anim = ["0000000000000000000000000000000000000000pppppppppppppppp00000000",
-                "00000000000000000000000000000000000bb000pppbb000pppbpppp0000pppp",
-                "00000000000000000000000000bbbb0000bbbb00pppbbb00pppbpppp0000pppp",
-                "000000000b0bb000bbbbbb000bbbbbbb00bbbbbbpppbbb00pppbpppp0000pppp",
-                "0bb0bbbbbbbbbbbbbbbbbbbbbbbbbbbb00bbbbbbpppbbb00pppbpppp0000pppp",]
-    
-    dangerous_leak_anim = ["00000000pppppppppppppppp0000000000000000000000000000000000000000",
-             "0000000000bb0000pppbb000pppbpppp00bbpppp00bb00000000000000000000",
-             "00bbb00000bbbb00pppbbb00pppbpppp0bbbpppp0bbbb0000bbbb00000000000",
-             "0bbbbbb000bbbb00pppbb000pppbpppp0bbbppppbbbbb000bbbbb0000bbb0000",
-             "bbbbbbbb0bbbbbbbpppbbb00pppbpppp0bbbppppbbbbbb00bbbbbb00bbbbbbb0",
-             "rrrrrrrr0rrrrrrrppprrr00ppprpppp00rrpppprrrrrr00rrrrrr00rrrrrrr0"]
-    
-    purple_guy_anim = ["0000000000pp00000pppp00r0pppp00b00pp00b00bppbb00bpppp000bpppp000",
-                       "0000000000pp00000pppp0r00pppp0b000pp00b00bppbb00bpppp000bpppp000",
-                       "0000000000pp00000ppppr000ppppb0000pp0b000bppbb00bpppp000bpppp000",
-                       "0000000000pp00000pprp0000pppb00000pp0b000bppbb00bpppp000bpppp000",
-                       "0000000000pp00000ppppr000ppppb0000pp0b000bppbb00bpppp000bpppp000",
-                       "0000000000pp00000pppp0r00pppp0b000pp00b00bppbb00bpppp000bpppp000"]
-    
     
     
 
@@ -187,49 +150,7 @@ def display_approach_pattern(tello):
                 
                 elif(validate_handover.is_set()):
                     if(time.time() - start_pattern > 0.1):
-                        tello.send_expansion_command("mled g " + validate_handover_anim[cycleStep % 3])
-                        start_pattern = time.time()
-                        cycleStep += 1
-                        
-                elif(med_kit.is_set()):
-                    if(time.time() - start_pattern > 0.1):
-                        tello.send_expansion_command("mled g " + med_kit_anim[cycleStep % 2])
-                        start_pattern = time.time()
-                        cycleStep += 1
-                
-                elif(interrogation.is_set()):
-                    if(time.time() - start_pattern > 0.1):
-                        tello.send_expansion_command("mled g " + interrogation_anim[cycleStep % 2])
-                        start_pattern = time.time()
-                        cycleStep += 1
-                        
-                elif(snail.is_set()):
-                    if(time.time() - start_pattern > 0.1):
-                        tello.send_expansion_command("mled g " + snail_anim[cycleStep % 6])
-                        start_pattern = time.time()
-                        cycleStep += 1
-                
-                elif(tall_blue_guy.is_set()):
-                    if(time.time() - start_pattern > 0.1):
-                        tello.send_expansion_command("mled g " + tall_blue_guy_anim[cycleStep % 6])
-                        start_pattern = time.time()
-                        cycleStep += 1
-                        
-                elif(water_pipe.is_set()):
-                    if(time.time() - start_pattern > 0.1):
-                        tello.send_expansion_command("mled g " + water_pipe_anim[cycleStep % 5])
-                        start_pattern = time.time()
-                        cycleStep += 1
-                        
-                elif(dangerous_leak.is_set()):
-                    if(time.time() - start_pattern > 0.1):
-                        tello.send_expansion_command("mled g " + dangerous_leak_anim[cycleStep % 6])
-                        start_pattern = time.time()
-                        cycleStep += 1
-                
-                elif(purple_guy.is_set()):
-                    if(time.time() - start_pattern > 0.1):
-                        tello.send_expansion_command("mled g " + purple_guy_anim[cycleStep % 6])
+                        tello.send_expansion_command("mled g " + validate_handover_anim[cycleStep % 4])
                         start_pattern = time.time()
                         cycleStep += 1
                         
@@ -325,76 +246,48 @@ def choose_animation(choice):
     elif choice == 6:
         logMessage = "validate handover displayed"
         validate_handover.set()
-        
-    elif choice == 7:
-        logMessage = "med kit displayed"
-        med_kit.set()
-        
-    elif choice == 8:
-        logMessage = "interrogation displayed"
-        interrogation.set()
-        
-    elif choice == 9:
-        logMessage = "snail displayed"
-        snail.set()
-        
-    elif choice == 10:
-        logMessage = "tall blue guy displayed"
-        tall_blue_guy.set()
-        
-    elif choice == 11:
-        logMessage = "water pipe displayed"
-        water_pipe.set()
-        
-    elif choice == 12:
-        logMessage = "dangerous leak displayed"
-        dangerous_leak.set()
-        
-    elif choice == 13:
-        logMessage = "purple guy displayed"
-        purple_guy.set()
     
-    elif choice == 14:
+    elif choice == 7:
         logMessage = "ok displayed"
         ok.set()
                 
-    elif choice == 15:
+    elif choice == 8:
         logMessage = "handover text displayed"
         handover_text.set()
         
-    elif choice == 16:
+    elif choice == 9:
         logMessage = "1 displayed"
         digit_1.set()
         
-    elif choice == 17:
+    elif choice == 10:
         logMessage = "2 displayed"
         digit_2.set()
         
-    elif choice == 18:
+    elif choice == 11:
         logMessage = "3 displayed"
         digit_3.set()
         
-    elif choice == 19:
+    elif choice == 12:
         logMessage = "4 displayed"
         digit_4.set()
         
-    elif choice == 20:
+    elif choice == 13:
         logMessage = "5 displayed"
         digit_5.set()
         
-    elif choice == 21:
+    elif choice == 14:
         logMessage = "6 displayed"
         digit_6.set()
         
-    elif choice == 22:
+    elif choice == 15:
         logMessage = "7 displayed"
         digit_7.set()
         
-    elif choice == 23:
+    elif choice == 16:
         logMessage = "8 displayed"
         digit_8.set()
         
-    elif choice == 24:
+    elif choice == 17:
         logMessage = "9 displayed"
         digit_9.set()
         
@@ -409,7 +302,9 @@ def display_button():
     global lastLogWP    
     global logUserPos
     global lastLogUserPos
-    global fileNumber
+    global logHandUp
+    global lastLogHandUp
+    
     pygame.init()
     clock = pygame.time.Clock()
     is_display = True
@@ -467,70 +362,10 @@ def display_button():
             pygame.draw.rect(screen, color, input_box, 2)
 
             pygame.display.flip()
-            clock.tick(30)   
-    
-    
-    pygame.init()
-    clock = pygame.time.Clock()
-    is_display = True
-    WHITE = (255, 255, 255)
-    BLACK = (0, 0, 0)
-    window_size = (220,50)
-    screen = pygame.display.set_mode(window_size)
-    pygame.display.set_caption('File number: ')
-    # Create a font object
-    font = pygame.font.Font(None, 32)
-    # Input box
-    input_box = pygame.Rect(10, 10, 140, 32)
-    color_inactive = pygame.Color('lightskyblue3')
-    color_active = pygame.Color('dodgerblue2')
-    color = color_inactive
-    active = False
-    # Main loop
-    clock = pygame.time.Clock()
-    done = False
-
-    while not done:
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                done = True
-            if event.type == pygame.MOUSEBUTTONDOWN:
-                # If the user clicked on the input_box rect
-                if input_box.collidepoint(event.pos):
-                    active = not active
-                else:
-                    active = False
-                # Change the current color of the input box
-                color = color_active if active else color_inactive
-            if event.type == pygame.KEYDOWN:
-                if active:
-                    if event.key == pygame.K_RETURN:
-                        print(fileNumber)
-                        pygame.quit()
-                        is_display = False
-                        done = True
-                    elif event.key == pygame.K_BACKSPACE:
-                        fileNumber = fileNumber[:-1]
-                    else:
-                        fileNumber += event.unicode
-        if(is_display):
-            screen.fill(WHITE)
-            # Render the current text
-            txt_surface = font.render(fileNumber, True, BLACK)
-            # Resize the box if the text is too long
-            width = max(200, txt_surface.get_width() + 10)
-            input_box.w = width
-            # Blit the text
-            screen.blit(txt_surface, (input_box.x + 5, input_box.y + 5))
-            # Blit the input_box rect
-            pygame.draw.rect(screen, color, input_box, 2)
-
-            pygame.display.flip()
-            clock.tick(30)
-            
+            clock.tick(30)               
             
     pygame_logger = logging.getLogger('PygameLogger')
-    pygame_handler = logging.FileHandler('Log_proxemics_angles_{userNb}_{expeNb}.log'.format(userNb = text, expeNb = fileNumber), mode="w")
+    pygame_handler = logging.FileHandler('expe2_{userNb}.log'.format(userNb = text), mode="w")
     pygame_handler.setLevel(logging.DEBUG)
     pygame_formatter = logging.Formatter('%(asctime)s - %(message)s')
     pygame_handler.setFormatter(pygame_formatter)
@@ -643,30 +478,7 @@ def display_button():
                                 # placer les lignes suivantes avec une indentation de moins, en dehors de ce if pour que chaque boutton passe à un autre WP.
                                 next_pose.set()
                                 standby.clear()
-                                fire.clear()
-                                survivor.clear()
-                                hazardous_material.clear()
-                                map.clear()
-                                start_handover.clear()
-                                validate_handover.clear()                    
-                                med_kit.clear()
-                                interrogation.clear()
-                                snail.clear()
-                                tall_blue_guy.clear()
-                                water_pipe.clear()
-                                dangerous_leak.clear()
-                                ok.clear()
-                                purple_guy.clear()
-                                handover_text.clear()
-                                digit_1.clear()
-                                digit_2.clear()
-                                digit_3.clear()
-                                digit_4.clear()
-                                digit_5.clear()
-                                digit_6.clear()
-                                digit_7.clear()
-                                digit_8.clear()
-                                digit_9.clear()
+                                
                                 
                     if(logMessage != lastLogMessage):
                         pygame_logger.info(logMessage)
@@ -679,6 +491,10 @@ def display_button():
                     if(logUserPos != lastLogUserPos):
                         pygame_logger.info(logUserPos)
                         lastLogUserPos = logUserPos
+                        
+                    if(logHandUp != lastLogHandUp):
+                        pygame_logger.info(logHandUp)
+                        lastLogHandUp = logHandUp
                                 
                         # Check if the mouse is over the button. This will create the button hover effect
                         if fire_display.collidepoint(pygame.mouse.get_pos()):
@@ -756,12 +572,14 @@ def heading_distance(pos, goal):
 def flight_routine(swarm, voliere):
     # receive the list of waypoints from a json file
     # load the misson
-    global fileNumber
+
     global logWP
     global logMessage
     global logUserPos
+    global logHandUp
+    
     log_ready.wait()
-    file = open('proxemics_angles_sequence_{expeNb}.json'.format(expeNb = fileNumber))
+    file = open('expe2.json')
     command = json.load(file)
     
     lengthWPs = len(command['wayPoints'])
@@ -787,32 +605,30 @@ def flight_routine(swarm, voliere):
    
     positionsTello = []
     positionsUser = []
-    all_animations = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24]
-    file_path = 'animations_left.json'
-    print (fileNumber)
-    if ((fileNumber != 1) and (os.path.exists(file_path))):
-        tmp_animations = json.load(open(file_path))
-    else:
-        tmp_animations = all_animations
-    print(tmp_animations)
+    numbers = [9, 10, 11, 12, 13, 14, 15, 16, 17]
+    lastSequence = -1
+    sequenceCounter = 0
+   
     # Simulation starts
     sim_start_time = time.time()
     print("Current Tello Battery ",swarm.tellos[0].get_battery())
-    swarm.tellos[0].send_expansion_command("led 0 255 0")
+    #swarm.tellos[0].send_expansion_command("led 0 255 0")
     try:
+        # swarm.turn_motor_off()
         swarm.takeoff()
         lastPointReached = False
         starttime= time.time()
         actualize_height = time.time()
         z = voliere.vehicles['888'].position[2]
         while time.time()-sim_start_time < 720:
-            if(lastPointReached == True):
+            if(sequenceCounter == 3):
+                print('end of experiment')
                 break
             if ((time.time()-starttime > 0.05)):
                 if(lastPointReached == False):
                     # tester ces trois prochaines lignes dans la condition if(wPCounter <= lengthWPs-1):
                     if time.time() - actualize_height > 3 :
-                        z = voliere.vehicles['888'].position[2] 
+                        z = voliere.vehicles['888'].position[2] + 0.2
                         if z < 0.40:
                             z = 0.40
                         actualize_height = time.time()
@@ -822,44 +638,77 @@ def flight_routine(swarm, voliere):
                     dist = euclidean_distance(swarm.tellos[0].position_enu, [wPListPos[wPCounter][0], wPListPos[wPCounter][1], z])
                     angle = heading_distance(swarm.tellos[0].get_heading(), wPListHeading[wPCounter])
                 
+                # the participant rises the hand up    
+                if(voliere.vehicles['245'].position[2] > z - 0.4 and not hand_up.is_set()):
+                    logHandUp = "User rises the hand up : animation readable wit angle {angle} ° = {raw_angle} rad".format(angle = 90 + (swarm.tellos[0].get_heading() * 180/math.pi), raw_angle = swarm.tellos[0].get_heading())
+                    logWP = "Drone status: way point number {wPNb} at position {pos}, angle {posAngle}".format(wPNb = wPCounter, pos = swarm.tellos[0].position_enu, posAngle = swarm.tellos[0].get_heading())
+                    logUserPos = "User status: way point number {wPNb} at position {pos}".format(wPNb = wPCounter, pos = voliere.vehicles['888'].position)
+                    hand_up.set()
                     
                 # reaches the position of the currently loaded waypoint close enough in distance and angle
-                
                 if(wPCounter < lengthWPs-1):
                     if next_pose.is_set():
                         wPCounter += 1
-                        nothing_detected.set()
+                        #nothing_detected.set()
                         next_pose.clear()
-                        anim_set.clear()
+                        # anim_set.clear()
                         dist = euclidean_distance(swarm.tellos[0].position_enu, [wPListPos[wPCounter][0], wPListPos[wPCounter][1], z])
                         angle = heading_distance(swarm.tellos[0].get_heading(), wPListHeading[wPCounter])
                     
                     if(dist <= epsilonDist and (angle %(2*math.pi)<= minepsilonAngle or angle%(2*math.pi) >= maxepsilonAngle)):                            
-                        if (not anim_set.is_set()):
-                            logWP = "Drone status: way point number {wPNb} at position {pos}, angle {posAngle}".format(wPNb = wPCounter, pos = swarm.tellos[0].position_enu, posAngle = swarm.tellos[0].get_heading())
-                            logUserPos = "User status: way point number {wPNb} at position {pos}".format(wPNb = wPCounter, pos = voliere.vehicles['888'].position)
-                            anim_set.set()
-                            if not tmp_animations:
-                                tmp_animations.extend(all_animations)
-                            randomIndex = random.randint(0, len(tmp_animations)-1)
-                            choose_animation(tmp_animations[randomIndex])
-                            tmp_animations.pop(randomIndex)
+                        # if (not anim_set.is_set()):
+                        #     logWP = "Drone status: way point number {wPNb} at position {pos}, angle {posAngle}".format(wPNb = wPCounter, pos = swarm.tellos[0].position_enu, posAngle = swarm.tellos[0].get_heading())
+                        #     logUserPos = "User status: way point number {wPNb} at position {pos}".format(wPNb = wPCounter, pos = voliere.vehicles['888'].position)
+                        #     anim_set.set()
+                        if(lastSequence != sequenceCounter):
+                            if sequenceCounter == 0 and not number.is_set():
+                                randomIndex = random.randint(0, len(numbers)-1)
+                                choose_animation(numbers[randomIndex])
+                                number.set()
+                                hand_up.clear()
+                            elif sequenceCounter == 1 and not ok.is_set():
+                                number.clear()
+                                digit_1.clear()
+                                digit_2.clear()
+                                digit_3.clear()
+                                digit_4.clear()
+                                digit_5.clear()
+                                digit_6.clear()
+                                digit_7.clear()
+                                digit_8.clear()
+                                digit_9.clear()
+                                hand_up.clear()
+                                choose_animation(7) # to display ok
+                            elif sequenceCounter == 2 and not handover_text.is_set():  
+                                ok.clear()
+                                hand_up.clear()
+                                choose_animation(8) # to display animated text 'Handover
+                            lastSequence = sequenceCounter
                             print("position: ",swarm.tellos[0].position_enu," battery: ",swarm.tellos[0].get_battery(), " way point number: ", wPCounter, " distance to goal: ", dist, " angle to goal: ", angle)
                             print("WP number: ", wPCounter)
                 else:
-                    lastPointReached = True
-                    logWP = 'end of mission'
+                    sequenceCounter += 1
+                    rise_up = False
+                    wPCounter = 0
+                    logWP = 'end of sequence'
                     
                 starttime= time.time()
-        print("Current Tello Battery ",swarm.tellos[0].get_battery())            
+        print("Current Tello Battery ",swarm.tellos[0].get_battery())  
+          
+        swarm.send_expansion_command("mled sc")     
         swarm.move_down(int(40))
         swarm.land()
-        with open('animations_left.json', 'w') as file:
-            json.dump(tmp_animations, file)
+        swarm.turn_motor_on()
         plt.figure(figsize=(12, 8))
         plt.plot(positionsTello)
         plt.title('Positions')
         plt.show()
+        with open('drone_positions.csv', 'w', newline='') as positionsFile:
+            writerDrone = csv.writer(positionsFile)
+            writerDrone.writerows(positionsTello)
+        with open('user_positions.csv', 'w', newline='') as positionsFile:
+            writerUser = csv.writer(positionsFile)
+            writerUser.writerows(positionsUser)
         voliere.stop()
         swarm.end()
 
@@ -867,9 +716,9 @@ def flight_routine(swarm, voliere):
         print("Shutting down natnet interfaces...")
         # log.save(flight_type='Tello')
         #swarm.move_down(int(40))
-        with open('animations_left.json', 'w') as file:
-            json.dump(tmp_animations, file)
-        swarm.land()    
+        swarm.land()  
+        print("Current Tello Battery ",swarm.tellos[0].get_battery())  
+        swarm.turn_motor_on()  
         plt.figure(figsize=(12, 8))
         plt.plot(positionsTello)
         plt.title('Positions')
@@ -880,6 +729,8 @@ def flight_routine(swarm, voliere):
 
     except (ValueError):
         swarm.land()
+        swarm.turn_motor_on()
+        print("Current Tello Battery ",swarm.tellos[0].get_battery())  
         voliere.stop()
         swarm.end()
 
@@ -887,6 +738,8 @@ def flight_routine(swarm, voliere):
         print("Natnet connection error")
         swarm.move_down(int(40))
         swarm.land()
+        swarm.turn_motor_on()
+        print("Current Tello Battery ",swarm.tellos[0].get_battery())  
         voliere.stop()
         swarm.end()
         exit(-1)
@@ -920,8 +773,8 @@ def main():
     swarm.connect()
     print('Connected to Tello Swarm...')
 
-    id_dict = dict([('244','244'), ('888','888')]) # rigidbody_ID, aircraft_ID
-    vehicles = dict([('244', swarm.tellos[0]), ('888', Vehicle(['888']))])
+    id_dict = dict([('244','244'), ('888','888'), ('245', '245')]) # rigidbody_ID, aircraft_ID
+    vehicles = dict([('244', swarm.tellos[0]), ('888', Vehicle(['888'])), ('245', Vehicle(['245']))])
     voliere = VolierePosition(id_dict, vehicles, freq=100, vel_samples=6)
 
     voliere.run()
