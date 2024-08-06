@@ -1,0 +1,13 @@
+Timestamp,Participant_ID,number,number_certitude,static_text,static_text_certitude,scrolling_text,scrolling_text_certitude,signification_1,signification_1_certitude,signification_2,signification_2_certitude,signification_3,signification_3_certitude,signification_4,signification_4_certitude,signification_5,signification_5_certitude,signification_6,signification_6_certitude
+7/22/2024 17:19:32,1,7,5,ok,5,handover text,5.0,fire,5,start handover,5,validate handover,5,survivor,5,hazardous materials,5,mapping,5
+7/22/2024 10:51:34,2,9,5,ok,5,handover text,5.0,validate handover,5,survivor,5,fire,5,hazardous materials,5,start handover,5,mapping,5
+7/22/2024 11:36:42,3,6,4,ok,5,handover text,5.0,hazardous materials,5,fire,5,start handover,5,validate handover,5,survivor,5,mapping,5
+7/22/2024 14:04:30,4,5,5,ok,5,handover text,5.0,start handover,5,fire,5,validate handover,5,hazardous materials,5,survivor,5,mapping,5
+7/22/2024 14:41:11,5,5,5,ok,5,handover text,5.0,hazardous materials,5,validate handover,5,start handover,5,survivor,5,mapping,5,fire,5
+7/22/2024 16:22:25,6,8,3,ok,5,handover text,5.0,fire,5,hazardous materials,5,start handover,5,mapping,5,survivor,5,validate handover,5
+7/23/2024 14:11:48,7,3,5,ok,4,handover text,5.0,validate handover,5,survivor,5,fire,5,mapping,5,hazardous materials,5,start handover,5
+7/23/2024 15:18:12,8,6,4,ok,5,handover text,5.0,start handover,5,hazardous materials,5,validate handover,5,fire,4,mapping,5,survivor,5
+7/23/2024 17:42:03,9,7,5,ok,5,handover text,5.0,fire,5,survivor,5,hazardous materials,5,start handover,5,mapping,5,validate handover,5
+7/23/2024 18:10:43,10,3,5,ok,5,handover text,5.0,survivor,5,hazardous materials,5,mapping,5,fire,5
+7/23/2024 19:30:20,11,2,5,ok,4,handover text,3.0,mapping,5,hazardous materials,5,survivor,5,fire,5,validate handover,5,start handover,5
+7/24/2024 11:32:33,12,1,5,ok,4,handover text,5.0,start handover,5,survivor,5,validate handover,5,fire,5,hazardous materials,5,mapping,5

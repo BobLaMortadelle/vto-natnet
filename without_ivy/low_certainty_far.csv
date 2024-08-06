@@ -1,0 +1,17 @@
+Index,Participant_ID,Column,Corrected,Answer,Certainty
+6,7,number,1,1,4.0
+7,8,static_text,Y,Y,4.0
+10,11,static_text,O,0,4.0
+4,5,scrolling_text,helicopter text,helicopter text,4.0
+5,6,scrolling_text,helicopter text,helicopter text,4.0
+10,11,scrolling_text,helicopter text,N'arrive pas à lire le mot ////////,
+6,7,signification_2,survivor,survivor,4.0
+7,8,signification_2,hazardous materials,hazardous materials,4.0
+8,9,signification_2,fire,fire,4.0
+0,1,signification_4,fire,fire,4.0
+3,4,signification_4,mapping,mapping,4.0
+7,8,signification_4,start handover,start handover,4.0
+8,9,signification_4,survivor,survivor,4.0
+6,7,signification_5,hazardous materials,hazardous materials,3.0
+7,8,signification_6,fire,fire,4.0
+9,10,signification_6,hazardous materials,hazardous materials,4.0

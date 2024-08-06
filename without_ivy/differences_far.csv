@@ -1,0 +1,17 @@
+Index,Participant_ID,Column,Corrected,Answer,Certainty
+0,1,number,3,3,5.0
+1,2,number,1,1,5.0
+2,3,number,5,5,5.0
+3,4,number,4,4,5.0
+4,5,number,7,7,5.0
+5,6,number,6,6,5.0
+6,7,number,1,1,4.0
+7,8,number,6,6,5.0
+8,9,number,7,7,5.0
+9,10,number,2,2,5.0
+10,11,number,4,4,5.0
+11,12,number,9,A,5.0
+1,2,static_text,Z,7,5.0
+9,10,static_text,U,11,5.0
+10,11,static_text,O,0,4.0
+10,11,scrolling_text,helicopter text,N'arrive pas à lire le mot ////////,

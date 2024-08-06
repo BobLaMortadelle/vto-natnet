@@ -56,7 +56,7 @@ digit_7 = threading.Event()
 digit_8 = threading.Event()
 digit_9 = threading.Event()
 hand_up = threading.Event()
-
+next_anim = threading.Event()
 lock = threading.Lock()
 
 
@@ -68,6 +68,7 @@ logUserPos = ''
 lastLogUserPos = ''
 logHandUp = ''
 lastLogHandUp = ''
+userNb = ''
 
 def display_approach_pattern(tello):
     pygame_ready.wait()
@@ -304,6 +305,7 @@ def display_button():
     global lastLogUserPos
     global logHandUp
     global lastLogHandUp
+    global userNb
     
     pygame.init()
     clock = pygame.time.Clock()
@@ -363,9 +365,9 @@ def display_button():
 
             pygame.display.flip()
             clock.tick(30)               
-            
+    userNb = text        
     pygame_logger = logging.getLogger('PygameLogger')
-    pygame_handler = logging.FileHandler('expe2_{userNb}.log'.format(userNb = text), mode="w")
+    pygame_handler = logging.FileHandler('expe2_{number}.log'.format(number = text), mode="w")
     pygame_handler.setLevel(logging.DEBUG)
     pygame_formatter = logging.Formatter('%(asctime)s - %(message)s')
     pygame_handler.setFormatter(pygame_formatter)
@@ -392,6 +394,7 @@ def display_button():
     start_handover_surface = pygame.Surface((200, 100))
     validate_handover_surface = pygame.Surface((200, 100))
     next_WP_surface = pygame.Surface((200, 100))
+    next_anim_surface = pygame.Surface((200, 100))
     
     # Render text on the button
     fire_text = font.render("Fire", True, (255, 255, 255))
@@ -415,6 +418,9 @@ def display_button():
     next_WP_text = font.render("Next WP", True, (255, 255, 255))
     next_WP_text_rect = next_WP_text.get_rect(center=(next_WP_surface.get_width()/2, next_WP_surface.get_height()/2))
     
+    next_anim_text = font.render("Next anim", True, (255, 255, 255))
+    next_anim_text_rect = next_anim_text.get_rect(center=(next_anim_surface.get_width()/2, next_anim_surface.get_height()/2))
+    
     # Create a pygame.Rect object that represents the button's boundaries
     fire_display = pygame.Rect(125, 100, 200, 100)  # Adjust the position as needed
     survivor_display  = pygame.Rect(475, 100, 200, 100) 
@@ -423,6 +429,7 @@ def display_button():
     start_handover_display  = pygame.Rect(125, 400, 200, 100)
     validate_handover_display  = pygame.Rect(475, 400, 200, 100)
     next_WP_display = pygame.Rect(300, 550, 200, 100)
+    next_anim_display = pygame.Rect(300, 675, 200, 100)
     
     pygame_ready.set()
     print("pygame is ready!")
@@ -479,6 +486,12 @@ def display_button():
                                 next_pose.set()
                                 standby.clear()
                                 
+                            if next_anim_display.collidepoint(event.pos):
+                                print("Next anim!")
+                                logMessage = "next animation button clicked"
+                                # switch to the next animation
+                                next_anim.set()
+                                standby.clear()
                                 
                     if(logMessage != lastLogMessage):
                         pygame_logger.info(logMessage)
@@ -532,6 +545,11 @@ def display_button():
                         else:
                             pygame.draw.rect(next_WP_surface, (0, 0, 0), (1, 1, 198, 98))
                             
+                        if next_anim_display.collidepoint(pygame.mouse.get_pos()):
+                            pygame.draw.rect(next_anim_surface, (128, 128, 128), (1, 1, 198, 98))
+                        else:
+                            pygame.draw.rect(next_anim_surface, (0, 0, 0), (1, 1, 198, 98))
+                            
                     # Show the button text
                     fire_button_surface.blit(fire_text, fire_text_rect)
                     survivor_button_surface.blit(survivor_text, survivor_text_rect)
@@ -540,6 +558,7 @@ def display_button():
                     start_handover_surface.blit(start_handover_text, start_handover_text_rect)
                     validate_handover_surface.blit(validate_handover_text, validate_handover_text_rect)
                     next_WP_surface.blit(next_WP_text, next_WP_text_rect)
+                    next_anim_surface.blit(next_anim_text, next_anim_text_rect)
                     # Draw the button on the screen
                     screen.blit(fire_button_surface, (fire_display.x, fire_display.y))
                     screen.blit(survivor_button_surface, (survivor_display.x, survivor_display.y))
@@ -548,6 +567,7 @@ def display_button():
                     screen.blit(start_handover_surface, (start_handover_display.x, start_handover_display.y))
                     screen.blit(validate_handover_surface, (validate_handover_display.x, validate_handover_display.y))
                     screen.blit(next_WP_surface, (next_WP_display.x, next_WP_display.y))
+                    screen.blit(next_anim_surface, (next_anim_display.x, next_anim_display.y))
                     # Update the game state
                     pygame.display.update()
                 finally:
@@ -577,8 +597,41 @@ def flight_routine(swarm, voliere):
     global logMessage
     global logUserPos
     global logHandUp
+    global userNb
     
     log_ready.wait()
+    
+    # logger for the drone position
+    drone_position_logger = logging.getLogger('DronePositionLogger')
+    drone_position_handler = logging.FileHandler('Drone_positions_participant_{number}.log'.format(number = userNb), mode="w")
+    drone_position_handler.setLevel(logging.DEBUG)
+    drone_position_formatter = logging.Formatter('%(asctime)s - %(message)s')
+    drone_position_handler.setFormatter(drone_position_formatter)
+    drone_position_logger.addHandler(drone_position_handler)
+    drone_position_logger.setLevel(logging.DEBUG)
+    
+    
+    # logger for the user position
+    user_position_logger = logging.getLogger('UserPositionLogger')
+    user_position_handler = logging.FileHandler('User_positions_participant_{number}.log'.format(number = userNb), mode="w")
+    user_position_handler.setLevel(logging.DEBUG)
+    user_position_formatter = logging.Formatter('%(asctime)s - %(message)s')
+    user_position_handler.setFormatter(user_position_formatter)
+    user_position_logger.addHandler(user_position_handler)
+    user_position_logger.setLevel(logging.DEBUG)
+    
+    
+    #logger for the bracelet position
+    bracelet_position_logger = logging.getLogger('BraceletPositionLogger')
+    bracelet_position_handler = logging.FileHandler('Bracelet_positions_participant_{number}.log'.format(number = userNb), mode="w")
+    bracelet_position_handler.setLevel(logging.DEBUG)
+    bracelet_position_formatter = logging.Formatter('%(asctime)s - %(message)s')
+    bracelet_position_handler.setFormatter(bracelet_position_formatter)
+    bracelet_position_logger.addHandler(bracelet_position_handler)
+    bracelet_position_logger.setLevel(logging.DEBUG)
+    
+    
+    
     file = open('expe2.json')
     command = json.load(file)
     
@@ -619,21 +672,31 @@ def flight_routine(swarm, voliere):
         lastPointReached = False
         starttime= time.time()
         actualize_height = time.time()
+        position_log_time = time.time()
         z = voliere.vehicles['888'].position[2]
         while time.time()-sim_start_time < 720:
             if(sequenceCounter == 3):
                 print('end of experiment')
                 break
             if ((time.time()-starttime > 0.05)):
-                if(lastPointReached == False):
+                if time.time() - position_log_time > 0.2:
+                        drone_position = "position: {pose} - angle: {angle}".format(pose = swarm.tellos[0].position_enu, angle = swarm.tellos[0].get_heading())
+                        user_position = "position: {pose}".format(pose = voliere.vehicles['888'].position)
+                        bracelet_position = "position: {pose}".format(pose = voliere.vehicles['245'].position)
+                        drone_position_logger.info(drone_position)
+                        user_position_logger.info(user_position)
+                        bracelet_position_logger.info(bracelet_position)
+                        position_log_time = time.time()
+                if(lastPointReached == False): #cette ligne ne sert a rien
                     # tester ces trois prochaines lignes dans la condition if(wPCounter <= lengthWPs-1):
+                    
                     if time.time() - actualize_height > 3 :
-                        z = voliere.vehicles['888'].position[2] + 0.2
+                        z = voliere.vehicles['888'].position[2] + 0.15
                         if z < 0.40:
                             z = 0.40
                         actualize_height = time.time()
-                    positionsTello.append(swarm.tellos[0].position_enu)
-                    positionsUser.append(voliere.vehicles['888'].position)
+                    # positionsTello.append(swarm.tellos[0].position_enu)
+                    # positionsUser.append(voliere.vehicles['888'].position)
                     swarm.tellos[0].fly_to_enu([wPListPos[wPCounter][0], wPListPos[wPCounter][1], z], wPListHeading[wPCounter])
                     dist = euclidean_distance(swarm.tellos[0].position_enu, [wPListPos[wPCounter][0], wPListPos[wPCounter][1], z])
                     angle = heading_distance(swarm.tellos[0].get_heading(), wPListHeading[wPCounter])
@@ -660,6 +723,9 @@ def flight_routine(swarm, voliere):
                         #     logWP = "Drone status: way point number {wPNb} at position {pos}, angle {posAngle}".format(wPNb = wPCounter, pos = swarm.tellos[0].position_enu, posAngle = swarm.tellos[0].get_heading())
                         #     logUserPos = "User status: way point number {wPNb} at position {pos}".format(wPNb = wPCounter, pos = voliere.vehicles['888'].position)
                         #     anim_set.set()
+                        if next_anim.is_set():
+                            wPCounter = lengthWPs -1
+                            next_anim.clear()
                         if(lastSequence != sequenceCounter):
                             if sequenceCounter == 0 and not number.is_set():
                                 randomIndex = random.randint(0, len(numbers)-1)
@@ -688,7 +754,6 @@ def flight_routine(swarm, voliere):
                             print("WP number: ", wPCounter)
                 else:
                     sequenceCounter += 1
-                    rise_up = False
                     wPCounter = 0
                     logWP = 'end of sequence'
                     
@@ -699,16 +764,12 @@ def flight_routine(swarm, voliere):
         swarm.move_down(int(40))
         swarm.land()
         swarm.turn_motor_on()
-        plt.figure(figsize=(12, 8))
-        plt.plot(positionsTello)
-        plt.title('Positions')
-        plt.show()
-        with open('drone_positions.csv', 'w', newline='') as positionsFile:
-            writerDrone = csv.writer(positionsFile)
-            writerDrone.writerows(positionsTello)
-        with open('user_positions.csv', 'w', newline='') as positionsFile:
-            writerUser = csv.writer(positionsFile)
-            writerUser.writerows(positionsUser)
+        # with open('drone_positions_part1_particpant_{number}.csv'.format(number = userNb), 'w', newline='') as positionsFile:
+        #     writerDrone = csv.writer(positionsFile)
+        #     writerDrone.writerows(positionsTello)
+        # with open('user_positions_part1_particpant_{number}.csv'.format(number = userNb), 'w', newline='') as positionsFile:
+        #     writerUser = csv.writer(positionsFile)
+        #     writerUser.writerows(positionsUser)
         voliere.stop()
         swarm.end()
 
@@ -719,10 +780,6 @@ def flight_routine(swarm, voliere):
         swarm.land()  
         print("Current Tello Battery ",swarm.tellos[0].get_battery())  
         swarm.turn_motor_on()  
-        plt.figure(figsize=(12, 8))
-        plt.plot(positionsTello)
-        plt.title('Positions')
-        plt.show()
         voliere.stop()
         swarm.end()
         sleep(1)

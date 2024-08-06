@@ -1,0 +1,13 @@
+Participant_ID,number,static_text,scrolling_text,signification_1,signification_2,signification_3,signification_4,signification_5,signification_6
+1,3,Z,helicopter text,survivor,hazardous materials,start handover,fire,mapping,validate handover
+2,1,Z,helicopter text,survivor,hazardous materials,validate handover,mapping,fire,start handover
+3,5,C,helicopter text,fire,hazardous materials,start handover,survivor,mapping,validate handover
+4,4,S,helicopter text,survivor,hazardous materials,validate handover,mapping,start handover,fire
+5,7,C,helicopter text,survivor,fire,mapping,validate handover,hazardous materials,start handover
+6,6,K,helicopter text,mapping,fire,hazardous materials,start handover,validate handover,survivor
+7,1,H,helicopter text,mapping,survivor,start handover,fire,hazardous materials,validate handover
+8,6,Y,helicopter text,mapping,hazardous materials,survivor,start handover,validate handover,fire
+9,7,T,helicopter text,start handover,fire,mapping,survivor,hazardous materials,validate handover
+10,2,U,helicopter text,validate handover,mapping,survivor,fire,start handover,hazardous materials
+11,4,O,helicopter text,mapping,fire,hazardous materials,validate handover,start handover,survivor
+12,9,R,helicopter text,start handover,mapping,fire,survivor,validate handover,hazardous materials

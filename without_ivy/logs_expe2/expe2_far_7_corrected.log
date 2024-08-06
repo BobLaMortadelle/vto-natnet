@@ -1,0 +1,67 @@
+2024-07-23 13:45:51,761 - 1 displayed
+2024-07-23 13:46:28,392 - next waypoint button clicked
+2024-07-23 13:46:32,244 - Drone status: way point number 3 at position [0.00661776 0.6241312  1.78048038], angle -0.28982261339976567
+2024-07-23 13:46:32,244 - User status: way point number 3 at position [-0.02954841 -2.99254227  1.69738352]
+2024-07-23 13:46:32,244 - User rises the hand up : animation readable wit angle 73.39438744474172 ° = -0.28982261339976567 rad
+2024-07-23 13:47:08,051 - next animation button clicked
+2024-07-23 13:47:08,265 - end of sequence
+2024-07-23 13:47:09,244 - H displayed
+2024-07-23 13:47:10,981 - next waypoint button clicked
+2024-07-23 13:47:17,091 - Drone status: way point number 4 at position [-0.0137006   0.65655595  1.7811439 ], angle -0.4353256896119495
+2024-07-23 13:47:17,091 - User status: way point number 4 at position [-0.05741457 -2.97749543  1.70070589]
+2024-07-23 13:47:17,091 - User rises the hand up : animation readable wit angle 65.05767527161322 ° = -0.4353256896119495 rad
+2024-07-23 13:47:32,022 - next animation button clicked
+2024-07-23 13:47:32,281 - end of sequence
+2024-07-23 13:47:33,358 - heliocpter text displayed
+2024-07-23 13:47:36,674 - next waypoint button clicked
+2024-07-23 13:48:12,439 - Drone status: way point number 5 at position [0.02006902 0.57272482 1.80111623], angle -0.6690594520854782
+2024-07-23 13:48:12,439 - User status: way point number 5 at position [-0.05682057 -3.01027966  1.70396054]
+2024-07-23 13:48:12,439 - User rises the hand up : animation readable wit angle 51.66571715216677 ° = -0.6690594520854782 rad
+2024-07-23 13:48:31,705 - next animation button clicked
+2024-07-23 13:48:31,845 - end of sequence
+2024-07-23 13:50:11,209 - mapping displayed
+2024-07-23 13:50:13,084 - next waypoint button clicked
+2024-07-23 13:50:19,373 - Drone status: way point number 5 at position [-0.00484375  0.54560244  1.74627423], angle -0.5089176945391194
+2024-07-23 13:50:19,378 - User status: way point number 5 at position [-0.04210079 -2.9927597   1.6990211 ]
+2024-07-23 13:50:19,378 - User rises the hand up : animation readable wit angle 60.84116398338044 ° = -0.5089176945391194 rad
+2024-07-23 13:50:23,823 - mapping button button clicked
+2024-07-23 13:51:02,812 - next animation button clicked
+2024-07-23 13:51:02,897 - end of sequence
+2024-07-23 13:51:04,116 - survivor displayed
+2024-07-23 13:51:06,053 - next waypoint button clicked
+2024-07-23 13:51:12,783 - Drone status: way point number 4 at position [-0.03002253  0.66393489  1.77267396], angle -0.4304191067740648
+2024-07-23 13:51:12,783 - User status: way point number 4 at position [-0.05127135 -2.9861033   1.69859636]
+2024-07-23 13:51:12,787 - User rises the hand up : animation readable wit angle 65.33880176005535 ° = -0.4304191067740648 rad
+2024-07-23 13:51:16,730 - survivor button clicked
+2024-07-23 13:52:12,652 - next animation button clicked
+2024-07-23 13:52:12,889 - end of sequence
+2024-07-23 13:52:13,860 - start handover displayed
+2024-07-23 13:52:15,217 - next waypoint button clicked
+2024-07-23 13:52:22,316 - Drone status: way point number 4 at position [-0.01768534  0.60007453  1.779778  ], angle -0.4617130498509918
+2024-07-23 13:52:22,316 - User status: way point number 4 at position [-0.03509246 -3.01438999  1.70261943]
+2024-07-23 13:52:22,321 - User rises the hand up : animation readable wit angle 63.54579089742479 ° = -0.4617130498509918 rad
+2024-07-23 13:52:25,999 - start handover button clicked
+2024-07-23 13:53:08,857 - next animation button clicked
+2024-07-23 13:53:09,098 - end of sequence
+2024-07-23 13:53:10,108 - fire displayed
+2024-07-23 13:53:11,589 - next waypoint button clicked
+2024-07-23 13:53:17,872 - Drone status: way point number 4 at position [-0.02131623  0.65307754  1.81305003], angle -0.45817912497427615
+2024-07-23 13:53:17,872 - User status: way point number 4 at position [-0.03253264 -2.98130798  1.69907773]
+2024-07-23 13:53:17,872 - User rises the hand up : animation readable wit angle 63.74826987797688 ° = -0.45817912497427615 rad
+2024-07-23 13:53:51,429 - next animation button clicked
+2024-07-23 13:53:51,690 - end of sequence
+2024-07-23 13:53:52,997 - hazardous materials displayed
+2024-07-23 13:53:52,997 - Drone status: way point number 0 at position [-0.03926741  0.67209953  1.79108381], angle -0.17661842017798146
+2024-07-23 13:53:52,997 - User status: way point number 0 at position [-0.08292376 -3.03489852  1.70027614]
+2024-07-23 13:53:52,997 - User rises the hand up : animation readable wit angle 79.88050993953344 ° = -0.17661842017798146 rad
+2024-07-23 13:53:54,019 - next waypoint button clicked
+2024-07-23 13:54:12,602 - hazardous materials button clicked
+2024-07-23 13:54:51,817 - next animation button clicked
+2024-07-23 13:54:51,986 - end of sequence
+2024-07-23 13:54:53,278 - validate handover displayed
+2024-07-23 13:54:55,033 - next waypoint button clicked
+2024-07-23 13:55:03,031 - Drone status: way point number 4 at position [0.03455783 0.55011684 1.84575081], angle -0.41001879775252004
+2024-07-23 13:55:03,031 - User status: way point number 4 at position [-0.03424113 -3.00759721  1.69881403]
+2024-07-23 13:55:03,031 - User rises the hand up : animation readable wit angle 66.50765336775251 ° = -0.41001879775252004 rad
+2024-07-23 13:55:06,766 - validate handover button clicked
+2024-07-23 13:55:40,636 - next animation button clicked
