@@ -911,7 +911,9 @@ def flight_routine(swarm, voliere):
         while time.time()-sim_start_time < 720:
             if time.time()-log_timer > 0.2:
                 bracelet_position_str = voliere.vehicles['245'].position
-                logMessage = traj_state + ',' + anim_state + ',' + "{pose}".format(pose = bracelet_position_str)
+                drone_position_str = swarm.tellos[0].position_enu
+                drone_heading_str = swarm.tellos[0].get_heading()
+                logMessage = traj_state + ',' + anim_state + ',' + "{pose}".format(pose = bracelet_position_str) + ',' +  "{drone}".format(drone = drone_position_str) + ',' + "{heading}".format(heading = drone_heading_str)
                 logger.info(logMessage)
                 log_timer = time.time()
             if(endMission != False):
