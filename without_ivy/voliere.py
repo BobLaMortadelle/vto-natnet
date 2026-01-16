@@ -40,9 +40,7 @@ import argparse
 # import NatNet client
 import sys
 sys.path.insert(0,"../common")
-from NatNetClient import NatNetClient
-
-
+from natnet import NatNetClient, DataFrame
 
 # For pybullet :
 import pybullet as p
@@ -196,7 +194,7 @@ def compute_velocity(ac_id):
 
 
 class VolierePosition():
-    def __init__(self, ac, vehicles, freq=20, server="192.168.1.240", dataport=int(1511), commandport=int(1510), vel_samples=int(4), verbose=False):
+    def __init__(self, ac, vehicles, freq=20, server="192.168.10.132", dataport=int(1511), commandport=int(1510), vel_samples=int(4), verbose=False):
         self.freq = freq
         self.vel_samples = vel_samples
         self.vehicles = vehicles
@@ -212,12 +210,29 @@ class VolierePosition():
         # initial quaternion track per AC
         self.quaternion_track = dict([(ac_id, deque(maxlen=self.vel_samples)) for ac_id in self.id_dict.keys()])
 
+        self.streaming_client = NatNetClient(
+            server_ip_address="192.168.10.132", # make sure to use correct optitrack (Motiv) ip and set it in the streaming pane of Motiv
+            local_ip_address="192.168.10.197",  # make sure to use correct local ip
+            use_multicast=True,
+            multicast_address="224.0.0.1"       # make sure to use correct multicast address (as defined in Motiv)
+        )
+        self.streaming_client.connect()
+
+        # Register callbacks
+        # self.streaming_client.on_data_description_received_event.handlers.append(
+        #     self._on_data_description
+        # )
+        self.streaming_client.on_data_frame_received_event.handlers.append(
+            self.receiveRigidBodyMarkerSetList
+        )
+
+
         # start natnet interface
-        self.natnet = NatNetClient()
-        self.natnet.set_server_address(server)
-        self.natnet.set_client_address('0.0.0.0')
-        self.natnet.set_print_level(0)  # 1 to print all frames
-        self.natnet.rigid_body_marker_set_list_listener = self.receiveRigidBodyMarkerSetList
+        # self.natnet = NatNetClient()
+        # self.natnet.set_server_address(server)
+        # self.natnet.set_client_address('192.168.10.197')
+        # self.natnet.set_print_level(1)  # 1 to print all frames
+        # self.natnet.rigid_body_marker_set_list_listener = self.receiveRigidBodyMarkerSetList
         # self.natnet = NatNetClient(
         #         server=server,
         #         rigidBodyListListener=self.receiveRigidBodyList,
@@ -228,9 +243,11 @@ class VolierePosition():
         # self.natnet = NatNetClient()
         # self.natnet.rigidBodyListListener = self.receiveRigidBodyList
   
-    def receiveRigidBodyMarkerSetList(self, rigid_body_data, marker_set_data, stamp):
+    def receiveRigidBodyMarkerSetList(self, data_frame: DataFrame):
 
-        for rigid_body in rigid_body_data.rigid_body_list:
+        stamp = data_frame.suffix.timestamp
+
+        for rigid_body in data_frame.rigid_bodies:
 
             if not rigid_body.tracking_valid:
                 # skip if rigid body is not valid
@@ -262,20 +279,21 @@ class VolierePosition():
     
     def run(self):
         # self.natnet.run()
-        is_running = self.natnet.run()
+        is_running = True
+        self.streaming_client.run_async()
         sleep(1)
         if not is_running:
             print("Natnet error: Could not start streaming client.")
             exit(-1)
-        if not self.natnet.connected():
+        if not self.streaming_client.connected:
             print("Natnet error: Fail to connect to natnet")
             exit(-1)
 
     def stop(self):
-        if self.natnet is not None:
+        if self.streaming_client is not None:
             print("Shutting down NATNET ...")
-            self.natnet.shutdown()
-            self.natnet = None
+            self.streaming_client.shutdown()
+            self.streaming_client = None
 
     def __del__(self):
         self.stop()
@@ -572,7 +590,7 @@ def main():
     velocities = []
     angular_velocities = []
 
-    id_dict = dict([('888','888'),('882', '882'),('889', '889'),('881', '881'),('68','68'),('69','69'),('333','333'), ('244','244'), ('245', '245')]) # rigidbody_ID, aircraft_ID
+    id_dict = dict([('888','888'),('882', '882'),('889', '889'),('881', '881'),('68','68'),('69','69'),('333','333'), ('244','244'), ('245', '245'), ('2', '221')]) # rigidbody_ID, aircraft_ID
     # freq = 10
     # vel_samples = 20
 
@@ -619,7 +637,7 @@ def main():
             #     already_up = True
                 
             
-            print(voliere.vehicles['244'].position)
+            print(voliere.vehicles['2'].position)
             # Record data
             # positions.append(vehicles[0].position)
             # velocities.append(vehicles[0].velocity)

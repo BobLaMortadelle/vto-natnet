@@ -1,6 +1,12 @@
 from time import sleep
 import time
+
+import sys
+# sys.path.insert(0,"/Users/alexandermelem/git/external/DJITelloPy/djitellopy")
+# sys.path.insert(0,"/Users/alexandermelem/git/external/DJITelloPy")
+sys.path.insert(0,"../../") # make sure vto-natnet is inside DJITelloPy repo
 from djitellopy import TelloSwarm
+# from djitellopy import TelloSwarm
 from voliere import VolierePosition
 from voliere import Vehicle
 from voliere import Vehicle as Target
@@ -15,9 +21,9 @@ import sys
 from aruco_detect import ArucoSquare
 import random
 import logging 
-import matplotlib.pyplot as plt
-import os
-import csv
+# import matplotlib.pyplot as plt
+# import os
+# import csv
 
 # system event
 pygame_ready = threading.Event()
@@ -678,7 +684,7 @@ def flight_routine(swarm, voliere):
             if(sequenceCounter == 3):
                 print('end of experiment')
                 break
-            if ((time.time()-starttime > 0.05)):
+            if ((time.time()-starttime > 0.0125)):
                 if time.time() - position_log_time > 0.2:
                         drone_position = "position: {pose} - angle: {angle}".format(pose = swarm.tellos[0].position_enu, angle = swarm.tellos[0].get_heading())
                         user_position = "position: {pose}".format(pose = voliere.vehicles['888'].position)
@@ -817,7 +823,7 @@ def flight_routine(swarm, voliere):
 def main():
     # Connect to the drone
     #---------- OpTr- ACID - -----IP------
-    ac_list = [['244', '244', '192.168.1.244'],]
+    ac_list = [['221', '221', '192.168.1.221'],]
 
     ip_list = [_[2] for _ in ac_list]
     swarm = TelloSwarm.fromIps(ip_list)
@@ -830,25 +836,28 @@ def main():
     swarm.connect()
     print('Connected to Tello Swarm...')
 
-    id_dict = dict([('244','244'), ('888','888'), ('245', '245')]) # rigidbody_ID, aircraft_ID
-    vehicles = dict([('244', swarm.tellos[0]), ('888', Vehicle(['888'])), ('245', Vehicle(['245']))])
+    id_dict = dict([('221','221'), ('888','888'), ('245', '245')]) # rigidbody_ID, aircraft_ID
+    vehicles = dict([('221', swarm.tellos[0]), ('888', Vehicle(['888'])), ('245', Vehicle(['245']))])
     voliere = VolierePosition(id_dict, vehicles, freq=100, vel_samples=6)
 
     voliere.run()
     sleep(2)
     print("Starting Natnet3.x interface at %s" % ("1234567"))
     print('threading running')
-    
-    pygame_thread = threading.Thread(target=display_button, args=())
-    pygame_thread.daemon = True
-    pygame_thread.start()
+    #
+    # pygame_thread = threading.Thread(target=display_button, args=())
+    # pygame_thread.daemon = True
+    # pygame_thread.start()
     
     display_thread = threading.Thread(target=display_approach_pattern, args=(swarm.tellos[0],))
     display_thread.daemon = True
     display_thread.start()
 
-    flight_routine(swarm, voliere)
-
+    pygame_thread = threading.Thread(target=flight_routine, args=(swarm, voliere))
+    pygame_thread.daemon = True
+    pygame_thread.start()
+    # flight_routine(swarm, voliere)
+    display_button()
 
 
 
