@@ -1,6 +1,12 @@
 from time import sleep
 import time
+
+import sys
+# sys.path.insert(0,"/Users/alexandermelem/git/external/DJITelloPy/djitellopy")
+# sys.path.insert(0,"/Users/alexandermelem/git/external/DJITelloPy")
+sys.path.insert(0,"../../") # make sure vto-natnet is inside DJITelloPy repo
 from djitellopy import TelloSwarm
+# from djitellopy import TelloSwarm
 from voliere import VolierePosition
 from voliere import Vehicle
 from voliere import Vehicle as Target
@@ -15,10 +21,9 @@ import sys
 from aruco_detect import ArucoSquare
 import random
 import logging 
-import matplotlib.pyplot as plt
-import os
-import csv
-
+# import matplotlib.pyplot as plt
+# import os
+# import csv
 # system event
 pygame_ready = threading.Event()
 failure = threading.Event()

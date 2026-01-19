@@ -42,6 +42,20 @@ survivor = threading.Event()
 map = threading.Event()
 start_handover = threading.Event()
 validate_handover = threading.Event()
+
+##### Johanna part start #####
+#animation event
+help_is_coming = threading.Event()
+make_yourself_visible = threading.Event()
+do_not_go_through_smoke = threading.Event()
+stay_calm = threading.Event()
+stay_inside = threading.Event()
+move_to_the_roof = threading.Event()
+##### Johanna part end #####
+
+
+
+
 ok = threading.Event()
 handover_text = threading.Event()
 text_display = threading.Event()
@@ -75,6 +89,8 @@ lastLogUserPos = ''
 logHandUp = ''
 lastLogHandUp = ''
 userNb = ''
+positionOrder = ''
+distanceToUser = ''
 
 def display_approach_pattern(tello):
     pygame_ready.wait()
@@ -114,6 +130,67 @@ def display_approach_pattern(tello):
                               "0000p000000pp00000pp0000bbppppp0bbppppp0bbppppp0bbppppp000000000",
                               "0000p000000pp00000pp0000bbppppp0bbppppp0bbppppp0bbppppp000000000"]
     
+
+    ##### Johanna part start #####
+
+    help_is_coming_anim = ["0000000000000000000r000000pp00000prppp00prrrppp0pprpppp000p00p00",
+            "00000000000000000000b000000pp00000prppp00prrrppp0pprpppp000p00p0",
+            "0000000000000000000r000000pp00000prppp00prrrppp0pprpppp000p00p00",
+            "00000000000000000000b000000pp00000prppp00prrrppp0pprpppp000p00p0",
+            "0000000000000000000r000000pp00000prppp00prrrppp0pprpppp000p00p00"]
+    
+    do_not_go_through_smoke_anim = ["00rrrr000rrrrrr0rrrrrrrrrpppppprrpppppprrrrrrrrr0rrrrrr000rrrr00",
+                "00rrrr000rrrrrr0rrrrrrrrr000000rr000000rrrrrrrrr0rrrrrr000rrrr00",
+                "00rrrr000rrrrrr0rrrrrrrrrpppppprrpppppprrrrrrrrr0rrrrrr000rrrr00",
+                "00rrrr000rrrrrr0rrrrrrrrr000000rr000000rrrrrrrrr0rrrrrr000rrrr00",
+                "00rrrr000rr00rr00rr0000000rrrr0000000rr00rr00rr000rrrr0000000000",]
+    
+    make_yourself_visible_anim = ["0000000000rrr00000rrr00pp0rrr0p00p0p0p0000ppp00000ppp00000ppp000",
+                               "0000000000rrr0000prrrp00p0rrr0p00p0p0p0000ppp00000ppp00000ppp000",
+                               "0000000000rrr00000rrr00pp0rrr0p00p0p0p0000ppp00000ppp00000ppp000",
+                               "0000000000rrr0000prrrp00p0rrr0p00p0p0p0000ppp00000ppp00000ppp000",
+                               "0000000000rrr00000rrr00pp0rrr0p00p0p0p0000ppp00000ppp00000ppp000",
+                               "0000000000rrr0000prrrp00p0rrr0p00p0p0p0000ppp00000ppp00000ppp000"]
+    
+    stay_calm_anim = ["00000000000000000rr0rr000rrrrr0000rrr000000r00000000000000000000",
+                "000000000r000r00rrr0rrr0rrrrrrr00rrrrr0000rrr000000r000000000000",
+                "00000000rrr0rrr0rrrrrrrrrrrrrrrrrrrrrrr00rrrrr0000rrr000000r0000",
+                "000000000r000r00rrr0rrr0rrrrrrr00rrrrr0000rrr000000r000000000000",
+                "00000000000000000rr0rr000rrrrr0000rrr000000r00000000000000000000",
+                "00000000000000000000000000r0r00000rrr000000r00000000000000000000",
+                "00000000000000000rr0rr000rrrrr0000rrr000000r00000000000000000000",
+                "000000000r000r00rrr0rrr0rrrrrrr00rrrrr0000rrr000000r000000000000",
+                "00000000rrr0rrr0rrrrrrrrrrrrrrrrrrrrrrr00rrrrr0000rrr000000r0000",
+                "000000000r000r00rrr0rrr0rrrrrrr00rrrrr0000rrr000000r000000000000",
+                "00000000000000000rr0rr000rrrrr0000rrr000000r00000000000000000000",
+                "00000000000000000000000000r0r00000rrr000000r00000000000000000000"]
+    
+    stay_inside_anim = ["000000000r0r00r00r0rr0r00r0rr0r00r0r0rr00r0r0rr00r0r00r000000000",
+                           "000rr00000rppr000rppppr0rpppppprrrpppprr0rppppr00rppppr00rrrrrr0",
+                           "000000000r0r00r00r0rr0r00r0rr0r00r0r0rr00r0r0rr00r0r00r000000000",
+                           "000rr00000rppr000rppppr0rpppppprrrpppprr0rppppr00rppppr00rrrrrr0",
+                           "000000000r0r00r00r0rr0r00r0rr0r00r0r0rr00r0r0rr00r0r00r000000000",
+                           "000rr00000rppr000rppppr0rpppppprrrpppprr0rppppr00rppppr00rrrrrr0"]
+    
+    move_to_the_roof_anim = ["0rr000r0rrrr0rrrr00r0r0rr0000r0rr0rr0r0rr00r0r0rrrrr0rrr0rr000r0",
+                              "r0r0rrr0r0r0r00rr0r0r00rr0r0r00rr0r0rrr0r0r0r000r0r0r0000r00r000",
+                              "00000000000000000000000000000000000000pp0000ppp000ppp000ppp00000",
+                              "0000000000000000r0000000r0000000b00000ppr000ppp0r0ppp000ppp00000",
+                              "0000000000000000r0000000r0000000b00000ppr000ppp0rrppp000ppp00000",
+                              "00000000000000000r0000000r0000000b0000pp0r00ppp00rppp000ppp00000",
+                              "00000000000000000r0000000r0000000b0000pp0rr0ppp00rppp000ppp00000",
+                              "0000000000r0000000r0000000b0000000r000pp00r0ppp000ppp000ppp00000",
+                              "0000000000r0000000r0000000b0000000r000pp00rrppp000ppp000ppp00000",
+                              "00000000000r0000000r0000000b0000000r00pp000rppp000ppp000ppp00000",
+                            "00000000000r0000000r0000000b0000000rr0pp000rppp000ppp000ppp00000",
+                            "0000r0000000r0000000b0000000r0000000r0pp0000ppp000ppp000ppp00000",
+                            "0000r0000000r0000000b0000000r0000000rrpp0000ppp000ppp000ppp00000",
+                            "00000r0000000r0000000b0000000r0000000rpp0000ppp000ppp000ppp00000",
+                            "00000r0000000r0000000b0000000rr000000rpp0000ppp000ppp000ppp00000",
+                            "000000r0000000b0000000r0000000r0000000pp0000ppp000ppp000ppp00000",
+                            "000000r0000000b0000000r0000000rr000000pp0000ppp000ppp000ppp00000",
+                            "0000000r0000000b0000000r0000000r000000pp0000ppp000ppp000ppp00000"]
+    ##### Johanna part end #####
     
 
     start_pattern = time.time()
@@ -165,11 +242,111 @@ def display_approach_pattern(tello):
                     tello.send_expansion_command("mled g 00000000pppp0p00p00p0p0pp00p0p0pp00p0pp0p00p0p0ppppp0p0p00000000")
                     ok.clear()
                     standby.set()
+                
+                ##### Johanna part start #####
+
+                elif(help_is_coming.is_set()):
+                    if(cycleStep % 6 == 5 ):
+                        msg = (" " * 3) + "COMING " + (" " * 3)
+                        tello.send_expansion_command(f"mled l r 2.5 {msg}" )
+                        if(time.time() - start_pattern > 3.7):
+                            start_pattern = time.time()
+                            cycleStep += 1
+                    elif(cycleStep % 6 == 0 or cycleStep % 6 == 4):
+                        if(time.time() - start_pattern > 0.75):
+                            tello.send_expansion_command("mled g " + help_is_coming_anim[cycleStep % 6])
+                            start_pattern = time.time()
+                            cycleStep += 1
+                    else:
+                        if(time.time() - start_pattern > 0.2):
+                            tello.send_expansion_command("mled g " + help_is_coming_anim[cycleStep % 6])
+                            start_pattern = time.time()
+                            cycleStep += 1
                     
-                elif(handover_text.is_set()):
-                    tello.send_expansion_command("mled l p 2.5 Handover ")
-                    handover_text.clear()
-                    standby.set()
+
+                elif(do_not_go_through_smoke.is_set()):
+                    if(cycleStep % 6 == 5 ):
+                        msg = (" " * 3) + "SMOKE " + (" " * 3)
+                        tello.send_expansion_command(f"mled l r 2.5 {msg}" )
+                        if(time.time() - start_pattern > 3):
+                            start_pattern = time.time()
+                            cycleStep += 1
+                    elif(cycleStep % 6 == 4):
+                        if(time.time() - start_pattern > 0.2):
+                            tello.send_expansion_command("mled g " + do_not_go_through_smoke_anim[cycleStep % 6])
+                            start_pattern = time.time()
+                            cycleStep += 1  
+                    else:
+                        if(time.time() - start_pattern > 0.5):
+                            tello.send_expansion_command("mled g " + do_not_go_through_smoke_anim[cycleStep % 6])
+                            start_pattern = time.time()
+                            cycleStep += 1  
+
+                elif(make_yourself_visible.is_set()):    
+                    if(cycleStep % 7 == 0 ):
+                        msg = (" " * 3) + "MAKE  " + (" " * 3)
+                        tello.send_expansion_command(f"mled l r 2.5 {msg}" )
+                        if(time.time() - start_pattern > 2.1):
+                            start_pattern = time.time()
+                            cycleStep += 1
+                    else:
+                        if(time.time() - start_pattern > 0.75):
+                            tello.send_expansion_command("mled g " + make_yourself_visible_anim[cycleStep % 7])
+                            start_pattern = time.time()
+                            cycleStep += 1 
+
+                elif(stay_calm.is_set()):
+                    if(cycleStep % 13 == 0 ):
+                        msg = (" " * 3) + "CALM " + (" " * 3)
+                        tello.send_expansion_command(f"mled l r 2.0 {msg}" )
+                        if(time.time() - start_pattern > 2.1):
+                            start_pattern = time.time()
+                            cycleStep += 1
+                    elif(cycleStep % 13 == 1 or cycleStep % 13 == 2 or cycleStep % 13 == 3 or cycleStep % 13 == 8 or cycleStep % 13 == 9 or cycleStep % 13 == 10):
+                        if(time.time() - start_pattern > 1.6):
+                            tello.send_expansion_command("mled g " + stay_calm_anim[cycleStep % 13])
+                            start_pattern = time.time()
+                            cycleStep += 1 
+                    else:
+                        if(time.time() - start_pattern > 1.2):
+                            tello.send_expansion_command("mled g " + stay_calm_anim[cycleStep % 13])
+                            start_pattern = time.time()
+                            cycleStep += 1 
+                            
+                
+                elif(stay_inside.is_set()):
+                    if(time.time() - start_pattern > 0.5):
+                        tello.send_expansion_command("mled g " + stay_inside_anim[cycleStep % 6])
+                        start_pattern = time.time()
+                        cycleStep += 1
+                
+                elif(move_to_the_roof.is_set()):
+                    if(cycleStep % 18 == 0 or  cycleStep % 18 == 1):
+                        if(time.time() - start_pattern > 0.5):
+                            tello.send_expansion_command("mled g " + move_to_the_roof_anim[cycleStep % 18])
+                            start_pattern = time.time()
+                            cycleStep += 1
+                
+                    elif(cycleStep % 18 == 2 or cycleStep % 18 == 3 or  cycleStep % 18 == 4):
+                        if(time.time() - start_pattern > 0.01):
+                            tello.send_expansion_command("mled g " + move_to_the_roof_anim[cycleStep % 18])
+                            start_pattern = time.time()
+                            cycleStep += 1
+                    else:
+                        if(time.time() - start_pattern > 0.05):
+                            tello.send_expansion_command("mled g " + move_to_the_roof_anim[cycleStep % 18])
+                            start_pattern = time.time()
+                            cycleStep += 1
+
+                ##### Johanna part end #####
+
+
+
+
+                # elif(handover_text.is_set()):
+                #     tello.send_expansion_command("mled l p 2.5 Handover ")
+                #     handover_text.clear()
+                #     standby.set()
                     
                 elif(digit_1.is_set()):
                     tello.send_expansion_command("mled s p 1")
@@ -230,29 +407,56 @@ def display_approach_pattern(tello):
 # To set a random animation use a random variable as choice
 def choose_animation(choice):
     global logMessage
+    ##### Johanna part start #####
     if choice == 1:
-        logMessage = "fire displayed"
-        fire.set()
+        logMessage = "help_is_coming displayed"
+        help_is_coming.set()
     
     elif choice == 2:
-        logMessage = "survivor displayed"
-        survivor.set()
+        logMessage = "do_not_go_through_smoke displayed"
+        do_not_go_through_smoke.set()
         
     elif choice == 3:
-        logMessage = "hazardous materials displayed"
-        hazardous_material.set()
+        logMessage = "do_not_go_through_smoke displayed"
+        make_yourself_visible.set()
         
     elif choice == 4:
-        logMessage = "mapping displayed"
-        map.set()
+        logMessage = "stay_calm displayed"
+        stay_calm.set()
 
     elif choice == 5:
-        logMessage = "start handover displayed"
-        start_handover.set()
+        logMessage = "stay_inside displayed"
+        stay_inside.set()
         
     elif choice == 6:
-        logMessage = "validate handover displayed"
-        validate_handover.set()
+        logMessage = "move_to_the_roof displayed"
+        move_to_the_roof.set()
+
+    ##### Johanna part end #####
+
+    # if choice == 1:
+    #     logMessage = "fire displayed"
+    #     fire.set()
+    
+    # elif choice == 2:
+    #     logMessage = "survivor displayed"
+    #     survivor.set()
+        
+    # elif choice == 3:
+    #     logMessage = "hazardous materials displayed"
+    #     hazardous_material.set()
+        
+    # elif choice == 4:
+    #     logMessage = "mapping displayed"
+    #     map.set()
+
+    # elif choice == 5:
+    #     logMessage = "start handover displayed"
+    #     start_handover.set()
+        
+    # elif choice == 6:
+    #     logMessage = "validate handover displayed"
+    #     validate_handover.set()
     
     elif choice == 7:
         logMessage = "ok displayed"
@@ -300,7 +504,7 @@ def choose_animation(choice):
         
     else:
         print("warning choice out of range")
-        
+
 
 def display_button():
     global logMessage
@@ -312,68 +516,199 @@ def display_button():
     global logHandUp
     global lastLogHandUp
     global userNb
-    
-    pygame.init()
-    clock = pygame.time.Clock()
-    is_display = True
-    WHITE = (255, 255, 255)
-    BLACK = (0, 0, 0)
-    window_size = (220,50)
-    screen = pygame.display.set_mode(window_size)
-    pygame.display.set_caption('Particpant number: ')
-    # Create a font object
-    font = pygame.font.Font(None, 32)
-    # Input box
-    input_box = pygame.Rect(10, 10, 140, 32)
-    color_inactive = pygame.Color('lightskyblue3')
-    color_active = pygame.Color('dodgerblue2')
-    color = color_inactive
-    active = False
-    text = ''
-    # Main loop
-    clock = pygame.time.Clock()
-    done = False
+    global positionOrder
+    global distanceToUser
 
-    while not done:
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                done = True
-            if event.type == pygame.MOUSEBUTTONDOWN:
-                # If the user clicked on the input_box rect
-                if input_box.collidepoint(event.pos):
-                    active = not active
-                else:
-                    active = False
-                # Change the current color of the input box
-                color = color_active if active else color_inactive
-            if event.type == pygame.KEYDOWN:
-                if active:
-                    if event.key == pygame.K_RETURN:
-                        print(text)
-                        pygame.quit()
-                        is_display = False
-                        done = True
-                    elif event.key == pygame.K_BACKSPACE:
-                        text = text[:-1]
+    arrayParticipant = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12']
+    arrayPosition = ['1', '2', '3']
+    while userNb not in arrayParticipant:
+        pygame.init()
+        clock = pygame.time.Clock()
+        is_display = True
+        WHITE = (255, 255, 255)
+        BLACK = (0, 0, 0)
+        window_size = (500,50)
+        screen = pygame.display.set_mode(window_size)
+        pygame.display.set_caption('Particpant number: ')
+        # Create a font object
+        font = pygame.font.Font(None, 32)
+        # Input box
+        input_box = pygame.Rect(10, 10, 140, 32)
+        color_inactive = pygame.Color('lightskyblue3')
+        color_active = pygame.Color('dodgerblue2')
+        color = color_inactive
+        active = False
+        text = ''
+        # Main loop
+        clock = pygame.time.Clock()
+        done = False
+
+        while not done:
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    done = True
+                if event.type == pygame.MOUSEBUTTONDOWN:
+                    # If the user clicked on the input_box rect
+                    if input_box.collidepoint(event.pos):
+                        active = not active
                     else:
-                        text += event.unicode
-        if(is_display):
-            screen.fill(WHITE)
-            # Render the current text
-            txt_surface = font.render(text, True, BLACK)
-            # Resize the box if the text is too long
-            width = max(200, txt_surface.get_width() + 10)
-            input_box.w = width
-            # Blit the text
-            screen.blit(txt_surface, (input_box.x + 5, input_box.y + 5))
-            # Blit the input_box rect
-            pygame.draw.rect(screen, color, input_box, 2)
+                        active = False
+                    # Change the current color of the input box
+                    color = color_active if active else color_inactive
+                if event.type == pygame.KEYDOWN:
+                    if active:
+                        if event.key == pygame.K_RETURN:
+                            print(text)
+                            pygame.quit()
+                            is_display = False
+                            done = True
+                        elif event.key == pygame.K_BACKSPACE:
+                            text = text[:-1]
+                        else:
+                            text += event.unicode
+            if(is_display):
+                screen.fill(WHITE)
+                # Render the current text
+                txt_surface = font.render(text, True, BLACK)
+                # Resize the box if the text is too long
+                width = max(200, txt_surface.get_width() + 10)
+                input_box.w = width
+                # Blit the text
+                screen.blit(txt_surface, (input_box.x + 5, input_box.y + 5))
+                # Blit the input_box rect
+                pygame.draw.rect(screen, color, input_box, 2)
 
-            pygame.display.flip()
-            clock.tick(30)               
-    userNb = text        
+                pygame.display.flip()
+                clock.tick(30)               
+        userNb = text        
+        #log_ready.set()
+    
+    while positionOrder not in arrayPosition:
+        pygame.init()
+        clock = pygame.time.Clock()
+        is_display = True
+        WHITE = (255, 255, 255)
+        BLACK = (0, 0, 0)
+        window_size = (500,50)
+        screen = pygame.display.set_mode(window_size)
+        pygame.display.set_caption('Position order: ')
+        # Create a font object
+        font = pygame.font.Font(None, 32)
+        # Input box
+        input_box = pygame.Rect(10, 10, 140, 32)
+        color_inactive = pygame.Color('lightskyblue3')
+        color_active = pygame.Color('dodgerblue2')
+        color = color_inactive
+        active = False
+        text = ''
+        # Main loop
+        clock = pygame.time.Clock()
+        done = False
+
+        while not done:
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    done = True
+                if event.type == pygame.MOUSEBUTTONDOWN:
+                    # If the user clicked on the input_box rect
+                    if input_box.collidepoint(event.pos):
+                        active = not active
+                    else:
+                        active = False
+                    # Change the current color of the input box
+                    color = color_active if active else color_inactive
+                if event.type == pygame.KEYDOWN:
+                    if active:
+                        if event.key == pygame.K_RETURN:
+                            print(text)
+                            pygame.quit()
+                            is_display = False
+                            done = True
+                        elif event.key == pygame.K_BACKSPACE:
+                            text = text[:-1]
+                        else:
+                            text += event.unicode
+            if(is_display):
+                screen.fill(WHITE)
+                # Render the current text
+                txt_surface = font.render(text, True, BLACK)
+                # Resize the box if the text is too long
+                width = max(200, txt_surface.get_width() + 10)
+                input_box.w = width
+                # Blit the text
+                screen.blit(txt_surface, (input_box.x + 5, input_box.y + 5))
+                # Blit the input_box rect
+                pygame.draw.rect(screen, color, input_box, 2)
+
+                pygame.display.flip()
+                clock.tick(30)               
+        positionOrder = text 
+        print("position order: "+positionOrder) 
+    
+
+    while distanceToUser not in ['far', 'close']:
+        pygame.init()
+        clock = pygame.time.Clock()
+        is_display = True
+        WHITE = (255, 255, 255)
+        BLACK = (0, 0, 0)
+        window_size = (500,50)
+        screen = pygame.display.set_mode(window_size)
+        pygame.display.set_caption('Distance to user order: ')
+        # Create a font object
+        font = pygame.font.Font(None, 32)
+        # Input box
+        input_box = pygame.Rect(10, 10, 140, 32)
+        color_inactive = pygame.Color('lightskyblue3')
+        color_active = pygame.Color('dodgerblue2')
+        color = color_inactive
+        active = False
+        text = ''
+        # Main loop
+        clock = pygame.time.Clock()
+        done = False
+
+        while not done:
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    done = True
+                if event.type == pygame.MOUSEBUTTONDOWN:
+                    # If the user clicked on the input_box rect
+                    if input_box.collidepoint(event.pos):
+                        active = not active
+                    else:
+                        active = False
+                    # Change the current color of the input box
+                    color = color_active if active else color_inactive
+                if event.type == pygame.KEYDOWN:
+                    if active:
+                        if event.key == pygame.K_RETURN:
+                            print(text)
+                            pygame.quit()
+                            is_display = False
+                            done = True
+                        elif event.key == pygame.K_BACKSPACE:
+                            text = text[:-1]
+                        else:
+                            text += event.unicode
+            if(is_display):
+                screen.fill(WHITE)
+                # Render the current text
+                txt_surface = font.render(text, True, BLACK)
+                # Resize the box if the text is too long
+                width = max(200, txt_surface.get_width() + 10)
+                input_box.w = width
+                # Blit the text
+                screen.blit(txt_surface, (input_box.x + 5, input_box.y + 5))
+                # Blit the input_box rect
+                pygame.draw.rect(screen, color, input_box, 2)
+
+                pygame.display.flip()
+                clock.tick(30)               
+        distanceToUser = text 
+    print("Distance to user: "+ distanceToUser)
     pygame_logger = logging.getLogger('PygameLogger')
-    pygame_handler = logging.FileHandler('expe2_{number}.log'.format(number = text), mode="w")
+    pygame_handler = logging.FileHandler('expe2_{participant}_{positionDrone}_{distanceDrone}.log'.format(participant = userNb, positionDrone = positionOrder, distanceDrone = distanceToUser), mode="w")
     pygame_handler.setLevel(logging.DEBUG)
     pygame_formatter = logging.Formatter('%(asctime)s - %(message)s')
     pygame_handler.setFormatter(pygame_formatter)
@@ -604,12 +939,14 @@ def flight_routine(swarm, voliere):
     global logUserPos
     global logHandUp
     global userNb
+    global positionOrder
+    global distanceToUser
     
     log_ready.wait()
     
     # logger for the drone position
     drone_position_logger = logging.getLogger('DronePositionLogger')
-    drone_position_handler = logging.FileHandler('Drone_positions_participant_{number}.log'.format(number = userNb), mode="w")
+    drone_position_handler = logging.FileHandler('Drone_positions_participant_{participant}_{positionDrone}_{distanceDrone}.log'.format(participant = userNb, positionDrone = positionOrder, distanceDrone = distanceToUser), mode="w")
     drone_position_handler.setLevel(logging.DEBUG)
     drone_position_formatter = logging.Formatter('%(asctime)s - %(message)s')
     drone_position_handler.setFormatter(drone_position_formatter)
@@ -619,7 +956,7 @@ def flight_routine(swarm, voliere):
     
     # logger for the user position
     user_position_logger = logging.getLogger('UserPositionLogger')
-    user_position_handler = logging.FileHandler('User_positions_participant_{number}.log'.format(number = userNb), mode="w")
+    user_position_handler = logging.FileHandler('User_positions_participant_{participant}_{positionDrone}_{distanceDrone}.log'.format(participant = userNb, positionDrone = positionOrder, distanceDrone = distanceToUser), mode="w")
     user_position_handler.setLevel(logging.DEBUG)
     user_position_formatter = logging.Formatter('%(asctime)s - %(message)s')
     user_position_handler.setFormatter(user_position_formatter)
@@ -629,7 +966,7 @@ def flight_routine(swarm, voliere):
     
     #logger for the bracelet position
     bracelet_position_logger = logging.getLogger('BraceletPositionLogger')
-    bracelet_position_handler = logging.FileHandler('Bracelet_positions_participant_{number}.log'.format(number = userNb), mode="w")
+    bracelet_position_handler = logging.FileHandler('Bracelet_positions_participant_{participant}_{positionDrone}_{distanceDrone}.log'.format(participant = userNb, positionDrone = positionOrder, distanceDrone = distanceToUser), mode="w")
     bracelet_position_handler.setLevel(logging.DEBUG)
     bracelet_position_formatter = logging.Formatter('%(asctime)s - %(message)s')
     bracelet_position_handler.setFormatter(bracelet_position_formatter)
@@ -638,7 +975,7 @@ def flight_routine(swarm, voliere):
     
     
     
-    file = open('expe2.json')
+    file = open('/home/bob/DJITelloPy/vto-natnet/without_ivy/expe2.json') # change to your file location path.
     command = json.load(file)
     
     lengthWPs = len(command['wayPoints'])
@@ -665,6 +1002,7 @@ def flight_routine(swarm, voliere):
     positionsTello = []
     positionsUser = []
     numbers = [9, 10, 11, 12, 13, 14, 15, 16, 17]
+    animations = [1, 2, 3, 4, 5, 6]
     lastSequence = -1
     sequenceCounter = 0
    
@@ -681,10 +1019,10 @@ def flight_routine(swarm, voliere):
         position_log_time = time.time()
         z = voliere.vehicles['888'].position[2]
         while time.time()-sim_start_time < 720:
-            if(sequenceCounter == 3):
+            if(sequenceCounter == 5):
                 print('end of experiment')
                 break
-            if ((time.time()-starttime > 0.0125)):
+            if ((time.time()-starttime > (1 / 30))):
                 if time.time() - position_log_time > 0.2:
                         drone_position = "position: {pose} - angle: {angle}".format(pose = swarm.tellos[0].position_enu, angle = swarm.tellos[0].get_heading())
                         user_position = "position: {pose}".format(pose = voliere.vehicles['888'].position)
@@ -697,15 +1035,18 @@ def flight_routine(swarm, voliere):
                     # tester ces trois prochaines lignes dans la condition if(wPCounter <= lengthWPs-1):
                     
                     if time.time() - actualize_height > 3 :
-                        z = voliere.vehicles['888'].position[2] + 0.15
+                        z = voliere.vehicles['888'].position[2] + 0.20
                         if z < 0.40:
                             z = 0.40
                         actualize_height = time.time()
                     # positionsTello.append(swarm.tellos[0].position_enu)
                     # positionsUser.append(voliere.vehicles['888'].position)
-                    swarm.tellos[0].fly_to_enu([wPListPos[wPCounter][0], wPListPos[wPCounter][1], z], wPListHeading[wPCounter])
-                    dist = euclidean_distance(swarm.tellos[0].position_enu, [wPListPos[wPCounter][0], wPListPos[wPCounter][1], z])
-                    angle = heading_distance(swarm.tellos[0].get_heading(), wPListHeading[wPCounter])
+                    posx = swarm.tellos[0].position_enu[0]
+                    posy = swarm.tellos[0].position_enu[1]
+
+                    swarm.tellos[0].fly_to_enu([posx, posy, z])
+                    dist = 0
+                    angle = 0
                 
                 # the participant rises the hand up    
                 if(voliere.vehicles['245'].position[2] > z - 0.4 and not hand_up.is_set()):
@@ -721,14 +1062,11 @@ def flight_routine(swarm, voliere):
                         #nothing_detected.set()
                         next_pose.clear()
                         # anim_set.clear()
-                        dist = euclidean_distance(swarm.tellos[0].position_enu, [wPListPos[wPCounter][0], wPListPos[wPCounter][1], z])
-                        angle = heading_distance(swarm.tellos[0].get_heading(), wPListHeading[wPCounter])
+                        dist = 0
+                        angle = 0
                     
                     if(dist <= epsilonDist and (angle %(2*math.pi)<= minepsilonAngle or angle%(2*math.pi) >= maxepsilonAngle)):                            
-                        # if (not anim_set.is_set()):
-                        #     logWP = "Drone status: way point number {wPNb} at position {pos}, angle {posAngle}".format(wPNb = wPCounter, pos = swarm.tellos[0].position_enu, posAngle = swarm.tellos[0].get_heading())
-                        #     logUserPos = "User status: way point number {wPNb} at position {pos}".format(wPNb = wPCounter, pos = voliere.vehicles['888'].position)
-                        #     anim_set.set()
+                        
                         if next_anim.is_set():
                             wPCounter = lengthWPs -1
                             next_anim.clear()
@@ -754,10 +1092,28 @@ def flight_routine(swarm, voliere):
                             elif sequenceCounter == 2 and not handover_text.is_set():  
                                 ok.clear()
                                 hand_up.clear()
-                                choose_animation(8) # to display animated text 'Handover
+                                clear_all_steps_flag()
+                                handover_text.set()
+                                #choose_animation(8) # to display animated text 'Handover
+                                pick_animation(swarm)
+                            elif sequenceCounter == 3 and not firstanimation.is_set():  
+                                handover_text.clear()
+                                hand_up.clear()
+                                clear_all_steps_flag()
+                                firstanimation.set()
+                                # choose_animation(1) # to display fire animation
+                                pick_animation(swarm)
+                            elif sequenceCounter == 4 and not secondanimation.is_set():  
+                                #fire.clear()
+                                hand_up.clear()
+                                clear_all_steps_flag()
+                                secondanimation.set()
+                                # choose_animation(2) # to display fire animation
+                                pick_animation(swarm)
                             lastSequence = sequenceCounter
                             print("position: ",swarm.tellos[0].position_enu," battery: ",swarm.tellos[0].get_battery(), " way point number: ", wPCounter, " distance to goal: ", dist, " angle to goal: ", angle)
                             print("WP number: ", wPCounter)
+
                 else:
                     sequenceCounter += 1
                     wPCounter = 0
@@ -765,8 +1121,8 @@ def flight_routine(swarm, voliere):
                     
                 starttime= time.time()
         print("Current Tello Battery ",swarm.tellos[0].get_battery())  
-          
-        swarm.send_expansion_command("mled sc")     
+        clear_all_animations_flags()  
+        swarm.tellos[0].send_expansion_command("mled sc")     
         swarm.move_down(int(40))
         swarm.land()
         swarm.turn_motor_on()
@@ -819,7 +1175,209 @@ def flight_routine(swarm, voliere):
 #         if balise + 10 < time.time():
 #             logging.warning("temp balise")
 #             balise = start
-            
+
+def clear_all_animations_flags():
+    handover_text.clear()
+    fire.clear()
+    hazardous_material.clear()
+    survivor.clear()
+    map.clear()
+    start_handover.clear()
+    validate_handover.clear()
+
+    help_is_coming.clear()
+    make_yourself_visible.clear()
+    do_not_go_through_smoke.clear()
+    stay_calm.clear()
+    stay_inside.clear()
+    move_to_the_roof.clear()
+
+def clear_all_steps_flag():
+    handover_text.clear()
+    firstanimation.clear()
+    secondanimation.clear()
+
+def pick_animation(swarm):
+    global userNb
+    global positionOrder
+    global distanceToUser
+
+    if(distanceToUser == 'far'):
+        print('debug4')
+        if(positionOrder == '1'):
+            print('debug3')
+            if(firstanimation.is_set()):
+                #print('debug2')
+                firstanimation.clear()
+                if(userNb == '1'):
+                    #print('debug1')
+                    clear_all_steps_flag()
+                    clear_all_animations_flags()
+                    choose_animation(1)
+                elif(userNb == '2'):
+                    clear_all_steps_flag()
+                    clear_all_animations_flags()
+                    choose_animation(2)
+                elif(userNb == '3'):
+                    clear_all_steps_flag()
+                    clear_all_animations_flags()
+                    choose_animation(3)  
+                elif(userNb == '4'):
+                    clear_all_steps_flag()
+                    clear_all_animations_flags()
+                    choose_animation(4)
+                elif(userNb == '5'):
+                    clear_all_steps_flag()
+                    clear_all_animations_flags()
+                    choose_animation(5)
+                elif(userNb == '6'):
+                    clear_all_steps_flag()
+                    clear_all_animations_flags()
+                    choose_animation(6)
+                elif(userNb == '7'):
+                    clear_all_steps_flag()
+                    clear_all_animations_flags()
+                    choose_animation(1)
+                elif(userNb == '8'):
+                    clear_all_steps_flag()
+                    clear_all_animations_flags()
+                    choose_animation(2)
+                elif(userNb == '9'):
+                    clear_all_steps_flag()
+                    clear_all_animations_flags()
+                    choose_animation(3)
+                elif(userNb == '10'):
+                    clear_all_steps_flag()
+                    clear_all_animations_flags()
+                    choose_animation(4)
+                elif(userNb == '11'):
+                    clear_all_steps_flag()
+                    clear_all_animations_flags()
+                    choose_animation(5)
+                elif(userNb == '12'):
+                    clear_all_steps_flag()
+                    clear_all_animations_flags()
+                    choose_animation(6)    
+
+            elif(secondanimation.is_set()): # Do the latin square shift for second animation
+                secondanimation.clear()
+                if(userNb == '1'):
+                    clear_all_steps_flag()
+                    clear_all_animations_flags()
+                    choose_animation(2)
+            elif(handover_text.is_set()):
+                print('debug2')
+                if(userNb == '1'):
+                    print('debug1')
+                    clear_all_steps_flag()
+                    clear_all_animations_flags()
+                    swarm.tellos[0].send_expansion_command("mled l p 2.5 Hundreds ")
+                    standby.set()
+        elif(positionOrder == '2'):
+            if(firstanimation.is_set()):
+                firstanimation.clear()
+                if(userNb == '1'):
+                    clear_all_steps_flag()
+                    clear_all_animations_flags()
+                    choose_animation(3)
+            elif(secondanimation.is_set()):
+                secondanimation.clear()
+                if(userNb == 1):
+                    clear_all_steps_flag()
+                    clear_all_animations_flags()
+                    choose_animation(4)
+            elif(handover_text.is_set()):
+                if(userNb == '1'):
+                    clear_all_steps_flag()
+                    clear_all_animations_flags()
+                    swarm.tellos[0].send_expansion_command("mled l p 2.5 Material ")
+                    standby.set()
+        elif(positionOrder == '3'):
+            if(firstanimation.is_set()):
+                firstanimation.clear()
+                if(userNb == '1'):
+                    clear_all_steps_flag()
+                    clear_all_animations_flags()
+                    choose_animation(5)
+            elif(secondanimation.is_set()):
+                secondanimation.clear()
+                if(userNb == '1'):
+                    clear_all_steps_flag()
+                    clear_all_animations_flags()
+                    choose_animation(6)
+            elif(handover_text.is_set()):
+                if(userNb == '1'):
+                    clear_all_steps_flag()
+                    clear_all_animations_flags()
+                    swarm.tellos[0].send_expansion_command("mled l p 2.5 Cleaning ")
+                    standby.set()
+        else:
+            print('Wrong positionOrder = ' + positionOrder)
+
+    elif(distanceToUser == 'colse'): ##### doesn't work yet for close.
+        if(positionOrder == '1'):
+            if(firstanimation.is_set()):
+                firstanimation.clear()
+                if(userNb == '1'):
+                    clear_all_steps_flag()
+                    clear_all_animations_flags()
+                    choose_animation(2)
+            elif(secondanimation.is_set()):
+                secondanimation.clear()
+                if(userNb == '1'):
+                    clear_all_steps_flag()
+                    clear_all_animations_flags()
+                    choose_animation(3)
+            elif(handover_text.is_set()):
+                if(userNb == '1'):
+                    clear_all_steps_flag()
+                    clear_all_animations_flags()
+                    swarm.tellos[0].send_expansion_command("mled l p 2.5 Hundreds ")
+                    standby.set()
+        elif(positionOrder == '2'):
+            if(firstanimation.is_set()):
+                firstanimation.clear()
+                if(userNb == '1'):
+                    clear_all_steps_flag()
+                    clear_all_animations_flags()
+                    choose_animation(3)
+            elif(secondanimation.is_set()):
+                secondanimation.clear()
+                if(userNb == '1'):
+                    clear_all_steps_flag()
+                    clear_all_animations_flags()
+                    choose_animation(4)
+            elif(handover_text.is_set()):
+                if(userNb == '1'):
+                    clear_all_steps_flag()
+                    clear_all_animations_flags()
+                    swarm.tellos[0].send_expansion_command("mled l p 2.5 Material ")
+                    standby.set()
+        elif(positionOrder == '3'):
+            if(firstanimation.is_set()):
+                firstanimation.clear()
+                if(userNb == '1'):
+                    clear_all_steps_flag()
+                    clear_all_animations_flags()
+                    choose_animation(5)
+            elif(secondanimation.is_set()):
+                secondanimation.clear()
+                if(userNb == '1'):
+                    clear_all_steps_flag()
+                    clear_all_animations_flags()
+                    choose_animation(6)
+            elif(handover_text.is_set()):
+                if(userNb == '1'):
+                    clear_all_steps_flag()
+                    clear_all_animations_flags()
+                    swarm.tellos[0].send_expansion_command("mled l p 2.5 Cleaning ")
+                    standby.set()
+        else:
+            print('Wrong positionOrder = ' + positionOrder)
+    else:
+        print('wrong distance' + distanceToUser)
+
+
 def main():
     # Connect to the drone
     #---------- OpTr- ACID - -----IP------
@@ -844,10 +1402,18 @@ def main():
     sleep(2)
     print("Starting Natnet3.x interface at %s" % ("1234567"))
     print('threading running')
-    #
+    
+
+       #works with anim lag
     # pygame_thread = threading.Thread(target=display_button, args=())
     # pygame_thread.daemon = True
     # pygame_thread.start()
+    
+    # display_thread = threading.Thread(target=display_approach_pattern, args=(swarm.tellos[0],))
+    # display_thread.daemon = True
+    # display_thread.start()
+
+    # flight_routine(swarm, voliere)
     
     display_thread = threading.Thread(target=display_approach_pattern, args=(swarm.tellos[0],))
     display_thread.daemon = True
@@ -858,6 +1424,12 @@ def main():
     pygame_thread.start()
     # flight_routine(swarm, voliere)
     display_button()
+
+
+
+
+ 
+
 
 
 

@@ -48,6 +48,7 @@ from time import sleep
 # import pybullet_data
 import pdb
 import numpy as np
+import time
 
 import requests
 
@@ -242,8 +243,15 @@ class VolierePosition():
         # start natnet interface with new NatNet Class
         # self.natnet = NatNetClient()
         # self.natnet.rigidBodyListListener = self.receiveRigidBodyList
+
+        self.last_time_processed = time.time()
   
     def receiveRigidBodyMarkerSetList(self, data_frame: DataFrame):
+
+        if time.time() - self.last_time_processed < (1.0 / 30): 
+            return
+        
+        self.last_time_processed = time.time()
 
         stamp = data_frame.suffix.timestamp
 
@@ -590,7 +598,7 @@ def main():
     velocities = []
     angular_velocities = []
 
-    id_dict = dict([('888','888'),('882', '882'),('889', '889'),('881', '881'),('68','68'),('69','69'),('333','333'), ('244','244'), ('245', '245'), ('2', '221')]) # rigidbody_ID, aircraft_ID
+    id_dict = dict([('888','888'),('882', '882'),('889', '889'),('881', '881'),('68','68'),('69','69'),('333','333'), ('244','244'), ('245', '245'), ('221', '221')]) # rigidbody_ID, aircraft_ID
     # freq = 10
     # vel_samples = 20
 
@@ -637,7 +645,7 @@ def main():
             #     already_up = True
                 
             
-            print(voliere.vehicles['2'].position)
+            print(voliere.vehicles['221'].position)
             # Record data
             # positions.append(vehicles[0].position)
             # velocities.append(vehicles[0].velocity)
