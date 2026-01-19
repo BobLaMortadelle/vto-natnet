@@ -56,7 +56,10 @@ move_to_the_roof = threading.Event()
 
 
 
+short_word = threading.Event()
 ok = threading.Event()
+go = threading.Event()
+do = threading.Event()
 handover_text = threading.Event()
 text_display = threading.Event()
 firstanimation = threading.Event()
@@ -242,15 +245,28 @@ def display_approach_pattern(tello):
                     tello.send_expansion_command("mled g 00000000pppp0p00p00p0p0pp00p0p0pp00p0pp0p00p0p0ppppp0p0p00000000")
                     ok.clear()
                     standby.set()
+
+                elif(go.is_set()):
+                    tello.send_expansion_command("mled g 00000000pppp0p00p00p0p0pp00p0p0pp00p0pp0p00p0p0ppppp0p0p00000000") ############## NEED TO CHANGE THE WORD HERE (STILL OK)
+                    go.clear()
+                    standby.set()
+
+                elif(do.is_set()):
+                    tello.send_expansion_command("mled g 00000000pppp0p00p00p0p0pp00p0p0pp00p0pp0p00p0p0ppppp0p0p00000000") ############## NEED TO CHANGE THE WORD HERE (STILL OK)
+                    do.clear()
+                    standby.set()
                 
                 ##### Johanna part start #####
 
                 elif(help_is_coming.is_set()):
                     if(cycleStep % 6 == 5 ):
-                        msg = (" " * 3) + "COMING " + (" " * 3)
-                        tello.send_expansion_command(f"mled l r 2.5 {msg}" )
+                        if 'msg_sent' not in locals() or not msg_sent:
+                            msg = (" " * 3) + "COMING  -" + (" " * 3)
+                            tello.send_expansion_command(f"mled l r 2.5 {msg}" )
+                            msg_sent = True 
                         if(time.time() - start_pattern > 3.7):
                             start_pattern = time.time()
+                            msg_sent = False
                             cycleStep += 1
                     elif(cycleStep % 6 == 0 or cycleStep % 6 == 4):
                         if(time.time() - start_pattern > 0.75):
@@ -266,10 +282,13 @@ def display_approach_pattern(tello):
 
                 elif(do_not_go_through_smoke.is_set()):
                     if(cycleStep % 6 == 5 ):
-                        msg = (" " * 3) + "SMOKE " + (" " * 3)
-                        tello.send_expansion_command(f"mled l r 2.5 {msg}" )
+                        if 'msg_sent' not in locals() or not msg_sent:
+                            msg = (" " * 3) + "SMOKE  -" + (" " * 3)
+                            tello.send_expansion_command(f"mled l r 2.5 {msg}" )
+                            msg_sent = True 
                         if(time.time() - start_pattern > 3):
                             start_pattern = time.time()
+                            msg_sent = False
                             cycleStep += 1
                     elif(cycleStep % 6 == 4):
                         if(time.time() - start_pattern > 0.2):
@@ -284,32 +303,38 @@ def display_approach_pattern(tello):
 
                 elif(make_yourself_visible.is_set()):    
                     if(cycleStep % 7 == 0 ):
-                        msg = (" " * 3) + "MAKE  " + (" " * 3)
-                        tello.send_expansion_command(f"mled l r 2.5 {msg}" )
+                        if 'msg_sent' not in locals() or not msg_sent:
+                            msg = (" " * 3) + "MAKE  -" + (" " * 3)
+                            tello.send_expansion_command(f"mled l r 2.5 {msg}" )
+                            msg_sent = True
                         if(time.time() - start_pattern > 2.1):
                             start_pattern = time.time()
+                            msg_sent = False
                             cycleStep += 1
                     else:
                         if(time.time() - start_pattern > 0.75):
-                            tello.send_expansion_command("mled g " + make_yourself_visible_anim[cycleStep % 7])
+                            tello.send_expansion_command("mled g " + make_yourself_visible_anim[(cycleStep % 7)-1])
                             start_pattern = time.time()
                             cycleStep += 1 
 
                 elif(stay_calm.is_set()):
                     if(cycleStep % 13 == 0 ):
-                        msg = (" " * 3) + "CALM " + (" " * 3)
-                        tello.send_expansion_command(f"mled l r 2.0 {msg}" )
+                        if 'msg_sent' not in locals() or not msg_sent:
+                            msg = (" " * 3) + "CALM  -" + (" " * 3)
+                            tello.send_expansion_command(f"mled l r 2.0 {msg}" )
+                            msg_sent = True
                         if(time.time() - start_pattern > 2.1):
                             start_pattern = time.time()
+                            msg_sent = False
                             cycleStep += 1
                     elif(cycleStep % 13 == 1 or cycleStep % 13 == 2 or cycleStep % 13 == 3 or cycleStep % 13 == 8 or cycleStep % 13 == 9 or cycleStep % 13 == 10):
                         if(time.time() - start_pattern > 1.6):
-                            tello.send_expansion_command("mled g " + stay_calm_anim[cycleStep % 13])
+                            tello.send_expansion_command("mled g " + stay_calm_anim[(cycleStep % 13)-1])
                             start_pattern = time.time()
                             cycleStep += 1 
                     else:
                         if(time.time() - start_pattern > 1.2):
-                            tello.send_expansion_command("mled g " + stay_calm_anim[cycleStep % 13])
+                            tello.send_expansion_command("mled g " + stay_calm_anim[(cycleStep % 13-1)])
                             start_pattern = time.time()
                             cycleStep += 1 
                             
@@ -501,6 +526,15 @@ def choose_animation(choice):
     elif choice == 17:
         logMessage = "9 displayed"
         digit_9.set()
+    
+    elif choice == 18:
+        logMessage = "go displayed"
+        go.set()
+
+    elif choice == 19:
+        logMessage = "do displayed"
+        do.set()
+
         
     else:
         print("warning choice out of range")
@@ -1076,7 +1110,7 @@ def flight_routine(swarm, voliere):
                                 choose_animation(numbers[randomIndex])
                                 number.set()
                                 hand_up.clear()
-                            elif sequenceCounter == 1 and not ok.is_set():
+                            elif sequenceCounter == 1 and not short_word.is_set():
                                 number.clear()
                                 digit_1.clear()
                                 digit_2.clear()
@@ -1088,9 +1122,11 @@ def flight_routine(swarm, voliere):
                                 digit_8.clear()
                                 digit_9.clear()
                                 hand_up.clear()
-                                choose_animation(7) # to display ok
+                                #choose_animation(7) # to display ok
+                                short_word.set()
+                                pick_animation(swarm)
                             elif sequenceCounter == 2 and not handover_text.is_set():  
-                                ok.clear()
+                                short_word.clear()
                                 hand_up.clear()
                                 clear_all_steps_flag()
                                 handover_text.set()
@@ -1196,6 +1232,12 @@ def clear_all_steps_flag():
     handover_text.clear()
     firstanimation.clear()
     secondanimation.clear()
+    short_word.clear()
+
+def clear_all_short_words_flag():
+    ok.clear()
+    go.clear()
+    do.clear()
 
 def pick_animation(swarm):
     global userNb
@@ -1203,14 +1245,10 @@ def pick_animation(swarm):
     global distanceToUser
 
     if(distanceToUser == 'far'):
-        print('debug4')
         if(positionOrder == '1'):
-            print('debug3')
             if(firstanimation.is_set()):
-                #print('debug2')
                 firstanimation.clear()
                 if(userNb == '1'):
-                    #print('debug1')
                     clear_all_steps_flag()
                     clear_all_animations_flags()
                     choose_animation(1)
@@ -1265,14 +1303,38 @@ def pick_animation(swarm):
                     clear_all_steps_flag()
                     clear_all_animations_flags()
                     choose_animation(2)
-            elif(handover_text.is_set()):
-                print('debug2')
-                if(userNb == '1'):
-                    print('debug1')
+                elif(userNb == '2'):
                     clear_all_steps_flag()
                     clear_all_animations_flags()
-                    swarm.tellos[0].send_expansion_command("mled l p 2.5 Hundreds ")
+                    choose_animation(3)
+
+
+                    #### to do ####
+
+            elif(handover_text.is_set()):
+                handover_text.clear()
+                if(userNb == '1'):
+                    clear_all_steps_flag()
+                    clear_all_animations_flags()
+                    swarm.tellos[0].send_expansion_command("mled l p 2.5  Hundreds - ")
                     standby.set()
+
+
+
+                    #### to do ####
+
+
+
+
+            elif(short_word.is_set()):
+                short_word.clear()
+                if(userNb == '1'):
+                    clear_all_steps_flag()
+                    clear_all_animations_flags()
+                    clear_all_short_words_flag()
+                    choose_animation(7)                      #### or 18 or 19 ####
+                    #### to do ####
+
         elif(positionOrder == '2'):
             if(firstanimation.is_set()):
                 firstanimation.clear()
@@ -1280,6 +1342,13 @@ def pick_animation(swarm):
                     clear_all_steps_flag()
                     clear_all_animations_flags()
                     choose_animation(3)
+                elif(userNb == '2'):
+                    clear_all_steps_flag()
+                    clear_all_animations_flags()
+                    choose_animation(4)
+                    #### to do ####
+
+
             elif(secondanimation.is_set()):
                 secondanimation.clear()
                 if(userNb == 1):
@@ -1290,8 +1359,13 @@ def pick_animation(swarm):
                 if(userNb == '1'):
                     clear_all_steps_flag()
                     clear_all_animations_flags()
-                    swarm.tellos[0].send_expansion_command("mled l p 2.5 Material ")
+                    swarm.tellos[0].send_expansion_command("mled l p 2.5  Material - ")
                     standby.set()
+                    #### to do ####
+
+
+
+
         elif(positionOrder == '3'):
             if(firstanimation.is_set()):
                 firstanimation.clear()
