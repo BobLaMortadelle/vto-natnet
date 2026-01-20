@@ -1,0 +1,28 @@
+2026-01-20 12:22:24,133 - 4 displayed
+2026-01-20 12:22:26,209 - Drone status: way point number 1 at position [ 0.09794906 -0.11018626  0.84317714], angle -1.6116948449945738
+2026-01-20 12:22:26,209 - User status: way point number 1 at position [ 0.13744657 -1.29521132  0.84200883]
+2026-01-20 12:22:26,218 - User rises the hand up : animation readable wit angle -2.34331248118049 ° = -1.6116948449945738 rad
+2026-01-20 12:22:49,619 - next waypoint button clicked
+2026-01-20 12:22:49,712 - go displayed
+2026-01-20 12:22:49,712 - end of sequence
+2026-01-20 12:22:51,558 - Drone status: way point number 0 at position [ 0.06405862 -0.19796121  0.81890482], angle -1.5868717495669742
+2026-01-20 12:22:51,563 - User status: way point number 0 at position [ 0.12567429 -1.30847895  0.84019053]
+2026-01-20 12:22:51,569 - User rises the hand up : animation readable wit angle -0.9210538787285287 ° = -1.5868717495669742 rad
+2026-01-20 12:23:23,158 - next waypoint button clicked
+2026-01-20 12:23:24,905 - end of sequence
+2026-01-20 12:23:33,320 - Drone status: way point number 0 at position [ 0.08310102 -0.26404002  0.75012177], angle -1.5247559986655501
+2026-01-20 12:23:33,335 - User status: way point number 0 at position [ 0.12484653 -1.29997754  0.83616829]
+2026-01-20 12:23:33,349 - User rises the hand up : animation readable wit angle 2.6379164892089904 ° = -1.5247559986655501 rad
+2026-01-20 12:24:02,279 - end of sequence
+2026-01-20 12:24:02,504 - stay_inside displayed
+2026-01-20 12:24:07,351 - Drone status: way point number 0 at position [ 0.09559162 -0.22553478  0.80579591], angle -1.4647205098120093
+2026-01-20 12:24:07,356 - User status: way point number 0 at position [ 0.11818071 -1.29939187  0.84052241]
+2026-01-20 12:24:07,356 - User rises the hand up : animation readable wit angle 6.077696621521582 ° = -1.4647205098120093 rad
+2026-01-20 12:24:10,105 - next waypoint button clicked
+2026-01-20 12:24:48,699 - move_to_the_roof displayed
+2026-01-20 12:24:48,704 - end of sequence
+2026-01-20 12:25:14,046 - Drone status: way point number 0 at position [ 0.1209672  -0.25024575  0.72551072], angle -1.3649015656900363
+2026-01-20 12:25:14,051 - User status: way point number 0 at position [ 0.15113945 -1.280882    0.82836509]
+2026-01-20 12:25:14,057 - User rises the hand up : animation readable wit angle 11.79690083516283 ° = -1.3649015656900363 rad
+2026-01-20 12:25:52,672 - next waypoint button clicked
+2026-01-20 12:25:56,512 - end of sequence

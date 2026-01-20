@@ -1,0 +1,26 @@
+2026-01-20 10:56:26,286 - 2 displayed
+2026-01-20 10:56:26,294 - Drone status: way point number 1 at position [0.02490653 2.32613373 0.80858827], angle -1.5769061198022758
+2026-01-20 10:56:26,295 - User status: way point number 1 at position [0. 0. 0.]
+2026-01-20 10:56:26,295 - User rises the hand up : animation readable wit angle -0.3500653530213782 ° = -1.5769061198022758 rad
+2026-01-20 10:56:59,501 - next waypoint button clicked
+2026-01-20 10:56:59,558 - end of sequence
+2026-01-20 10:56:59,838 - go displayed
+2026-01-20 10:56:59,841 - Drone status: way point number 0 at position [0.00230036 2.25685287 0.37765208], angle -1.5575315671942258
+2026-01-20 10:56:59,841 - User status: way point number 0 at position [0. 0. 0.]
+2026-01-20 10:56:59,841 - User rises the hand up : animation readable wit angle 0.7600147413740785 ° = -1.5575315671942258 rad
+2026-01-20 10:57:32,739 - next waypoint button clicked
+2026-01-20 10:57:34,343 - end of sequence
+2026-01-20 10:57:34,635 - Drone status: way point number 0 at position [0.00924775 2.26766396 0.35635024], angle -1.5310595446113369
+2026-01-20 10:57:34,635 - User rises the hand up : animation readable wit angle 2.2767499105486166 ° = -1.5310595446113369 rad
+2026-01-20 10:58:28,705 - end of sequence
+2026-01-20 10:58:28,999 - do_not_go_through_smoke displayed
+2026-01-20 10:58:28,999 - Drone status: way point number 0 at position [-1.27626769e-03  2.24589372e+00  3.49914700e-01], angle -1.502149776880441
+2026-01-20 10:58:28,999 - User rises the hand up : animation readable wit angle 3.933157588232433 ° = -1.502149776880441 rad
+2026-01-20 10:58:32,468 - next waypoint button clicked
+2026-01-20 10:59:37,023 - next animation button clicked
+2026-01-20 10:59:37,106 - do_not_go_through_smoke displayed
+2026-01-20 10:59:37,112 - end of sequence
+2026-01-20 10:59:37,179 - Drone status: way point number 0 at position [0.00501746 2.19633102 0.3422516 ], angle -1.4898665230430805
+2026-01-20 10:59:37,183 - User rises the hand up : animation readable wit angle 4.63693619180107 ° = -1.4898665230430805 rad
+2026-01-20 10:59:43,244 - next waypoint button clicked
+2026-01-20 11:01:24,274 - end of sequence

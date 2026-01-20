@@ -1,0 +1,26 @@
+2026-01-20 12:58:49,600 - 9 displayed
+2026-01-20 12:58:52,552 - Drone status: way point number 1 at position [0.10991597 2.27822304 1.80977881], angle -1.5756424998096588
+2026-01-20 12:58:52,552 - User status: way point number 1 at position [ 0.08816767 -1.35857856  1.78219712]
+2026-01-20 12:58:52,552 - User rises the hand up : animation readable wit angle -0.2776652605360539 ° = -1.5756424998096588 rad
+2026-01-20 12:59:33,931 - next waypoint button clicked
+2026-01-20 12:59:34,004 - end of sequence
+2026-01-20 12:59:34,063 - ok displayed
+2026-01-20 12:59:38,211 - Drone status: way point number 0 at position [0.07113085 2.18848515 1.78473043], angle -1.5077278997564565
+2026-01-20 12:59:38,217 - User status: way point number 0 at position [ 0.07177825 -1.35655403  1.78995967]
+2026-01-20 12:59:38,217 - User rises the hand up : animation readable wit angle 3.613554689831389 ° = -1.5077278997564565 rad
+2026-01-20 13:00:23,071 - next waypoint button clicked
+2026-01-20 13:00:24,016 - end of sequence
+2026-01-20 13:00:46,275 - Drone status: way point number 0 at position [0.06288332 2.10319686 1.79328752], angle -1.3930856761129338
+2026-01-20 13:00:46,280 - User status: way point number 0 at position [ 0.07633725 -1.38359725  1.80868423]
+2026-01-20 13:00:46,285 - User rises the hand up : animation readable wit angle 10.182070258600135 ° = -1.3930856761129338 rad
+2026-01-20 13:01:41,870 - stay_calm displayed
+2026-01-20 13:01:41,875 - end of sequence
+2026-01-20 13:02:03,365 - Drone status: way point number 0 at position [0.04201865 2.12864089 1.78201413], angle -1.284283290046162
+2026-01-20 13:02:03,365 - User status: way point number 0 at position [ 0.05146448 -1.3750912   1.79118371]
+2026-01-20 13:02:03,365 - User rises the hand up : animation readable wit angle 16.41598778117914 ° = -1.284283290046162 rad
+2026-01-20 13:03:15,734 - next waypoint button clicked
+2026-01-20 13:03:17,030 - stay_inside displayed
+2026-01-20 13:03:17,039 - end of sequence
+2026-01-20 13:03:34,627 - Drone status: way point number 0 at position [0.04999655 2.1556983  1.78798485], angle -1.1606755305251015
+2026-01-20 13:03:34,633 - User status: way point number 0 at position [ 0.08599309 -1.4032644   1.81472719]
+2026-01-20 13:03:34,650 - User rises the hand up : animation readable wit angle 23.498190716803933 ° = -1.1606755305251015 rad
