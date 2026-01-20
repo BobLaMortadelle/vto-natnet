@@ -1,0 +1,24 @@
+2026-01-20 10:24:04,045 - 8 displayed
+2026-01-20 10:24:04,050 - Drone status: way point number 1 at position [ 0.10233031 -0.10987368  0.87265474], angle -1.5686624895777297
+2026-01-20 10:24:04,056 - User status: way point number 1 at position [0. 0. 0.]
+2026-01-20 10:24:04,069 - User rises the hand up : animation readable wit angle 0.12225986671160172 ° = -1.5686624895777297 rad
+2026-01-20 10:24:37,067 - next waypoint button clicked
+2026-01-20 10:24:37,228 - ok displayed
+2026-01-20 10:24:37,228 - Drone status: way point number 0 at position [ 0.07344299 -0.43037352  0.44871974], angle -1.542833521233899
+2026-01-20 10:24:37,228 - User status: way point number 0 at position [0. 0. 0.]
+2026-01-20 10:24:37,228 - User rises the hand up : animation readable wit angle 1.6021507419901013 ° = -1.542833521233899 rad
+2026-01-20 10:25:06,896 - next waypoint button clicked
+2026-01-20 10:25:09,201 - end of sequence
+2026-01-20 10:25:09,459 - Drone status: way point number 0 at position [ 0.06517266 -0.37753901  0.46364462], angle -1.4877545714966476
+2026-01-20 10:25:09,459 - User rises the hand up : animation readable wit angle 4.757942101947819 ° = -1.4877545714966476 rad
+2026-01-20 10:25:52,068 - end of sequence
+2026-01-20 10:25:52,266 - stay_calm displayed
+2026-01-20 10:25:52,272 - Drone status: way point number 0 at position [ 0.02753315 -0.32246074  0.42797261], angle -1.4127207405362916
+2026-01-20 10:25:52,280 - User rises the hand up : animation readable wit angle 9.057063936674254 ° = -1.4127207405362916 rad
+2026-01-20 10:26:27,507 - next waypoint button clicked
+2026-01-20 10:26:41,559 - end of sequence
+2026-01-20 10:26:41,892 - stay_inside displayed
+2026-01-20 10:26:41,898 - Drone status: way point number 0 at position [ 0.07500929 -0.43110698  0.4394168 ], angle -1.3380323487523094
+2026-01-20 10:26:41,903 - User rises the hand up : animation readable wit angle 13.336393564516015 ° = -1.3380323487523094 rad
+2026-01-20 10:27:27,385 - next waypoint button clicked
+2026-01-20 10:27:30,304 - end of sequence
