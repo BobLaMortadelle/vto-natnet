@@ -247,7 +247,7 @@ def display_approach_pattern(tello):
                     standby.set()
 
                 elif(go.is_set()):
-                    tello.send_expansion_command("mled g 000000000r0r00r00r0rr0r00r0rr0r00r0r0rr00r0r0rr00r0r00r000000000") ############## NEED TO CHANGE THE WORD HERE (STILL OK)
+                    tello.send_expansion_command("mled g 0rr000r0rrrr0rrrr00r0r0rr0000r0rr0rr0r0rr00r0r0rrrrr0rrr0rr000r0") ############## NEED TO CHANGE THE WORD HERE (STILL OK)
                     go.clear()
                     standby.set()
 
@@ -1972,61 +1972,776 @@ def pick_animation(swarm):
                 if(userNb == '1'):
                     clear_all_steps_flag()
                     clear_all_animations_flags()
-                    choose_animation(2)
+                    choose_animation(1) 
+                elif(userNb == '2'):
+                    clear_all_steps_flag()
+                    clear_all_animations_flags()
+                    choose_animation(2)  
+                elif(userNb == '3'):
+                    clear_all_steps_flag()
+                    clear_all_animations_flags()
+                    choose_animation(3)  
+                elif(userNb == '4'):
+                    clear_all_steps_flag()
+                    clear_all_animations_flags()
+                    choose_animation(4)  
+                elif(userNb == '5'):
+                    clear_all_steps_flag()
+                    clear_all_animations_flags()
+                    choose_animation(5) 
+                elif(userNb == '6'):
+                    clear_all_steps_flag()
+                    clear_all_animations_flags()
+                    choose_animation(6)  
+                # Gruppe 2: +2 shift from Position 1
+                elif(userNb == '7'):
+                    clear_all_steps_flag()
+                    clear_all_animations_flags()
+                    choose_animation(1) 
+                elif(userNb == '8'):
+                    clear_all_steps_flag()
+                    clear_all_animations_flags()
+                    choose_animation(2) 
+                elif(userNb == '9'):
+                    clear_all_steps_flag()
+                    clear_all_animations_flags()
+                    choose_animation(3)   
+                elif(userNb == '10'):
+                    clear_all_steps_flag()
+                    clear_all_animations_flags()
+                    choose_animation(4)  
+                elif(userNb == '11'):
+                    clear_all_steps_flag()
+                    clear_all_animations_flags()
+                    choose_animation(5)  
+                elif(userNb == '12'):
+                    clear_all_steps_flag()
+                    clear_all_animations_flags()
+                    choose_animation(6)
+                    #done
+
             elif(secondanimation.is_set()):
                 secondanimation.clear()
                 if(userNb == '1'):
                     clear_all_steps_flag()
                     clear_all_animations_flags()
-                    choose_animation(3)
+                    choose_animation(3)  
+                elif(userNb == '2'):
+                    clear_all_steps_flag()
+                    clear_all_animations_flags()
+                    choose_animation(4) 
+                elif(userNb == '3'):
+                    clear_all_steps_flag()
+                    clear_all_animations_flags()
+                    choose_animation(5)  
+                elif(userNb == '4'):
+                    clear_all_steps_flag()
+                    clear_all_animations_flags()
+                    choose_animation(6) 
+                elif(userNb == '5'):
+                    clear_all_steps_flag()
+                    clear_all_animations_flags()
+                    choose_animation(1) 
+                elif(userNb == '6'):
+                    clear_all_steps_flag()
+                    clear_all_animations_flags()
+                    choose_animation(2)  
+
+                elif(userNb == '7'):
+                    clear_all_steps_flag()
+                    clear_all_animations_flags()
+                    choose_animation(2)  
+                elif(userNb == '8'):
+                    clear_all_steps_flag()
+                    clear_all_animations_flags()
+                    choose_animation(3) 
+                elif(userNb == '9'):
+                    clear_all_steps_flag()
+                    clear_all_animations_flags()
+                    choose_animation(4)  
+                elif(userNb == '10'):
+                    clear_all_steps_flag()
+                    clear_all_animations_flags()
+                    choose_animation(5)  
+                elif(userNb == '11'):
+                    clear_all_steps_flag()
+                    clear_all_animations_flags()
+                    choose_animation(6)  
+                elif(userNb == '12'):
+                    clear_all_steps_flag()
+                    clear_all_animations_flags()
+                    choose_animation(1)  
+
             elif(handover_text.is_set()):
                 if(userNb == '1'):
                     clear_all_steps_flag()
                     clear_all_animations_flags()
-                    swarm.tellos[0].send_expansion_command("mled l p 2.5 Hundreds ")
+                    swarm.tellos[0].send_expansion_command("mled l p 2.5  Anything - ")
                     standby.set()
+                elif(userNb == '2'):
+                    clear_all_steps_flag()
+                    clear_all_animations_flags()
+                    swarm.tellos[0].send_expansion_command("mled l p 2.5  Remember - ")
+                    standby.set()
+                elif(userNb == '3'):
+                    clear_all_steps_flag()
+                    clear_all_animations_flags()
+                    swarm.tellos[0].send_expansion_command("mled l p 2.5  Happened - ")
+                    standby.set()
+                elif(userNb == '4'):
+                    clear_all_steps_flag()
+                    clear_all_animations_flags()
+                    swarm.tellos[0].send_expansion_command("mled l p 2.5  Yourself - ")
+                    standby.set()
+                elif(userNb == '5'):
+                    clear_all_steps_flag()
+                    clear_all_animations_flags()
+                    swarm.tellos[0].send_expansion_command("mled l p 2.5  Together - ")
+                    standby.set()
+                elif(userNb == '6'):
+                    clear_all_steps_flag()
+                    clear_all_animations_flags()
+                    swarm.tellos[0].send_expansion_command("mled l p 2.5  Somebody - ")
+                    standby.set()
+                elif(userNb == '7'):
+                    clear_all_steps_flag()
+                    clear_all_animations_flags()
+                    swarm.tellos[0].send_expansion_command("mled l p 2.5  Tomorrow - ")
+                    standby.set()
+                elif(userNb == '8'):
+                    clear_all_steps_flag()
+                    clear_all_animations_flags()
+                    swarm.tellos[0].send_expansion_command("mled l p 2.5  Actually - ")
+                    standby.set()
+                elif(userNb == '9'):
+                    clear_all_steps_flag()
+                    clear_all_animations_flags()
+                    swarm.tellos[0].send_expansion_command("mled l p 2.5  Business - ")
+                    standby.set()
+                elif(userNb == '10'):
+                    clear_all_steps_flag()
+                    clear_all_animations_flags()
+                    swarm.tellos[0].send_expansion_command("mled l p 2.5  Thinking - ")
+                    standby.set()
+                elif(userNb == '11'):
+                    clear_all_steps_flag()
+                    clear_all_animations_flags()
+                    swarm.tellos[0].send_expansion_command("mled l p 2.5  Probably - ")
+                    standby.set()
+                elif(userNb == '12'):
+                    clear_all_steps_flag()
+                    clear_all_animations_flags()
+                    swarm.tellos[0].send_expansion_command("mled l p 2.5  Supposed - ")
+                    standby.set()
+
+            elif(short_word.is_set()):
+                    short_word.clear()
+                    if(userNb == '1'):
+                        clear_all_steps_flag()
+                        clear_all_animations_flags()
+                        clear_all_short_words_flag()
+                        choose_animation(19) # DO                   
+                    elif(userNb == '2'):
+                        clear_all_steps_flag()
+                        clear_all_animations_flags()
+                        clear_all_short_words_flag()
+                        choose_animation(7)  # OK
+                    elif(userNb == '3'):
+                        clear_all_steps_flag()
+                        clear_all_animations_flags()
+                        clear_all_short_words_flag()
+                        choose_animation(18)  # GO
+                    elif(userNb == '4'):
+                        clear_all_steps_flag()
+                        clear_all_animations_flags()
+                        clear_all_short_words_flag()
+                        choose_animation(18)   # GO
+                    elif(userNb == '5'):
+                        clear_all_steps_flag()
+                        clear_all_animations_flags()
+                        clear_all_short_words_flag()
+                        choose_animation(19)  # DO
+                    elif(userNb == '6'):
+                        clear_all_steps_flag()
+                        clear_all_animations_flags()
+                        clear_all_short_words_flag()
+                        choose_animation(7)  # OK
+                    
+                
+                    elif(userNb == '7'):
+                        clear_all_steps_flag()
+                        clear_all_animations_flags()
+                        clear_all_short_words_flag()
+                        choose_animation(19)  # DO 
+                    elif(userNb == '8'):
+                        clear_all_steps_flag()
+                        clear_all_animations_flags()
+                        clear_all_short_words_flag()
+                        choose_animation(7)  # OK 
+                    elif(userNb == '9'):
+                        clear_all_steps_flag()
+                        clear_all_animations_flags()
+                        clear_all_short_words_flag()
+                        choose_animation(18)   # GO 
+                    elif(userNb == '10'):
+                        clear_all_steps_flag()
+                        clear_all_animations_flags()
+                        clear_all_short_words_flag()
+                        choose_animation(7)  # OK 
+                    elif(userNb == '11'):
+                        clear_all_steps_flag()
+                        clear_all_animations_flags()
+                        clear_all_short_words_flag()
+                        choose_animation(18)  # GO 
+                    elif(userNb == '12'):
+                        clear_all_steps_flag()
+                        clear_all_animations_flags()
+                        clear_all_short_words_flag()
+                        choose_animation(19)   # DO 
+                        #### done ####
+
+
         elif(positionOrder == '2'):
             if(firstanimation.is_set()):
                 firstanimation.clear()
                 if(userNb == '1'):
                     clear_all_steps_flag()
                     clear_all_animations_flags()
-                    choose_animation(3)
+                    choose_animation(4)
+                elif(userNb == '2'):
+                    clear_all_steps_flag()
+                    clear_all_animations_flags()
+                    choose_animation(5)
+                elif(userNb == '3'):
+                    clear_all_steps_flag()
+                    clear_all_animations_flags()
+                    choose_animation(6)  
+                elif(userNb == '4'):
+                    clear_all_steps_flag()
+                    clear_all_animations_flags()
+                    choose_animation(1)  
+                elif(userNb == '5'):
+                    clear_all_steps_flag()
+                    clear_all_animations_flags()
+                    choose_animation(2) 
+                elif(userNb == '6'):
+                    clear_all_steps_flag()
+                    clear_all_animations_flags()
+                    choose_animation(3)  
+                elif(userNb == '7'):
+                    clear_all_steps_flag()
+                    clear_all_animations_flags()
+                    choose_animation(3)  
+                elif(userNb == '8'):
+                    clear_all_steps_flag()
+                    clear_all_animations_flags()
+                    choose_animation(4)  
+                elif(userNb == '9'):
+                    clear_all_steps_flag()
+                    clear_all_animations_flags()
+                    choose_animation(5)  
+                elif(userNb == '10'):
+                    clear_all_steps_flag()
+                    clear_all_animations_flags()
+                    choose_animation(6)  
+                elif(userNb == '11'):
+                    clear_all_steps_flag()
+                    clear_all_animations_flags()
+                    choose_animation(1)  
+                elif(userNb == '12'):
+                    clear_all_steps_flag()
+                    clear_all_animations_flags()
+                    choose_animation(2) 
+                #### done ####
+
             elif(secondanimation.is_set()):
                 secondanimation.clear()
-                if(userNb == '1'):
-                    clear_all_steps_flag()
-                    clear_all_animations_flags()
-                    choose_animation(4)
-            elif(handover_text.is_set()):
-                if(userNb == '1'):
-                    clear_all_steps_flag()
-                    clear_all_animations_flags()
-                    swarm.tellos[0].send_expansion_command("mled l p 2.5 Material ")
-                    standby.set()
-        elif(positionOrder == '3'):
-            if(firstanimation.is_set()):
-                firstanimation.clear()
                 if(userNb == '1'):
                     clear_all_steps_flag()
                     clear_all_animations_flags()
                     choose_animation(5)
+                elif(userNb == '2'):
+                    clear_all_steps_flag()
+                    clear_all_animations_flags()
+                    choose_animation(6)
+                elif(userNb == '3'):
+                    clear_all_steps_flag()
+                    clear_all_animations_flags()
+                    choose_animation(1)  
+                elif(userNb == '4'):
+                    clear_all_steps_flag()
+                    clear_all_animations_flags()
+                    choose_animation(2)
+                elif(userNb == '5'):
+                    clear_all_steps_flag()
+                    clear_all_animations_flags()
+                    choose_animation(3)
+                elif(userNb == '6'):
+                    clear_all_steps_flag()
+                    clear_all_animations_flags()
+                    choose_animation(4)
+                elif(userNb == '7'):
+                    clear_all_steps_flag()
+                    clear_all_animations_flags()
+                    choose_animation(4)
+                elif(userNb == '8'):
+                    clear_all_steps_flag()
+                    clear_all_animations_flags()
+                    choose_animation(5)
+                elif(userNb == '9'):
+                    clear_all_steps_flag()
+                    clear_all_animations_flags()
+                    choose_animation(6)
+                elif(userNb == '10'):
+                    clear_all_steps_flag()
+                    clear_all_animations_flags()
+                    choose_animation(1)
+                elif(userNb == '11'):
+                    clear_all_steps_flag()
+                    clear_all_animations_flags()
+                    choose_animation(2)
+                elif(userNb == '12'):
+                    clear_all_steps_flag()
+                    clear_all_animations_flags()
+                    choose_animation(3) 
+                #done#
+
+
+            elif(handover_text.is_set()):
+                if(userNb == '1'):
+                    clear_all_steps_flag()
+                    clear_all_animations_flags()
+                    swarm.tellos[0].send_expansion_command("mled l p 2.5  Personal - ")
+                    standby.set()
+                elif(userNb == '2'):
+                    clear_all_steps_flag()
+                    clear_all_animations_flags()
+                    swarm.tellos[0].send_expansion_command("mled l p 2.5  Terrible - ")
+                    standby.set()
+                elif(userNb == '3'):
+                    clear_all_steps_flag()
+                    clear_all_animations_flags()
+                    swarm.tellos[0].send_expansion_command("mled l p 2.5  Security - ")
+                    standby.set()
+                elif(userNb == '4'):
+                    clear_all_steps_flag()
+                    clear_all_animations_flags()
+                    swarm.tellos[0].send_expansion_command("mled l p 2.5  Birthday - ")
+                    standby.set()
+                elif(userNb == '5'):
+                    clear_all_steps_flag()
+                    clear_all_animations_flags()
+                    swarm.tellos[0].send_expansion_command("mled l p 2.5  Building - ")
+                    standby.set()
+                elif(userNb == '6'):
+                    clear_all_steps_flag()
+                    clear_all_animations_flags()
+                    swarm.tellos[0].send_expansion_command("mled l p 2.5  Watching - ")
+                    standby.set()
+                elif(userNb == '7'):
+                    clear_all_steps_flag()
+                    clear_all_animations_flags()
+                    swarm.tellos[0].send_expansion_command("mled l p 2.5  Tomorrow - ")
+                    standby.set()
+                elif(userNb == '8'):
+                    clear_all_steps_flag()
+                    clear_all_animations_flags()
+                    swarm.tellos[0].send_expansion_command("mled l p 2.5  Possible - ")
+                    standby.set()
+                elif(userNb == '9'):
+                    clear_all_steps_flag()
+                    clear_all_animations_flags()
+                    swarm.tellos[0].send_expansion_command("mled l p 2.5  Daughter - ")
+                    standby.set()
+                elif(userNb == '10'):
+                    clear_all_steps_flag()
+                    clear_all_animations_flags()
+                    swarm.tellos[0].send_expansion_command("mled l p 2.5  Children - ")
+                    standby.set()
+                elif(userNb == '11'):
+                    clear_all_steps_flag()
+                    clear_all_animations_flags()
+                    swarm.tellos[0].send_expansion_command("mled l p 2.5  Question - ")
+                    standby.set()
+                elif(userNb == '12'):
+                    clear_all_steps_flag()
+                    clear_all_animations_flags()
+                    swarm.tellos[0].send_expansion_command("mled l p 2.5  Everyone - ")
+                    standby.set()
+
+            elif(short_word.is_set()):
+                short_word.clear()
+                if(userNb == '1'):
+                    clear_all_steps_flag()
+                    clear_all_animations_flags()
+                    clear_all_short_words_flag()
+                    choose_animation(7) # OK                     #### or 18 or 19 ####
+                elif(userNb == '2'):
+                    clear_all_steps_flag()
+                    clear_all_animations_flags()
+                    clear_all_short_words_flag()
+                    choose_animation(18)  # GO
+                elif(userNb == '3'):
+                    clear_all_steps_flag()
+                    clear_all_animations_flags()
+                    clear_all_short_words_flag()
+                    choose_animation(19)  # DO
+                elif(userNb == '4'):
+                    clear_all_steps_flag()
+                    clear_all_animations_flags()
+                    clear_all_short_words_flag()
+                    choose_animation(7)   # OK
+                elif(userNb == '5'):
+                    clear_all_steps_flag()
+                    clear_all_animations_flags()
+                    clear_all_short_words_flag()
+                    choose_animation(18)  # GO
+                elif(userNb == '6'):
+                    clear_all_steps_flag()
+                    clear_all_animations_flags()
+                    clear_all_short_words_flag()
+                    choose_animation(19)  # DO
+                
+                # Gruppe 2: P7-P12 (+1 shift: GO, DO, OK pattern)
+                elif(userNb == '7'):
+                    clear_all_steps_flag()
+                    clear_all_animations_flags()
+                    clear_all_short_words_flag()
+                    choose_animation(18)  # GO 
+                elif(userNb == '8'):
+                    clear_all_steps_flag()
+                    clear_all_animations_flags()
+                    clear_all_short_words_flag()
+                    choose_animation(19)  # DO 
+                elif(userNb == '9'):
+                    clear_all_steps_flag()
+                    clear_all_animations_flags()
+                    clear_all_short_words_flag()
+                    choose_animation(7)   # OK 
+                elif(userNb == '10'):
+                    clear_all_steps_flag()
+                    clear_all_animations_flags()
+                    clear_all_short_words_flag()
+                    choose_animation(18)  # GO 
+                elif(userNb == '11'):
+                    clear_all_steps_flag()
+                    clear_all_animations_flags()
+                    clear_all_short_words_flag()
+                    choose_animation(19)  # DO 
+                elif(userNb == '12'):
+                    clear_all_steps_flag()
+                    clear_all_animations_flags()
+                    clear_all_short_words_flag()
+                    choose_animation(7)   # OK 
+
+                    #### done ####
+
+        elif(positionOrder == '3'):
+            if(firstanimation.is_set()):
+                firstanimation.clear()
+                
+                
+                if(userNb == '1'):
+                    clear_all_steps_flag()
+                    clear_all_animations_flags()
+                    choose_animation(6) 
+                elif(userNb == '2'):
+                    clear_all_steps_flag()
+                    clear_all_animations_flags()
+                    choose_animation(1)  
+                elif(userNb == '3'):
+                    clear_all_steps_flag()
+                    clear_all_animations_flags()
+                    choose_animation(2)  
+                elif(userNb == '4'):
+                    clear_all_steps_flag()
+                    clear_all_animations_flags()
+                    choose_animation(3)  
+                elif(userNb == '5'):
+                    clear_all_steps_flag()
+                    clear_all_animations_flags()
+                    choose_animation(4) 
+                elif(userNb == '6'):
+                    clear_all_steps_flag()
+                    clear_all_animations_flags()
+                    choose_animation(5)  
+                
+                
+                elif(userNb == '7'):
+                    clear_all_steps_flag()
+                    clear_all_animations_flags()
+                    choose_animation(5) 
+                elif(userNb == '8'):
+                    clear_all_steps_flag()
+                    clear_all_animations_flags()
+                    choose_animation(6) 
+                elif(userNb == '9'):
+                    clear_all_steps_flag()
+                    clear_all_animations_flags()
+                    choose_animation(1)   
+                elif(userNb == '10'):
+                    clear_all_steps_flag()
+                    clear_all_animations_flags()
+                    choose_animation(2)  
+                elif(userNb == '11'):
+                    clear_all_steps_flag()
+                    clear_all_animations_flags()
+                    choose_animation(3)  
+                elif(userNb == '12'):
+                    clear_all_steps_flag()
+                    clear_all_animations_flags()
+                    choose_animation(4)  
+                    # done
+
             elif(secondanimation.is_set()):
                 secondanimation.clear()
                 if(userNb == '1'):
                     clear_all_steps_flag()
                     clear_all_animations_flags()
+                    choose_animation(2)
+                elif(userNb == '2'):
+                    clear_all_steps_flag()
+                    clear_all_animations_flags()
+                    choose_animation(3)
+                elif(userNb == '3'):
+                    clear_all_steps_flag()
+                    clear_all_animations_flags()
+                    choose_animation(4)  
+                elif(userNb == '4'):
+                    clear_all_steps_flag()
+                    clear_all_animations_flags()
+                    choose_animation(5)
+                elif(userNb == '5'):
+                    clear_all_steps_flag()
+                    clear_all_animations_flags()
                     choose_animation(6)
+                elif(userNb == '6'):
+                    clear_all_steps_flag()
+                    clear_all_animations_flags()
+                    choose_animation(1)
+
+                elif(userNb == '7'):
+                    clear_all_steps_flag()
+                    clear_all_animations_flags()
+                    choose_animation(6)
+                elif(userNb == '8'):
+                    clear_all_steps_flag()
+                    clear_all_animations_flags()
+                    choose_animation(1)
+                elif(userNb == '9'):
+                    clear_all_steps_flag()
+                    clear_all_animations_flags()
+                    choose_animation(2)
+                elif(userNb == '10'):
+                    clear_all_steps_flag()
+                    clear_all_animations_flags()
+                    choose_animation(3)
+                elif(userNb == '11'):
+                    clear_all_steps_flag()
+                    clear_all_animations_flags()
+                    choose_animation(4)
+                elif(userNb == '12'):
+                    clear_all_steps_flag()
+                    clear_all_animations_flags()
+                    choose_animation(5)  
+
+
             elif(handover_text.is_set()):
                 if(userNb == '1'):
                     clear_all_steps_flag()
                     clear_all_animations_flags()
-                    swarm.tellos[0].send_expansion_command("mled l p 2.5 Cleaning ")
+                    swarm.tellos[0].send_expansion_command("mled l p 2.5  Surprise - ")
                     standby.set()
+                elif(userNb == '2'):
+                    clear_all_steps_flag()
+                    clear_all_animations_flags()
+                    swarm.tellos[0].send_expansion_command("mled l p 2.5  Anywhere - ")
+                    standby.set()
+                elif(userNb == '3'):
+                    clear_all_steps_flag()
+                    clear_all_animations_flags()
+                    swarm.tellos[0].send_expansion_command("mled l p 2.5  Evidence - ")
+                    standby.set()
+                elif(userNb == '4'):
+                    clear_all_steps_flag()
+                    clear_all_animations_flags()
+                    swarm.tellos[0].send_expansion_command("mled l p 2.5  Finished - ")
+                    standby.set()
+                elif(userNb == '5'):
+                    clear_all_steps_flag()
+                    clear_all_animations_flags()
+                    swarm.tellos[0].send_expansion_command("mled l p 2.5  Accident - ")
+                    standby.set()
+                elif(userNb == '6'):
+                    clear_all_steps_flag()
+                    clear_all_animations_flags()
+                    swarm.tellos[0].send_expansion_command("mled l p 2.5  Pleasure - ")
+                    standby.set()
+                elif(userNb == '7'):
+                    clear_all_steps_flag()
+                    clear_all_animations_flags()
+                    swarm.tellos[0].send_expansion_command("mled l p 2.5  Standing - ")
+                    standby.set()
+                elif(userNb == '8'):
+                    clear_all_steps_flag()
+                    clear_all_animations_flags()
+                    swarm.tellos[0].send_expansion_command("mled l p 2.5  Problems - ")
+                    standby.set()
+                elif(userNb == '9'):
+                    clear_all_steps_flag()
+                    clear_all_animations_flags()
+                    swarm.tellos[0].send_expansion_command("mled l p 2.5  Marriage - ")
+                    standby.set()
+                elif(userNb == '10'):
+                    clear_all_steps_flag()
+                    clear_all_animations_flags()
+                    swarm.tellos[0].send_expansion_command("mled l p 2.5  Position - ")
+                    standby.set()
+                elif(userNb == '11'):
+                    clear_all_steps_flag()
+                    clear_all_animations_flags()
+                    swarm.tellos[0].send_expansion_command("mled l p 2.5  Speaking - ")
+                    standby.set()
+                elif(userNb == '12'):
+                    clear_all_steps_flag()
+                    clear_all_animations_flags()
+                    swarm.tellos[0].send_expansion_command("mled l p 2.5  Starting - ")
+                    standby.set()
+
+            elif(short_word.is_set()):
+                short_word.clear()
+                if(userNb == '1'):
+                    clear_all_steps_flag()
+                    clear_all_animations_flags()
+                    clear_all_short_words_flag()
+                    choose_animation(18) # GO                   
+                elif(userNb == '2'):
+                    clear_all_steps_flag()
+                    clear_all_animations_flags()
+                    clear_all_short_words_flag()
+                    choose_animation(19)  # DO
+                elif(userNb == '3'):
+                    clear_all_steps_flag()
+                    clear_all_animations_flags()
+                    clear_all_short_words_flag()
+                    choose_animation(7)  # OK
+                elif(userNb == '4'):
+                    clear_all_steps_flag()
+                    clear_all_animations_flags()
+                    clear_all_short_words_flag()
+                    choose_animation(19)   # DO
+                elif(userNb == '5'):
+                    clear_all_steps_flag()
+                    clear_all_animations_flags()
+                    clear_all_short_words_flag()
+                    choose_animation(7)  # OK
+                elif(userNb == '6'):
+                    clear_all_steps_flag()
+                    clear_all_animations_flags()
+                    clear_all_short_words_flag()
+                    choose_animation(18)  # GO
+                
+                
+                elif(userNb == '7'):
+                    clear_all_steps_flag()
+                    clear_all_animations_flags()
+                    clear_all_short_words_flag()
+                    choose_animation(7)  # OK 
+                elif(userNb == '8'):
+                    clear_all_steps_flag()
+                    clear_all_animations_flags()
+                    clear_all_short_words_flag()
+                    choose_animation(18)  # GO 
+                elif(userNb == '9'):
+                    clear_all_steps_flag()
+                    clear_all_animations_flags()
+                    clear_all_short_words_flag()
+                    choose_animation(19)   # DO 
+                elif(userNb == '10'):
+                    clear_all_steps_flag()
+                    clear_all_animations_flags()
+                    clear_all_short_words_flag()
+                    choose_animation(19)  # DO 
+                elif(userNb == '11'):
+                    clear_all_steps_flag()
+                    clear_all_animations_flags()
+                    clear_all_short_words_flag()
+                    choose_animation(7)  # OK 
+                elif(userNb == '12'):
+                    clear_all_steps_flag()
+                    clear_all_animations_flags()
+                    clear_all_short_words_flag()
+                    choose_animation(18)   # GO 
+                    #### done ####
+
+
         else:
             print('Wrong positionOrder = ' + positionOrder)
     else:
         print('wrong distance' + distanceToUser)
+
+    # elif(distanceToUser == 'close'): ##### doesn't work yet for close.
+    #     if(positionOrder == '1'):
+    #         if(firstanimation.is_set()):
+    #             firstanimation.clear()
+    #             if(userNb == '1'):
+    #                 clear_all_steps_flag()
+    #                 clear_all_animations_flags()
+    #                 choose_animation(2)
+    #         elif(secondanimation.is_set()):
+    #             secondanimation.clear()
+    #             if(userNb == '1'):
+    #                 clear_all_steps_flag()
+    #                 clear_all_animations_flags()
+    #                 choose_animation(3)
+    #         elif(handover_text.is_set()):
+    #             if(userNb == '1'):
+    #                 clear_all_steps_flag()
+    #                 clear_all_animations_flags()
+    #                 swarm.tellos[0].send_expansion_command("mled l p 2.5 Hundreds ")
+    #                 standby.set()
+    #     elif(positionOrder == '2'):
+    #         if(firstanimation.is_set()):
+    #             firstanimation.clear()
+    #             if(userNb == '1'):
+    #                 clear_all_steps_flag()
+    #                 clear_all_animations_flags()
+    #                 choose_animation(3)
+    #         elif(secondanimation.is_set()):
+    #             secondanimation.clear()
+    #             if(userNb == '1'):
+    #                 clear_all_steps_flag()
+    #                 clear_all_animations_flags()
+    #                 choose_animation(4)
+    #         elif(handover_text.is_set()):
+    #             if(userNb == '1'):
+    #                 clear_all_steps_flag()
+    #                 clear_all_animations_flags()
+    #                 swarm.tellos[0].send_expansion_command("mled l p 2.5 Material ")
+    #                 standby.set()
+    #     elif(positionOrder == '3'):
+    #         if(firstanimation.is_set()):
+    #             firstanimation.clear()
+    #             if(userNb == '1'):
+    #                 clear_all_steps_flag()
+    #                 clear_all_animations_flags()
+    #                 choose_animation(5)
+    #         elif(secondanimation.is_set()):
+    #             secondanimation.clear()
+    #             if(userNb == '1'):
+    #                 clear_all_steps_flag()
+    #                 clear_all_animations_flags()
+    #                 choose_animation(6)
+    #         elif(handover_text.is_set()):
+    #             if(userNb == '1'):
+    #                 clear_all_steps_flag()
+    #                 clear_all_animations_flags()
+    #                 swarm.tellos[0].send_expansion_command("mled l p 2.5 Cleaning ")
+    #                 standby.set()
+    #     else:
+    #         print('Wrong positionOrder = ' + positionOrder)
+    # else:
+    #     print('wrong distance' + distanceToUser)
     # if(distanceToUser == 'far'):
     #     if(positionOrder == '1'):
     #         if(firstanimation.is_set()):
