@@ -1,0 +1,25 @@
+2026-01-20 16:16:27,387 - 1 displayed
+2026-01-20 16:16:27,387 - Drone status: way point number 1 at position [ 0.1235158  -0.11019729  0.9022398 ], angle -1.56664663257065
+2026-01-20 16:16:27,387 - User status: way point number 1 at position [0. 0. 0.]
+2026-01-20 16:16:27,387 - User rises the hand up : animation readable wit angle 0.23775996531914245 ° = -1.56664663257065 rad
+2026-01-20 16:16:49,774 - next waypoint button clicked
+2026-01-20 16:16:49,909 - end of sequence
+2026-01-20 16:16:50,132 - do displayed
+2026-01-20 16:16:50,132 - Drone status: way point number 0 at position [ 0.09215129 -0.39111555  0.41077057], angle -1.5427400365381034
+2026-01-20 16:16:50,132 - User status: way point number 0 at position [0. 0. 0.]
+2026-01-20 16:16:50,132 - User rises the hand up : animation readable wit angle 1.6075070205082511 ° = -1.5427400365381034 rad
+2026-01-20 16:16:51,551 - next waypoint button clicked
+2026-01-20 16:17:17,512 - end of sequence
+2026-01-20 16:17:17,820 - Drone status: way point number 0 at position [ 0.09668125 -0.37197101  0.41688263], angle -1.506642488350817
+2026-01-20 16:17:17,820 - User rises the hand up : animation readable wit angle 3.675744182409886 ° = -1.506642488350817 rad
+2026-01-20 16:17:56,271 - end of sequence
+2026-01-20 16:17:56,509 - help_is_coming displayed
+2026-01-20 16:17:56,514 - Drone status: way point number 0 at position [ 0.09572873 -0.42075628  0.36750442], angle -1.4472750286441687
+2026-01-20 16:17:56,525 - User rises the hand up : animation readable wit angle 7.077249064013813 ° = -1.4472750286441687 rad
+2026-01-20 16:18:07,265 - next waypoint button clicked
+2026-01-20 16:19:03,084 - end of sequence
+2026-01-20 16:19:03,147 - do_not_go_through_smoke displayed
+2026-01-20 16:19:03,216 - Drone status: way point number 0 at position [ 0.08828412 -0.41364577  0.41760617], angle -1.339739094034989
+2026-01-20 16:19:03,226 - User rises the hand up : animation readable wit angle 13.23860426311461 ° = -1.339739094034989 rad
+2026-01-20 16:19:11,923 - next waypoint button clicked
+2026-01-20 16:19:14,321 - end of sequence

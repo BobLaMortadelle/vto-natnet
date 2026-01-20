@@ -1,0 +1,23 @@
+2026-01-20 16:09:58,365 - 1 displayed
+2026-01-20 16:09:58,366 - Drone status: way point number 1 at position [0.02184791 2.26870608 0.92555434], angle -1.5249099436935696
+2026-01-20 16:09:58,371 - User status: way point number 1 at position [0. 0. 0.]
+2026-01-20 16:09:58,376 - User rises the hand up : animation readable wit angle 2.6290960888264436 ° = -1.5249099436935696 rad
+2026-01-20 16:10:36,553 - next waypoint button clicked
+2026-01-20 16:10:36,684 - end of sequence
+2026-01-20 16:10:36,749 - do displayed
+2026-01-20 16:10:36,972 - Drone status: way point number 0 at position [-0.03900553  2.03936076  0.3965013 ], angle -1.485024271511373
+2026-01-20 16:10:36,993 - User status: way point number 0 at position [-0.00356111 -1.2430644   0.19198652]
+2026-01-20 16:10:36,993 - User rises the hand up : animation readable wit angle 4.914376767908664 ° = -1.485024271511373 rad
+2026-01-20 16:10:43,658 - next waypoint button clicked
+2026-01-20 16:11:07,038 - end of sequence
+2026-01-20 16:11:07,218 - Drone status: way point number 0 at position [-0.07080378  2.10467267  0.40991566], angle -1.451071253917822
+2026-01-20 16:11:07,223 - User rises the hand up : animation readable wit angle 6.859741377752584 ° = -1.451071253917822 rad
+2026-01-20 16:11:46,540 - end of sequence
+2026-01-20 16:11:46,753 - move_to_the_roof displayed
+2026-01-20 16:11:46,754 - Drone status: way point number 0 at position [-0.06253559  2.06052351  0.42162696], angle -1.395755140096154
+2026-01-20 16:11:46,754 - User rises the hand up : animation readable wit angle 10.02912123879942 ° = -1.395755140096154 rad
+2026-01-20 16:12:49,006 - next waypoint button clicked
+2026-01-20 16:13:51,879 - Drone status: way point number 0 at position [-0.07810546  2.06573915  0.40834582], angle -1.2343588984409375
+2026-01-20 16:13:51,880 - User status: way point number 0 at position [ 0.0446324  -1.10984123  0.25054929]
+2026-01-20 16:13:51,885 - User rises the hand up : animation readable wit angle 19.276444714916877 ° = -1.2343588984409375 rad
+2026-01-20 16:14:25,938 - end of sequence
