@@ -1,0 +1,24 @@
+2026-01-21 11:26:56,139 - 1 displayed
+2026-01-21 11:26:56,157 - Drone status: way point number 1 at position [0.02088302 2.26530647 0.87485588], angle -1.6302682767529433
+2026-01-21 11:26:56,170 - User status: way point number 1 at position [0. 0. 0.]
+2026-01-21 11:26:56,175 - User rises the hand up : animation readable wit angle -3.407491732009305 ° = -1.6302682767529433 rad
+2026-01-21 11:27:15,648 - next waypoint button clicked
+2026-01-21 11:27:15,791 - do displayed
+2026-01-21 11:27:15,803 - end of sequence
+2026-01-21 11:27:16,008 - Drone status: way point number 0 at position [-0.00715504  1.96213341  0.35237861], angle -1.612248500117282
+2026-01-21 11:27:16,013 - User status: way point number 0 at position [0. 0. 0.]
+2026-01-21 11:27:16,013 - User rises the hand up : animation readable wit angle -2.375034583017481 ° = -1.612248500117282 rad
+2026-01-21 11:27:18,602 - next waypoint button clicked
+2026-01-21 11:27:56,441 - end of sequence
+2026-01-21 11:27:56,753 - Drone status: way point number 0 at position [0.00632593 2.01615191 0.34058255], angle -1.553063092611969
+2026-01-21 11:27:56,758 - User rises the hand up : animation readable wit angle 1.0160394757988769 ° = -1.553063092611969 rad
+2026-01-21 11:28:45,602 - end of sequence
+2026-01-21 11:28:45,763 - help_is_coming displayed
+2026-01-21 11:28:45,779 - Drone status: way point number 0 at position [-1.03617669e-03  2.01856875e+00  3.19980294e-01], angle -1.485883871069725
+2026-01-21 11:28:45,791 - User rises the hand up : animation readable wit angle 4.865125341143795 ° = -1.485883871069725 rad
+2026-01-21 11:29:08,655 - next waypoint button clicked
+2026-01-21 11:29:36,663 - do_not_go_through_smoke displayed
+2026-01-21 11:29:36,663 - Drone status: way point number 0 at position [-0.04068122  1.98250723  0.36845797], angle -1.4349401123420558
+2026-01-21 11:29:36,668 - User rises the hand up : animation readable wit angle 7.783987708772003 ° = -1.4349401123420558 rad
+2026-01-21 11:29:46,039 - next waypoint button clicked
+2026-01-21 11:30:17,756 - end of sequence
